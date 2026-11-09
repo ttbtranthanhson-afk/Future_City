@@ -1,0 +1,226 @@
+/**
+ * Viewport & Fixed 16:9 Stage Architecture
+ * Based on frontend-slides specification:
+ * Authored at 1920x1080, scaled dynamically to viewport via transform matrix.
+ */
+
+/* 1. Global Reset & Viewport Lock */
+html, body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: var(--bg-stage);
+  font-family: var(--primitive-font-body);
+  color: var(--text-primary);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* 2. Full-window Stage Outer Container */
+.deck-viewport {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-stage);
+}
+
+/* 3. The 1920x1080 Fixed Canvas (Scale Target) */
+.deck-stage {
+  position: absolute;
+  width: var(--stage-width);
+  height: var(--stage-height);
+  transform-origin: center center;
+  overflow: hidden;
+  background: var(--bg-slide);
+  box-shadow: 0 0 80px rgba(0, 0, 0, 0.9);
+  user-select: none;
+}
+
+/* Background Canvas Overlay (Particles/Glow) */
+.stage-canvas-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* 4. Individual Slides */
+.slide {
+  position: absolute;
+  inset: 0;
+  width: var(--stage-width);
+  height: var(--stage-height);
+  padding: var(--slide-padding);
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  z-index: 2;
+  transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  transform: translateY(20px) scale(0.99);
+}
+
+.slide.active {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  z-index: 5;
+  transform: translateY(0) scale(1);
+}
+
+/* Slide Header & Branding */
+.slide-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin-bottom: var(--primitive-space-md);
+  position: relative;
+  z-index: 10;
+}
+
+.brand-tag {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--primitive-font-display);
+  font-size: var(--primitive-text-caption);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--text-accent-cyan);
+}
+
+.brand-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--primitive-color-cyan-400);
+  box-shadow: var(--glow-cyan);
+}
+
+.slide-category {
+  font-family: var(--primitive-font-mono);
+  font-size: var(--primitive-text-caption);
+  color: var(--text-muted);
+  letter-spacing: 1px;
+}
+
+/* Slide Footer Progress & Cue */
+.slide-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  width: 100%;
+  margin-top: auto;
+  padding-top: var(--primitive-space-md);
+  position: relative;
+  z-index: 10;
+}
+
+.speaker-cue {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border-subtle);
+  padding: 8px 18px;
+  border-radius: var(--primitive-radius-full);
+  font-size: var(--primitive-text-caption);
+  color: var(--text-secondary);
+}
+
+.speaker-cue .cue-badge {
+  color: var(--text-accent-cyan);
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+/* 5. Stage HUD Controls */
+.deck-hud {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: var(--hud-bg);
+  border: 1px solid var(--hud-border);
+  padding: 8px 24px;
+  border-radius: var(--hud-radius);
+  backdrop-filter: blur(12px);
+  z-index: 100;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+  transition: opacity 0.3s ease;
+}
+
+.hud-btn {
+  background: transparent;
+  border: none;
+  color: var(--text-secondary);
+  font-size: 16px;
+  padding: 6px 12px;
+  border-radius: var(--primitive-radius-sm);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s ease;
+  font-family: var(--primitive-font-sans);
+}
+
+.hud-btn:hover {
+  color: var(--primitive-color-white);
+  background: rgba(34, 211, 238, 0.15);
+}
+
+.hud-counter {
+  font-family: var(--primitive-font-mono);
+  font-size: 14px;
+  color: var(--text-accent-cyan);
+  padding: 0 8px;
+  min-width: 60px;
+  text-align: center;
+}
+
+/* 6. Print Stylesheet */
+@media print {
+  html, body {
+    width: 1920px;
+    height: auto;
+    overflow: visible;
+    background: #030712;
+  }
+  .deck-viewport {
+    position: static;
+    overflow: visible;
+  }
+  .deck-stage {
+    position: static;
+    transform: none !important;
+  }
+  .slide {
+    position: relative;
+    display: flex !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    break-after: page;
+    page-break-after: always;
+  }
+  .deck-hud, .stage-canvas-bg {
+    display: none !important;
+  }
+}

@@ -1,0 +1,142 @@
+/**
+ * Design Tokens - Quang Ninh 2076 Presentation System
+ * Follows 3-Layer Token Architecture:
+ * 1. Primitive Tokens (Raw palette & scales)
+ * 2. Semantic Tokens (Contextual intent & theming)
+ * 3. Component Tokens (UI element styling)
+ */
+
+:root {
+  /* ==========================================================================
+     1. PRIMITIVE TOKENS (Raw values)
+     ========================================================================== */
+  
+  /* Color Palette - Marine / Space Dark */
+  --primitive-color-navy-950: #030712;
+  --primitive-color-navy-900: #0b1329;
+  --primitive-color-navy-800: #111d40;
+  --primitive-color-navy-700: #1a2c5e;
+  --primitive-color-navy-600: #243c7d;
+  
+  /* Color Palette - Eco & Ocean */
+  --primitive-color-cyan-400: #22d3ee;
+  --primitive-color-cyan-500: #06b6d4;
+  --primitive-color-teal-400: #2dd4bf;
+  --primitive-color-emerald-400: #34d399;
+  --primitive-color-emerald-500: #10b981;
+  
+  /* Color Palette - Tech Neon & Portal */
+  --primitive-color-blue-500: #3b82f6;
+  --primitive-color-indigo-400: #818cf8;
+  --primitive-color-violet-500: #8b5cf6;
+  --primitive-color-purple-500: #a855f7;
+  --primitive-color-magenta-400: #e879f9;
+
+  /* Color Palette - Heritage & Warm Accent */
+  --primitive-color-amber-400: #fbbf24;
+  --primitive-color-amber-500: #f59e0b;
+  --primitive-color-coal-800: #1e293b;
+  --primitive-color-coal-900: #0f172a;
+
+  /* Neutrals */
+  --primitive-color-white: #ffffff;
+  --primitive-color-slate-100: #f1f5f9;
+  --primitive-color-slate-300: #cbd5e1;
+  --primitive-color-slate-400: #94a3b8;
+  --primitive-color-slate-500: #64748b;
+
+  /* Typography Scales (Designed for 1920x1080 stage) */
+  --primitive-font-sans: 'Space Grotesk', system-ui, -apple-system, sans-serif;
+  --primitive-font-display: 'Orbitron', 'Space Grotesk', sans-serif;
+  --primitive-font-body: 'Plus Jakarta Sans', system-ui, sans-serif;
+  --primitive-font-mono: 'JetBrains Mono', monospace;
+
+  --primitive-text-hero: 92px;
+  --primitive-text-display: 64px;
+  --primitive-text-h1: 48px;
+  --primitive-text-h2: 36px;
+  --primitive-text-h3: 28px;
+  --primitive-text-body-lg: 24px;
+  --primitive-text-body: 18px;
+  --primitive-text-caption: 14px;
+
+  /* Spacing Scale (Pixels in 1920x1080 space) */
+  --primitive-space-xs: 8px;
+  --primitive-space-sm: 16px;
+  --primitive-space-md: 24px;
+  --primitive-space-lg: 36px;
+  --primitive-space-xl: 48px;
+  --primitive-space-2xl: 64px;
+  --primitive-space-3xl: 96px;
+
+  /* Radii */
+  --primitive-radius-sm: 6px;
+  --primitive-radius-md: 12px;
+  --primitive-radius-lg: 20px;
+  --primitive-radius-full: 9999px;
+
+  /* ==========================================================================
+     2. SEMANTIC TOKENS (Design Intent)
+     ========================================================================== */
+  
+  --bg-stage: var(--primitive-color-navy-950);
+  --bg-slide: radial-gradient(circle at 50% 20%, #0d1b3e 0%, var(--primitive-color-navy-950) 80%);
+  --bg-surface-glass: rgba(17, 29, 64, 0.65);
+  --bg-surface-glass-hover: rgba(26, 44, 94, 0.8);
+  --bg-surface-highlight: rgba(34, 211, 238, 0.08);
+
+  --border-subtle: rgba(255, 255, 255, 0.1);
+  --border-focus: var(--primitive-color-cyan-400);
+  --border-glass: rgba(34, 211, 238, 0.25);
+  --border-glow-violet: rgba(139, 92, 246, 0.4);
+
+  --text-primary: var(--primitive-color-white);
+  --text-secondary: var(--primitive-color-slate-300);
+  --text-muted: var(--primitive-color-slate-500);
+  --text-accent-cyan: var(--primitive-color-cyan-400);
+  --text-accent-eco: var(--primitive-color-emerald-400);
+  --text-accent-portal: var(--primitive-color-violet-500);
+  --text-accent-gold: var(--primitive-color-amber-400);
+
+  --glow-cyan: 0 0 25px rgba(34, 211, 238, 0.45);
+  --glow-violet: 0 0 35px rgba(139, 92, 246, 0.55);
+  --glow-emerald: 0 0 25px rgba(16, 185, 129, 0.4);
+
+  /* ==========================================================================
+     3. COMPONENT TOKENS (Component-specific mapping)
+     ========================================================================== */
+
+  /* Stage & Slide Layout */
+  --stage-width: 1920px;
+  --stage-height: 1080px;
+  --slide-padding: 80px 100px;
+
+  /* Glass Cards */
+  --card-bg: var(--bg-surface-glass);
+  --card-border: var(--border-glass);
+  --card-radius: var(--primitive-radius-lg);
+  --card-blur: 16px;
+  --card-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+
+  /* Badges & Tags */
+  --badge-bg-tech: rgba(34, 211, 238, 0.15);
+  --badge-border-tech: rgba(34, 211, 238, 0.4);
+  --badge-text-tech: var(--primitive-color-cyan-400);
+  
+  --badge-bg-eco: rgba(16, 185, 129, 0.15);
+  --badge-border-eco: rgba(16, 185, 129, 0.4);
+  --badge-text-eco: var(--primitive-color-emerald-400);
+
+  --badge-bg-heritage: rgba(245, 158, 11, 0.15);
+  --badge-border-heritage: rgba(245, 158, 11, 0.4);
+  --badge-text-heritage: var(--primitive-color-amber-400);
+
+  /* Timeline & Stepper */
+  --stepper-active: var(--primitive-color-cyan-400);
+  --stepper-line: rgba(255, 255, 255, 0.15);
+
+  /* Controls HUD */
+  --hud-bg: rgba(7, 13, 29, 0.85);
+  --hud-border: rgba(34, 211, 238, 0.3);
+  --hud-radius: var(--primitive-radius-full);
+}
