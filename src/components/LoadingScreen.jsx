@@ -1,0 +1,56 @@
+import { useExperience } from '../store/useExperience';
+
+const STEPS = [
+  { at: 0, label: 'Đang khởi tạo địa hình Quảng Ninh...' },
+  { at: 32, label: 'Đang dựng thành phố năm 2076...' },
+  { at: 62, label: 'Đang kết nối hệ thống âm thanh...' },
+  { at: 86, label: 'Đang chuẩn bị hành trình...' },
+];
+
+export default function LoadingScreen() {
+  const progress = useExperience((s) => s.bootProgress);
+  const webglError = useExperience((s) => s.webglError);
+  const step = [...STEPS].reverse().find((s) => progress >= s.at) || STEPS[0];
+
+  return (
+    <div className="boot">
+      <div className="boot__grid" aria-hidden="true" />
+      <div className="boot__top">
+        <span className="brandmark">
+          <span className="brandmark__dot" />
+          QN / 2076
+        </span>
+        <span className="eyebrow">INTERACTIVE CINEMATIC EXPERIENCE</span>
+      </div>
+      <div className="boot__center">
+        <span className="eyebrow eyebrow--gold">QUẢNG NINH · VIỆT NAM</span>
+        <h1 className="boot__title">
+          OUR FUTURE,
+          <br />
+          <span>OUR RESPONSIBILITY</span>
+        </h1>
+        {webglError ? (
+          <div className="boot__error">
+            <p>Trình duyệt chưa hỗ trợ WebGL 2.0.</p>
+            <p>Vui lòng bật tăng tốc phần cứng hoặc dùng Chrome / Edge phiên bản mới.</p>
+          </div>
+        ) : (
+          <>
+            <div className="boot__bar">
+              <span style={{ width: `${Math.max(3, progress)}%` }} />
+            </div>
+            <div className="boot__meta">
+              <span>{step.label}</span>
+              <span>{Math.round(progress).toString().padStart(3, '0')}%</span>
+            </div>
+          </>
+        )}
+      </div>
+      <div className="boot__bottom">
+        <span>15 SCENES</span>
+        <span>3D REAL-TIME</span>
+        <span>PROCEDURAL AUDIO</span>
+      </div>
+    </div>
+  );
+}

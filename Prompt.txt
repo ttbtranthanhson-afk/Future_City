@@ -1,0 +1,1601 @@
+# MASTER PROMPT: QUANG NINH 2076
+## INTERACTIVE 3D CINEMATIC EXPERIENCE
+
+---
+
+# PHẦN I. TỔNG QUAN DỰ ÁN
+
+## 1. Vai trò
+
+Bạn là một Senior Creative Developer, 3D Environment Designer, Interactive Experience Engineer và Sound Designer.
+
+Nhiệm vụ của bạn là xây dựng một website tương tác mô phỏng câu chuyện:
+
+**QUANG NINH 2076 – OUR FUTURE, OUR RESPONSIBILITY**
+
+Website tái hiện hành trình của hai học sinh Minh và Lan từ Quảng Ninh năm 2026 đến Quảng Ninh năm 2076, khám phá sự phát triển của thành phố trong các lĩnh vực công nghệ, môi trường, du lịch, y tế, giáo dục và lịch sử ngành than.
+
+Đây là một sản phẩm trình diễn sân khấu dưới hình thức phim hoạt hình 3D tương tác.
+
+Người xem không chỉ xem một video được dựng sẵn. Họ trực tiếp điều khiển tiến trình câu chuyện bằng cách nhấp chuột để chuyển sang cảnh tiếp theo.
+
+**Tư tưởng cốt lõi:**
+
+- Mỗi cảnh là một môi trường 3D độc lập.
+- Mỗi cảnh có hoạt ảnh và chuyển động camera riêng.
+- Mỗi cảnh có hệ thống âm thanh riêng.
+- Mỗi cảnh có diễn biến hình ảnh và âm thanh đồng bộ.
+- Các cảnh kết nối với nhau bằng hiệu ứng chuyển tiếp điện ảnh.
+- Người xem chủ động quyết định thời điểm chuyển sang cảnh tiếp theo.
+
+Tuyệt đối không xây dựng website dưới dạng slideshow gồm những bức ảnh tĩnh.
+
+## 2. Mục tiêu sản phẩm
+
+Tôi muốn khi mở website, người xem có cảm giác đang bước vào một bộ phim hoạt hình khoa học viễn tưởng 3D.
+
+Ví dụ:
+
+Khi bước vào cảnh thành phố thông minh, camera phải bay qua các tòa nhà, theo dõi xe bay, quan sát hệ thống giao thông và khám phá các công trình năng lượng sạch.
+
+Khi bước vào cảnh môi trường, camera phải bay qua vịnh Hạ Long, tiến xuống dưới nước, quan sát đàn cá, san hô, tàu đánh cá và hệ thống xử lý nước.
+
+Khi bước vào cảnh bệnh viện, camera phải di chuyển từ bên ngoài vào bên trong, quan sát robot y tế, thiết bị khám chữa bệnh và những hoạt động trong bệnh viện.
+
+Trong khi đó, âm thanh phải thay đổi tương ứng với những gì đang xuất hiện trước mắt người xem.
+
+**Đích đến không phải là một website đẹp đơn thuần, mà là một trải nghiệm điện ảnh 3D tương tác hoàn chỉnh.**
+
+---
+
+# PHẦN II. CÔNG NGHỆ VÀ KIẾN TRÚC
+
+## 3. Công nghệ đề xuất
+
+Ưu tiên:
+
+- React + Vite: Xây dựng ứng dụng.
+- Three.js: Dựng môi trường 3D.
+- React Three Fiber: Tích hợp Three.js với React.
+- Drei: Hỗ trợ camera, môi trường và vật thể.
+- GSAP: Điều khiển chuyển động camera, timeline và chuyển cảnh.
+- Howler.js hoặc Web Audio API: Quản lý âm thanh.
+- CSS: Xây dựng giao diện HUD và hiệu ứng giao diện.
+
+Có thể sử dụng thêm các thư viện phù hợp khi cần thiết.
+
+Website không cần backend.
+
+Phải chạy được trên máy tính cá nhân bằng:
+
+npm install
+npm run dev
+
+## 4. Kiến trúc dự án
+
+Xây dựng kiến trúc có thể mở rộng, tránh viết toàn bộ ứng dụng trong một file.
+
+Tách riêng các thành phần:
+
+- SceneManager: Quản lý 15 cảnh.
+- TransitionManager: Quản lý chuyển cảnh.
+- CameraManager: Điều khiển camera.
+- AnimationManager: Quản lý hoạt ảnh.
+- AudioManager: Quản lý toàn bộ âm thanh.
+- DialogueManager: Quản lý lời thoại nếu có.
+- AssetManager: Tải và quản lý tài nguyên.
+- UIManager: Quản lý giao diện điều khiển.
+
+Mỗi cảnh là một module độc lập, có cấu hình riêng về:
+
+- Môi trường 3D.
+- Camera.
+- Vật thể.
+- Animation.
+- Ánh sáng.
+- Background Music.
+- Environmental Ambience.
+- Sound Effects.
+- Transition In.
+- Transition Out.
+
+Ví dụ cấu trúc thư mục:
+
+src/
+  components/
+  scenes/
+    Scene01/
+    Scene02/
+    Scene03/
+    Scene04/
+    Scene05/
+    Scene06/
+    Scene07/
+    Scene08/
+    Scene09/
+    Scene10/
+    Scene11/
+    Scene12/
+    Scene13/
+    Scene14/
+    Scene15/
+  managers/
+    SceneManager.js
+    TransitionManager.js
+    CameraManager.js
+    AnimationManager.js
+    AudioManager.js
+    AssetManager.js
+  data/
+    sceneConfig.js
+    audioConfig.js
+    dialogueConfig.js
+  styles/
+  hooks/
+  utils/
+
+public/
+  models/
+  textures/
+  audio/
+  images/
+
+Có thể điều chỉnh cấu trúc theo kiến trúc thực tế, nhưng phải giữ sự phân tách rõ ràng giữa hình ảnh, hoạt ảnh, điều khiển và âm thanh.
+
+---
+
+# PHẦN III. PHONG CÁCH HÌNH ẢNH 3D
+
+## 5. Art Direction
+
+Toàn bộ website sử dụng phong cách:
+
+- 3D cinematic animation.
+- Futuristic sci-fi.
+- High-quality 3D environments.
+- Realistic lighting.
+- Atmospheric depth.
+- Volumetric lighting.
+- Dynamic camera movement.
+- Detailed environmental animation.
+- Cinematic composition.
+
+Hình ảnh cần có chất lượng như một bộ phim hoạt hình khoa học viễn tưởng hiện đại.
+
+Không sử dụng giao diện quá giống một website thông thường.
+
+## 6. Bảng màu
+
+Sử dụng các màu sắc chủ đạo:
+
+- Cyan: Công nghệ và trí tuệ nhân tạo.
+- Deep blue: Đại dương và không gian.
+- Purple neon: Du hành thời gian.
+- Green: Thiên nhiên và môi trường.
+- Warm gold: Con người, lịch sử và hy vọng.
+
+Không lạm dụng neon.
+
+Mỗi bối cảnh cần có cách phối màu riêng.
+
+### Quảng Ninh 2026
+
+- Ánh sáng tự nhiên.
+- Xanh biển.
+- Xanh cây.
+- Màu sắc đời thường.
+- Cảm giác gần gũi và chân thực.
+
+### Quảng Ninh 2076
+
+- Xanh cyan.
+- Xanh lá.
+- Trắng bạc.
+- Ánh sáng công nghệ.
+- Kiến trúc hiện đại.
+
+### Không gian du hành thời gian
+
+- Xanh điện.
+- Tím.
+- Trắng sáng.
+- Các hạt năng lượng và hiệu ứng không gian.
+
+### Cảnh lịch sử ngành than
+
+- Nâu trầm.
+- Vàng ấm.
+- Xám công nghiệp.
+- Ánh sáng có chiều sâu và cảm xúc hoài niệm.
+
+---
+
+# PHẦN IV. HỆ THỐNG ĐIỀU KHIỂN
+
+## 7. Điều khiển tiến trình câu chuyện
+
+Website gồm 15 cảnh theo thứ tự.
+
+Người dùng có thể:
+
+- Nhấp chuột trái để chuyển sang cảnh tiếp theo.
+- Nhấn NEXT SCENE để chuyển tiếp.
+- Nhấn PREVIOUS SCENE để quay lại.
+- Nhấn phím mũi tên phải để chuyển tiếp.
+- Nhấn phím mũi tên trái để quay lại.
+- Nhấn F để bật/tắt toàn màn hình.
+- Nhấn ESC để hiển thị giao diện điều khiển khi cần.
+
+Có thể cho phép nhấn vào vùng trống của màn hình để chuyển cảnh, nhưng phải tránh xung đột với các nút điều khiển và bảng âm thanh.
+
+### Quy tắc bắt buộc
+
+Mỗi lần người dùng chuyển cảnh:
+
+1. Khóa thao tác điều khiển tạm thời.
+2. Kích hoạt animation kết thúc của cảnh hiện tại.
+3. Fade out âm thanh môi trường cũ.
+4. Phát transition sound.
+5. Camera di chuyển hoặc kích hoạt hiệu ứng chuyển cảnh.
+6. Tải và hiển thị môi trường tiếp theo.
+7. Camera chuyển về vị trí bắt đầu của cảnh mới.
+8. Bắt đầu animation và âm thanh cảnh mới.
+9. Mở khóa thao tác điều khiển.
+
+Không được thay đổi cảnh ngay lập tức.
+
+Không được để nhấp chuột liên tục làm lỗi trạng thái.
+
+Không được tự động chuyển cảnh khi animation kết thúc. Người xem phải là người quyết định thời điểm chuyển cảnh.
+
+Trừ các đoạn animation nhỏ bên trong một cảnh, toàn bộ 15 cảnh phải được điều khiển bằng thao tác của người dùng.
+
+## 8. Giao diện HUD
+
+Giao diện tối giản, hiện đại, phong cách futuristic.
+
+Góc dưới bên trái:
+
+- Số thứ tự cảnh.
+- Tên cảnh.
+- Thanh tiến trình 15 cảnh.
+
+Góc dưới bên phải:
+
+- PREVIOUS.
+- NEXT.
+- FULLSCREEN.
+- SOUND SETTINGS.
+
+Có nút ẩn toàn bộ giao diện để người xem tập trung vào phim.
+
+Khi di chuyển chuột khỏi giao diện, các điều khiển có thể tự động mờ đi sau một khoảng thời gian.
+
+Không để các nút giao diện che mất nhân vật hoặc nội dung quan trọng.
+
+## 9. Màn hình mở đầu
+
+Trước khi bước vào cảnh 1, tạo một màn hình INTRO.
+
+Hình ảnh:
+
+- Toàn cảnh Quảng Ninh năm 2076.
+- Camera từ từ tiến về thành phố.
+- Các tòa nhà sáng lên.
+- Phương tiện bay di chuyển.
+- Hệ thống ánh sáng tạo cảm giác thành phố tương lai đang thức dậy.
+
+Dòng chữ:
+
+QUANG NINH 2076
+
+OUR FUTURE, OUR RESPONSIBILITY
+
+Nút:
+
+START EXPERIENCE
+
+Khi người dùng nhấn START EXPERIENCE:
+
+- Khởi tạo AudioContext.
+- Bắt đầu nhạc mở đầu.
+- Kích hoạt animation.
+- Camera tiến vào thành phố.
+- Chuyển sang cảnh đầu tiên.
+
+---
+
+# PHẦN V. THIẾT KẾ CHI TIẾT 15 CẢNH
+
+## SCENE 01 – QUANG NINH, 2026
+
+**Nội dung:** Minh và Lan trò chuyện về tương lai quê hương.
+
+### Môi trường 3D
+
+- Một căn phòng hoặc không gian sinh hoạt.
+- Một chiếc bàn.
+- Vài chiếc ghế.
+- Một tấm bản đồ Quảng Ninh.
+- Cửa sổ nhìn ra thành phố.
+- Cảnh quan Hạ Long năm 2026 ở phía xa.
+
+### Animation
+
+- Camera từ từ tiến vào căn phòng.
+- Ánh sáng tự nhiên chiếu qua cửa sổ.
+- Mây di chuyển bên ngoài.
+- Cây cối khẽ lay động.
+- Minh và Lan có những cử động cơ thể tự nhiên.
+- Khi nhân vật trò chuyện, có thể dùng animation cử chỉ tay và chuyển động đầu.
+
+### Âm thanh
+
+Background Music:
+- Piano nhẹ nhàng.
+- Guitar acoustic hoặc nhạc cụ dây.
+- Giai điệu chậm, ấm áp.
+
+Environmental Ambience:
+- Tiếng chim hót.
+- Tiếng gió.
+- Âm thanh thành phố từ xa.
+- Tiếng xe cộ rất nhỏ.
+
+Action SFX:
+- Tiếng kéo ghế.
+- Tiếng giấy bản đồ sột soạt.
+- Tiếng bước chân nhẹ.
+
+Character Voice:
+- Minh và Lan nói chuyện tự nhiên.
+- Giọng tò mò và hào hứng khi nhắc đến tương lai.
+
+**Cảm xúc:** Gần gũi, bình yên, đời thường.
+
+---
+
+## SCENE 02 – THE FUTURE GUIDE ARRIVES
+
+**Nội dung:** Alex xuất hiện cùng Robo sau khi có tiếng nhạc khoa học viễn tưởng.
+
+### Animation
+
+1. Không gian bắt đầu xuất hiện các hạt sáng.
+2. Một vòng năng lượng xanh cyan hình thành phía sau các nhân vật.
+3. Các hạt năng lượng hội tụ.
+4. Cổng dịch chuyển mở ra.
+5. Alex bước ra.
+6. Robo xuất hiện bên cạnh.
+7. Camera chuyển góc để làm nổi bật hai nhân vật.
+
+### Âm thanh
+
+Background Music:
+- Nhạc điện tử sci-fi.
+- Synth trầm.
+- Giai điệu bí ẩn.
+
+Action SFX:
+- Tiếng năng lượng tích tụ.
+- Tiếng điện tử tăng dần.
+- Tiếng cổng không gian mở.
+- Tiếng dịch chuyển.
+- Tiếng robot khởi động.
+- Tiếng servo và beep điện tử.
+
+Character Voice:
+- Alex có giọng tự tin, thân thiện.
+- Robo có giọng điện tử hiện đại, vui vẻ và rõ ràng.
+
+**Cảm xúc:** Bất ngờ, bí ẩn, kỳ ảo.
+
+---
+
+## SCENE 03 – TIME TRAVEL
+
+**Nội dung:** Alex đưa Minh và Lan đến năm 2076.
+
+### Animation
+
+- Một cổng thời gian khổng lồ xuất hiện.
+- Các vòng năng lượng xoay tròn.
+- Ánh sáng xanh và tím chuyển động.
+- Không gian xung quanh biến dạng.
+- Các hạt sáng bay qua camera.
+- Camera lao nhanh vào trung tâm cổng.
+- Màn hình tràn ngập ánh sáng.
+
+### Âm thanh
+
+Background Music:
+- Nhạc cinematic sci-fi.
+- Nhịp độ tăng dần.
+- Synthesizer và âm trầm.
+
+Action SFX:
+- Năng lượng tích tụ.
+- Âm thanh điện tử xoay vòng.
+- Không gian biến dạng.
+- Tiếng gió hút.
+- Tiếng năng lượng bùng nổ.
+- Tiếng tăng tốc khi camera xuyên qua cổng.
+
+Đồng bộ đếm ngược:
+
+3: Tiếng điện tử trầm.
+
+2: Âm thanh năng lượng tăng lên.
+
+1: Âm thanh đạt cao trào.
+
+Go: Cổng mở và camera lao xuyên qua.
+
+**Cảm xúc:** Hồi hộp, choáng ngợp.
+
+---
+
+## SCENE 04 – WELCOME TO QUANG NINH 2076
+
+**Nội dung:** Minh và Lan đặt chân đến thành phố tương lai.
+
+### Môi trường 3D
+
+- Tòa nhà chọc trời.
+- Các khu vườn trên cao.
+- Công viên xanh.
+- Đường giao thông nhiều tầng.
+- Xe bay.
+- Các công trình công nghệ.
+- Hệ thống ánh sáng hiện đại.
+
+### Animation
+
+- Camera từ trên cao bay xuống thành phố.
+- Xe bay di chuyển giữa các tòa nhà.
+- Hologram phát sáng.
+- Cây cối chuyển động.
+- Công trình thay đổi ánh sáng.
+- Camera tiến về Minh và Lan.
+
+### Âm thanh
+
+Background Music:
+- Cinematic futuristic.
+- Dàn dây.
+- Piano.
+- Synth hiện đại.
+
+Environmental Ambience:
+- Gió trên cao.
+- Tiếng thành phố.
+- Tiếng động cơ phương tiện bay.
+- Tiếng hệ thống công nghệ.
+
+Action SFX:
+- Tiếng gió khi camera bay xuống.
+- Động cơ xe bay.
+- Tiếng phương tiện lướt qua.
+- Tiếng màn hình hologram kích hoạt.
+
+**Cảm xúc:** Choáng ngợp, khám phá, kỳ vọng.
+
+---
+
+## SCENE 05 – A SMART AND MODERN CITY
+
+**Nội dung:** Khám phá công nghệ, giao thông thông minh và AI.
+
+Đây là một đoạn phim 3D có nhiều phân cảnh nhỏ, không được chỉ hiển thị một bức ảnh thành phố.
+
+### Đoạn 1 – Skyscrapers
+
+Animation:
+- Camera bay giữa những tòa nhà cao tầng.
+- Các màn hình điện tử sáng lên.
+- Xe bay xuất hiện phía xa.
+- Camera di chuyển từ dưới lên trên.
+
+Âm thanh:
+- Gió ở độ cao lớn.
+- Âm thanh thành phố.
+- Tiếng máy móc và hệ thống điện tử.
+
+### Đoạn 2 – Flying Cars
+
+Animation:
+- Camera chuyển lên bầu trời.
+- Các phương tiện bay di chuyển theo tuyến.
+- Camera bám theo một chiếc xe bay.
+
+Âm thanh:
+- Động cơ phương tiện bay.
+- Tiếng xe lướt qua.
+- Stereo Panning theo hướng chuyển động.
+
+### Đoạn 3 – Smart Transportation
+
+Animation:
+- Camera chuyển xuống đường phố.
+- Xe buýt tự lái di chuyển.
+- Tàu điện ngầm hoạt động.
+- Hệ thống giao thông thông minh vận hành.
+
+Âm thanh:
+- Tiếng xe điện.
+- Tiếng cửa tự động.
+- Tiếng tàu điện.
+- Tiếng hệ thống giao thông phát tín hiệu.
+
+### Đoạn 4 – Clean Energy
+
+Animation:
+- Camera di chuyển đến khu năng lượng sạch.
+- Các tấm pin mặt trời.
+- Tuabin gió quay liên tục.
+- Hệ thống năng lượng hoạt động.
+
+Âm thanh:
+- Tiếng gió.
+- Tiếng tuabin.
+- Tiếng hệ thống điện hoạt động.
+- Âm thanh công nghệ nhẹ.
+
+### Đoạn 5 – AI Robot
+
+Animation:
+- Camera tiến đến Robo.
+- Robo tương tác với con người.
+- Robot giao hàng.
+- Hologram xuất hiện.
+- Robot di chuyển và thực hiện nhiệm vụ.
+
+Âm thanh:
+- Tiếng robot khởi động.
+- Servo.
+- Beep.
+- Tiếng di chuyển.
+- Tiếng xác nhận hoàn thành nhiệm vụ.
+
+Background Music xuyên suốt:
+- Electronic futuristic.
+- Nhịp vừa phải.
+- Hiện đại, năng động.
+
+Chuyển âm thanh giữa các khu vực theo vị trí camera.
+
+**Cảm xúc:** Hiện đại, thông minh, năng động.
+
+---
+
+## SCENE 06 – A GREEN AND CLEAN ENVIRONMENT
+
+**Nội dung:** Khám phá vịnh Hạ Long, hệ sinh thái biển và công nghệ bảo vệ môi trường.
+
+### Đoạn 1 – Ha Long Bay
+
+Animation:
+- Camera bay từ trên cao xuống vịnh Hạ Long.
+- Đảo đá vôi hiện ra.
+- Mặt biển có sóng.
+- Mây chuyển động.
+- Ánh sáng phản chiếu trên nước.
+
+Âm thanh:
+- Tiếng sóng.
+- Tiếng gió biển.
+- Tiếng chim biển.
+
+### Đoạn 2 – Clean Ocean
+
+Animation:
+- Camera tiến xuống dưới nước.
+- Đàn cá bơi qua.
+- San hô chuyển động nhẹ.
+- Tia sáng xuyên qua mặt nước.
+- Bong bóng khí xuất hiện.
+
+Âm thanh:
+- Âm thanh dưới nước.
+- Tiếng bong bóng.
+- Tiếng dòng nước.
+- Âm thanh sinh vật biển nhẹ.
+
+### Đoạn 3 – Environmental Technology
+
+Animation:
+- Camera tiến đến nhà máy xử lý nước.
+- Các đường ống hoạt động.
+- Hệ thống lọc vận hành.
+- Dòng nước di chuyển qua các công đoạn.
+
+Âm thanh:
+- Máy lọc nước.
+- Dòng nước chảy.
+- Máy móc.
+- Thiết bị báo hiệu.
+
+### Đoạn 4 – Green Spaces
+
+Animation:
+- Camera bay qua công viên.
+- Cây cối lay động.
+- Thác nước và hồ.
+- Không gian sinh thái.
+
+Âm thanh:
+- Gió qua lá.
+- Chim hót.
+- Nước chảy.
+
+### Đoạn 5 – Modern Fishing
+
+Animation:
+- Tàu đánh cá hiện đại di chuyển.
+- Ngư dân sử dụng màn hình kỹ thuật số.
+- Thiết bị giám sát biển hoạt động.
+
+Âm thanh:
+- Động cơ tàu.
+- Sóng biển.
+- Gió.
+- Thiết bị định vị và giám sát.
+
+Background Music:
+- Cinematic ambient.
+- Piano nhẹ.
+- Nhạc cụ dây mềm.
+
+**Cảm xúc:** Trong lành, thư giãn, kỳ diệu.
+
+---
+
+## SCENE 07 – TOURISM AND CULTURAL DEVELOPMENT
+
+**Nội dung:** Khám phá du lịch và văn hóa Quảng Ninh.
+
+### Đoạn 1 – Ha Long Bay
+
+Animation:
+- Camera bay qua những đảo đá vôi.
+- Tàu du lịch di chuyển.
+- Camera hạ sát mặt biển rồi nâng lên.
+
+Âm thanh:
+- Sóng biển.
+- Gió.
+- Tàu du lịch.
+
+### Đoạn 2 – Bai Tu Long Bay
+
+Animation:
+- Camera chuyển đến vịnh Bái Tử Long.
+- Những hòn đảo xuất hiện.
+- Mây và sóng chuyển động.
+
+Âm thanh:
+- Sóng biển.
+- Gió.
+- Chim biển.
+
+### Đoạn 3 – Yen Tu Mountain
+
+Animation:
+- Camera bay qua núi Yên Tử.
+- Chùa cổ xuất hiện giữa núi rừng.
+- Mây trôi.
+- Camera tiến về công trình.
+
+Âm thanh:
+- Gió núi.
+- Chim rừng.
+- Tiếng lá.
+- Chuông chùa từ xa.
+
+### Đoạn 4 – Underwater Museum
+
+Animation:
+- Camera lặn xuống biển.
+- Đường hầm kính xuất hiện.
+- Du khách di chuyển.
+- Cá bơi xung quanh.
+- Camera di chuyển xuyên đường hầm.
+
+Âm thanh:
+- Âm thanh dưới nước.
+- Bong bóng.
+- Tiếng dòng nước.
+- Tiếng bước chân và trò chuyện nhỏ bên trong đường hầm.
+
+### Đoạn 5 – Eco-friendly Hotels
+
+Animation:
+- Camera di chuyển qua khu khách sạn sinh thái.
+- Cây xanh.
+- Hồ nước.
+- Kiến trúc hiện đại.
+- Những khu vườn trên cao.
+
+Âm thanh:
+- Nước chảy.
+- Gió.
+- Chim hót.
+- Tiếng thiết bị khách sạn.
+
+### Đoạn 6 – Traditional Culture
+
+Animation:
+- Không gian lễ hội xuất hiện.
+- Người dân tham gia các hoạt động.
+- Trang trí truyền thống.
+- Các chi tiết văn hóa địa phương.
+
+Âm thanh:
+- Trống hội.
+- Đàn tranh.
+- Sáo trúc.
+- Tiếng người dân trò chuyện.
+- Tiếng vỗ tay.
+
+Background Music:
+- Cinematic travel music.
+- Giao hưởng nhẹ.
+- Kết hợp nhạc cụ truyền thống Việt Nam.
+
+**Cảm xúc:** Hùng vĩ, khám phá, tự hào văn hóa.
+
+---
+
+## SCENE 08 – A SMART HOSPITAL
+
+**Nội dung:** Khám phá bệnh viện quốc tế thông minh.
+
+### Animation
+
+1. Camera tiếp cận bệnh viện.
+2. Cửa tự động mở.
+3. Camera đi vào hành lang.
+4. Robot y tế di chuyển.
+5. Màn hình y tế hiển thị dữ liệu.
+6. Bác sĩ tương tác với AI.
+7. Camera tiến vào phòng khám.
+8. Thiết bị chẩn đoán hoạt động.
+
+### Âm thanh
+
+Background Music:
+- Ambient electronic.
+- Piano mềm.
+- Synth nhẹ.
+
+Environmental Ambience:
+- Tiếng điều hòa.
+- Tiếng bước chân.
+- Âm thanh bệnh viện.
+
+Action SFX:
+- Cửa tự động.
+- Robot di chuyển.
+- Màn hình cảm ứng.
+- Thiết bị y tế kích hoạt.
+- Máy quét.
+- Tiếng beep y tế.
+- Hệ thống AI xác nhận dữ liệu.
+
+Không dùng tiếng còi cấp cứu hoặc âm thanh bệnh viện hỗn loạn.
+
+**Cảm xúc:** Tin tưởng, hiện đại, chuyên nghiệp.
+
+---
+
+## SCENE 09 – THE SCHOOL OF 2076
+
+**Nội dung:** Khám phá nền giáo dục tương lai.
+
+### Animation
+
+- Camera bay đến trường học.
+- Cửa lớp tự động mở.
+- Camera tiến vào lớp.
+- Học sinh sử dụng kính VR.
+- Hologram khoa học xuất hiện.
+- Mô hình lịch sử 3D được kích hoạt.
+- Học sinh tương tác.
+- Trợ lý AI hoạt động.
+
+### Âm thanh
+
+Background Music:
+- Futuristic upbeat.
+- Nhạc điện tử trong trẻo.
+- Nhịp độ vừa phải.
+
+Environmental Ambience:
+- Tiếng học sinh trò chuyện.
+- Tiếng bước chân.
+- Không khí lớp học.
+
+Action SFX:
+- Cửa tự động.
+- Kính VR khởi động.
+- Hologram xuất hiện.
+- Màn hình tương tác.
+- AI phản hồi.
+- Thiết bị học tập hoạt động.
+
+Khi mô hình lịch sử xuất hiện:
+- Phát hiệu ứng mở không gian ảo.
+- Nhạc chuyển nhẹ sang cảm giác khám phá.
+
+Khi Robo nói câu hài hước về việc không cần mang cặp sách:
+- Có thể sử dụng một hiệu ứng điện tử vui nhộn ngắn.
+
+**Cảm xúc:** Tò mò, sáng tạo, vui tươi.
+
+---
+
+## SCENE 10 – NEVER FORGET THE PAST
+
+**Nội dung:** Người thợ mỏ lớn tuổi kể về lịch sử khai thác than Quảng Ninh.
+
+Đây là cảnh có chiều sâu cảm xúc.
+
+### Đoạn 1 – Mining Heritage
+
+Animation:
+- Camera di chuyển qua khu vực mỏ.
+- Núi và công trình công nghiệp xuất hiện.
+- Những hoạt động khai thác được thể hiện.
+
+Âm thanh:
+- Gió.
+- Máy móc công nghiệp từ xa.
+- Nhạc piano và cello trầm.
+
+### Đoạn 2 – The Past
+
+Animation:
+- Chuyển sang không gian mỏ than quá khứ.
+- Công nhân mỏ làm việc.
+- Băng chuyền vận chuyển than.
+- Máy móc khai thác hoạt động.
+
+Âm thanh:
+- Máy móc cũ.
+- Tiếng kim loại.
+- Băng chuyền.
+- Bước chân công nhân.
+- Tiếng vọng trong hầm mỏ.
+
+Không mô phỏng tai nạn hoặc các sự kiện gây tổn thương. Tập trung vào lao động và sự đóng góp của công nhân.
+
+### Đoạn 3 – The Present and Future
+
+Animation:
+- Không gian chuyển đổi.
+- Máy móc hiện đại xuất hiện.
+- Robot khai thác.
+- Thiết bị tự động hóa.
+- Hệ thống giám sát an toàn.
+
+Âm thanh:
+- Máy móc hiện đại.
+- Động cơ điện.
+- Robot.
+- Thiết bị giám sát.
+
+### Đoạn 4 – Emotional Moment
+
+Animation:
+- Camera tiến gần người thợ mỏ lớn tuổi.
+- Hình ảnh những thế hệ công nhân xuất hiện phía sau.
+- Ánh sáng ấm áp.
+
+Âm thanh:
+- Âm thanh công nghiệp giảm dần.
+- Piano và cello nổi bật.
+- Một khoảng lặng ngắn tại câu nói quan trọng.
+
+**Cảm xúc:** Hoài niệm, trân trọng, biết ơn và tự hào.
+
+---
+
+## SCENE 11 – THE FUTURE MAYOR
+
+**Nội dung:** Thị trưởng tương lai xuất hiện và nói về sự phát triển toàn diện của Quảng Ninh.
+
+### Animation
+
+- Camera bắt đầu bằng góc rộng thành phố.
+- Di chuyển đến khu vực trung tâm hành chính.
+- Thị trưởng xuất hiện.
+- Hologram lớn trình chiếu thành phố.
+
+Khi từng nhân vật phát biểu, hình ảnh phía sau thay đổi tương ứng:
+
+1. Engineer: Công nghệ và giao thông.
+2. Environmental Scientist: Biển và rừng xanh.
+3. Doctor: Bệnh viện thông minh.
+4. Tourism Manager: Các điểm du lịch.
+5. Fisherman: Đại dương và tàu đánh cá.
+6. Elderly Miner: Ngành than và lịch sử.
+
+Khi Robo nói về sự kết hợp giữa công nghệ thông minh và con người thông minh:
+- Robot xuất hiện ở góc nhìn nổi bật.
+- Hệ thống hologram hiển thị các biểu tượng công nghệ.
+
+### Âm thanh
+
+Background Music:
+- Cinematic orchestral.
+- Dàn dây.
+- Brass nhẹ.
+- Piano.
+
+Action SFX:
+- Tiếng bước chân thị trưởng.
+- Tiếng kích hoạt hologram.
+- Tiếng hệ thống dữ liệu.
+
+Các hiệu ứng chủ đề theo nhân vật:
+
+- Engineer: Âm thanh công nghệ ngắn.
+- Environmental Scientist: Gió và nước.
+- Doctor: Âm thanh y tế nhẹ.
+- Tourism Manager: Nhạc du lịch nhẹ.
+- Fisherman: Tiếng sóng nhỏ.
+- Elderly Miner: Âm thanh công nghiệp trầm.
+- Robo: Tiếng beep vui nhộn.
+
+Khi nhân vật nói:
+- Nhạc nền tự động giảm.
+- Âm thanh môi trường giảm nhẹ.
+- Lời thoại phải rõ.
+
+Kết thúc:
+- Camera lùi ra toàn cảnh thành phố.
+- Nhạc dâng cao.
+
+**Cảm xúc:** Trang trọng, tự hào, truyền cảm hứng.
+
+---
+
+## SCENE 12 – THE FUTURE STARTS TODAY
+
+**Nội dung:** Minh và Lan nhận ra rằng tương lai phụ thuộc vào hành động của con người hôm nay.
+
+### Animation
+
+- Camera chuyển giữa Minh, Lan và Alex.
+- Thành phố tương lai hiện ra phía sau.
+- Phương tiện bay hoạt động từ xa.
+- Camera từ từ hướng lên bầu trời.
+- Toàn cảnh thành phố xuất hiện.
+
+### Âm thanh
+
+Background Music:
+- Piano cinematic.
+- Dàn dây.
+- Giai điệu hy vọng.
+
+Environmental Ambience:
+- Thành phố tương lai từ xa.
+- Gió nhẹ.
+- Phương tiện bay nhỏ.
+
+Action SFX:
+- Hệ thống thành phố.
+- Gió khi camera hướng lên.
+- Hiệu ứng ánh sáng nhẹ.
+
+Nhạc cần tăng dần cảm xúc ở lời thoại của Alex và thị trưởng, nhưng không được lấn át lời nói.
+
+**Cảm xúc:** Hy vọng, ấm áp, truyền cảm hứng.
+
+---
+
+## SCENE 13 – RETURN TO 2026
+
+**Nội dung:** Minh và Lan trở về năm 2026.
+
+### Animation
+
+- Cổng thời gian mở.
+- Các vòng năng lượng xoay.
+- Camera tiến vào cổng.
+- Thành phố tương lai dần biến mất.
+- Ánh sáng trắng xuất hiện.
+- Không gian năm 2026 hiện ra.
+
+### Âm thanh
+
+- Nhạc du hành thời gian.
+- Tiếng năng lượng.
+- Tiếng không gian biến dạng.
+- Tiếng gió hút.
+- Tiếng camera xuyên cổng.
+- Âm thanh giảm dần khi về năm 2026.
+
+Khi thành phố hiện tại xuất hiện:
+- Âm thanh công nghệ giảm.
+- Tiếng chim và gió quay trở lại.
+- Nhạc chuyển nhẹ sang piano.
+
+**Cảm xúc:** Kết thúc hành trình, trở về.
+
+---
+
+## SCENE 14 – A NEW BEGINNING
+
+**Nội dung:** Minh và Lan nhận ra trách nhiệm của thế hệ trẻ.
+
+### Môi trường
+
+Trở lại đúng không gian của cảnh 1.
+
+### Animation
+
+- Camera tiến đến chiếc bàn và bản đồ.
+- Ánh sáng buổi sáng.
+- Minh và Lan nhìn nhau.
+- Camera chuyển ra phía thành phố Hạ Long bên ngoài cửa sổ.
+
+### Âm thanh
+
+Background Music:
+- Quay lại phong cách piano cảnh 1.
+- Thêm giai điệu hy vọng và quyết tâm.
+
+Environmental Ambience:
+- Tiếng chim.
+- Gió.
+- Âm thanh thành phố.
+
+Action SFX:
+- Tiếng bước chân.
+- Tiếng ghế.
+- Tiếng giấy bản đồ.
+
+**Cảm xúc:** Suy ngẫm, quyết tâm và khởi đầu mới.
+
+---
+
+## SCENE 15 – OUR FUTURE, OUR RESPONSIBILITY
+
+**Nội dung:** 12 nhân vật cùng xuất hiện và đồng thanh đọc khẩu hiệu.
+
+### Animation
+
+- Camera bắt đầu ở góc rộng.
+- Các nhân vật bước ra.
+- Đội hình được thiết lập.
+- Camera tiến lại gần.
+- Phía sau xuất hiện toàn cảnh Quảng Ninh năm 2076.
+- Các hạt sáng xuất hiện.
+- Dòng chữ cuối cùng hiện lên.
+
+### Khẩu hiệu
+
+OUR FUTURE, OUR RESPONSIBILITY!
+
+ONE CITY, ONE DREAM, ONE BRIGHT FUTURE!
+
+QUANG NINH 2076 – A GREEN, SMART AND BEAUTIFUL CITY!
+
+### Âm thanh
+
+Background Music:
+- Cinematic orchestral finale.
+- Dàn dây.
+- Piano.
+- Brass.
+- Nhạc có cao trào mạnh.
+
+Action SFX:
+- Tiếng bước chân.
+- Tiếng di chuyển đội hình.
+- Hiệu ứng ánh sáng.
+- Âm thanh xuất hiện dòng chữ.
+
+Character Voice:
+- Tạo cảm giác 12 nhân vật cùng đồng thanh.
+- Âm thanh mạnh mẽ, rõ ràng.
+- Không để nhạc lấn át giọng nói.
+
+Kết thúc:
+- Nhạc đạt cao trào khi khẩu hiệu cuối cùng xuất hiện.
+- Các nhân vật cúi chào.
+- Nhạc kết thúc bằng một hợp âm cinematic.
+- Có thể thêm tiếng vỗ tay nhẹ.
+- Hiển thị THE END.
+
+**Cảm xúc:** Hoành tráng, tự hào, đoàn kết và truyền cảm hứng.
+
+---
+
+# PHẦN VI. HỆ THỐNG CINEMATIC SOUND DESIGN
+
+## 10. Kiến trúc âm thanh
+
+Xây dựng AudioManager riêng biệt với SceneManager.
+
+Mỗi cảnh có 5 lớp âm thanh:
+
+1. Background Music.
+2. Environmental Ambience.
+3. Action Sound Effects.
+4. Transition Sound Effects.
+5. Dialogue / Character Voice.
+
+Không phát toàn bộ âm thanh của cảnh ngay từ thời điểm bắt đầu.
+
+Các âm thanh phải được kích hoạt theo timeline hoặc sự kiện animation.
+
+## 11. Audio Ducking
+
+Khi có lời thoại:
+
+- Nhạc nền giảm âm lượng.
+- Âm thanh môi trường giảm nhẹ.
+- Hiệu ứng không quan trọng tạm thời giảm.
+- Giọng nói trở thành âm thanh nổi bật.
+
+Sau khi nhân vật kết thúc lời thoại:
+
+- Nhạc nền từ từ trở lại âm lượng trước đó.
+- Environmental Ambience tiếp tục bình thường.
+
+## 12. Spatial Audio
+
+Tận dụng âm thanh stereo và Web Audio API để tạo cảm giác không gian.
+
+Ví dụ:
+
+- Xe bay từ trái sang phải: âm thanh di chuyển theo hướng xe.
+- Camera tiến gần phương tiện: tiếng động cơ lớn dần.
+- Camera đi xuống biển: âm thanh mặt nước giảm dần, âm thanh dưới nước xuất hiện.
+- Camera rời khỏi bệnh viện: âm thanh bên trong giảm dần.
+- Camera đi vào nhà máy: tiếng máy móc rõ hơn.
+
+Ưu tiên không gian âm thanh có chiều sâu, không để các track phát đồng đều và phẳng.
+
+## 13. Timeline âm thanh theo hoạt ảnh
+
+Mỗi cảnh có một timeline âm thanh riêng.
+
+Ví dụ Scene 06:
+
+- Bắt đầu camera bay xuống vịnh: phát nhạc và tiếng sóng.
+- Camera tiến gần mặt nước: tăng tiếng sóng.
+- Camera lặn xuống biển: fade out tiếng sóng mặt biển.
+- Camera đi dưới nước: fade in âm thanh đại dương.
+- Đàn cá xuất hiện: thêm hiệu ứng chuyển động nước.
+- Camera tiến đến nhà máy xử lý nước: chuyển sang tiếng máy móc.
+- Camera bay đến công viên: chuyển về tiếng gió và chim.
+
+Timeline có thể sử dụng GSAP Timeline hoặc cơ chế event-based.
+
+Không bắt buộc mọi hoạt ảnh phải có thời lượng cố định. Âm thanh cần đồng bộ theo tiến trình thực tế của hoạt ảnh.
+
+## 14. Quản lý chuyển cảnh âm thanh
+
+Khi người dùng nhấn NEXT hoặc PREVIOUS:
+
+- Nhạc nền cũ không được tắt đột ngột.
+- Environmental Ambience cũ giảm dần.
+- Phát Transition SFX phù hợp.
+- Âm thanh cảnh mới tăng dần khi cảnh mới bắt đầu.
+- Tránh chồng lặp âm thanh của hai cảnh.
+
+Đối với cảnh 2 → 3 và 12 → 13, sử dụng hệ thống âm thanh du hành thời gian.
+
+Đối với cảnh 13 → 14, chuyển từ âm thanh khoa học viễn tưởng về âm thanh đời thường.
+
+Đối với cảnh 1 → 2, tạo bước chuyển bất ngờ từ âm thanh đời thường sang sci-fi.
+
+---
+
+# PHẦN VII. TÀI NGUYÊN 3D VÀ ÂM THANH
+
+## 15. Tài nguyên 3D
+
+Không tự giới hạn bản thân vào việc tạo mọi vật thể bằng hình khối đơn giản.
+
+Ưu tiên sử dụng:
+
+- GLB / GLTF.
+- Các mô hình 3D có animation.
+- Texture chất lượng tốt.
+- HDRI environment.
+- Particle effects.
+- Mô hình kiến trúc, phương tiện, robot, sinh vật biển và máy móc phù hợp.
+
+Các nguồn có thể tham khảo:
+
+- Sketchfab, ưu tiên tài nguyên có giấy phép phù hợp.
+- Poly Haven.
+- Kenney.
+- Các tài nguyên 3D miễn phí khác có giấy phép rõ ràng.
+
+Không tải hoặc sử dụng tài nguyên trái phép.
+
+## 16. Tài nguyên âm thanh
+
+Ưu tiên:
+
+- Âm thanh tự tạo bằng AI.
+- Âm thanh tự thiết kế.
+- Thư viện miễn phí có giấy phép phù hợp.
+- Ambient recordings.
+- Sound effects có thể sử dụng hợp pháp.
+
+Không sử dụng nhạc phim hoặc bản ghi thương mại khi không có quyền sử dụng.
+
+Nếu không có tài nguyên phù hợp:
+
+- Tạo danh sách file còn thiếu.
+- Tạo các vị trí placeholder.
+- Chuẩn bị cấu trúc để bổ sung file.
+- Không giả vờ rằng âm thanh đã được tích hợp.
+
+Web Audio API có thể được sử dụng để tạo hiệu ứng âm thanh đơn giản, nhưng không thay thế toàn bộ nhạc nền và âm thanh môi trường bằng những tiếng beep đơn điệu.
+
+## 17. Cấu trúc thư mục audio
+
+public/audio/
+
+  music/
+    scene01/
+    scene02/
+    scene03/
+    scene04/
+    scene05/
+    scene06/
+    scene07/
+    scene08/
+    scene09/
+    scene10/
+    scene11/
+    scene12/
+    scene13/
+    scene14/
+    scene15/
+
+  ambience/
+    city/
+    ocean/
+    underwater/
+    forest/
+    hospital/
+    school/
+    mining/
+    futuristic/
+
+  sfx/
+    time-travel/
+    robot/
+    flying-cars/
+    transportation/
+    hologram/
+    water-treatment/
+    medical/
+    education/
+    mining/
+    transition/
+
+  dialogue/
+    scene01/
+    scene02/
+    scene04/
+    scene05/
+    scene06/
+    scene07/
+    scene08/
+    scene09/
+    scene10/
+    scene11/
+    scene12/
+    scene14/
+    scene15/
+
+Tạo file cấu hình ánh xạ tên file âm thanh với từng sự kiện.
+
+Không viết đường dẫn file âm thanh tùy tiện ở nhiều nơi.
+
+---
+
+# PHẦN VIII. BẢNG ĐIỀU KHIỂN ÂM THANH
+
+## 18. Sound Settings
+
+Xây dựng một bảng điều khiển nhỏ theo phong cách futuristic HUD.
+
+Bao gồm:
+
+- MASTER VOLUME.
+- MUSIC.
+- AMBIENCE.
+- SFX.
+- VOICE.
+- MUTE.
+
+Các thành phần phải hoạt động thực tế.
+
+Mặc định:
+
+- Voice: 100%.
+- Music: 25–35%.
+- Ambience: 30–45%.
+- SFX: 45–70%.
+
+Đây là mức khởi tạo, không phải giới hạn cố định.
+
+Có thể điều chỉnh âm lượng bằng slider.
+
+Khi người dùng tắt một lớp âm thanh, chỉ lớp đó bị tắt.
+
+Khi người dùng nhấn MUTE, toàn bộ âm thanh phải được tắt.
+
+Khi bật lại âm thanh, chỉ các track phù hợp với cảnh hiện tại được phát.
+
+Lưu trạng thái âm lượng trong phiên làm việc.
+
+---
+
+# PHẦN IX. CHUYỂN CẢNH VÀ ANIMATION
+
+## 19. Transition Manager
+
+Các cảnh cần có hiệu ứng chuyển tiếp khác nhau, phù hợp nội dung.
+
+Có thể sử dụng:
+
+- Camera Fly-through.
+- Cinematic Zoom.
+- Camera Pan.
+- Portal Transition.
+- Particle Transition.
+- Environmental Transition.
+- Fade to Light.
+- Fade to Black.
+- Morphing Environment.
+
+Không dùng một kiểu chuyển cảnh duy nhất cho toàn bộ website.
+
+Ví dụ:
+
+Cảnh 1 → 2:
+Cổng dịch chuyển xuất hiện phía sau Alex.
+
+Cảnh 2 → 3:
+Camera tiến về phía cổng thời gian.
+
+Cảnh 3 → 4:
+Camera xuyên qua cổng và hiện ra thành phố năm 2076.
+
+Cảnh 4 → 5:
+Camera bay đến gần các tòa nhà và chuyển sang chuyến tham quan thành phố.
+
+Cảnh 5 → 6:
+Camera bay khỏi thành phố, hướng về biển.
+
+Cảnh 6 → 7:
+Camera nâng lên từ mặt biển và chuyển đến hành trình du lịch.
+
+Cảnh 7 → 8:
+Camera tiến vào một công trình hiện đại, chuyển thành bệnh viện.
+
+Cảnh 8 → 9:
+Camera rời bệnh viện, chuyển đến trường học.
+
+Cảnh 9 → 10:
+Không gian chuyển từ lớp học sang hình ảnh công nghiệp ngành than.
+
+Cảnh 10 → 11:
+Camera tiến ra khỏi khu mỏ, hướng về trung tâm thành phố và thị trưởng.
+
+Cảnh 11 → 12:
+Camera từ từ lùi ra toàn cảnh Quảng Ninh năm 2076.
+
+Cảnh 12 → 13:
+Cổng thời gian mở ra.
+
+Cảnh 13 → 14:
+Ánh sáng trắng tan dần thành không gian năm 2026.
+
+Cảnh 14 → 15:
+Camera mở rộng ra toàn bộ sân khấu và chuyển đến đội hình 12 nhân vật.
+
+---
+
+# PHẦN X. HIỆU SUẤT VÀ TỐI ƯU
+
+## 20. Yêu cầu kỹ thuật
+
+- Tỷ lệ chính 16:9.
+- Ưu tiên máy tính và laptop.
+- Responsive với màn hình khác nhau.
+- Sử dụng lazy loading.
+- Tối ưu polygon và texture.
+- Dùng instancing cho nhiều vật thể giống nhau.
+- Hạn chế draw calls.
+- Quản lý bộ nhớ GPU.
+- Giải phóng tài nguyên khi không còn sử dụng.
+- Không tải toàn bộ mô hình 3D và âm thanh của 15 cảnh cùng lúc.
+- Preload tài nguyên cần thiết cho cảnh tiếp theo.
+- Có loading screen.
+- Có thông báo nếu tài nguyên không tải được.
+- Có phương án dự phòng nếu WebGL không khả dụng.
+
+Tối ưu để website có thể chạy ổn định trên một máy tính cá nhân phổ thông có trình duyệt hiện đại.
+
+Không đánh đổi toàn bộ hiệu suất để lấy hiệu ứng hình ảnh.
+
+## 21. Quản lý lỗi
+
+Nếu một file âm thanh bị thiếu:
+- Ghi log.
+- Bỏ qua âm thanh đó.
+- Tiếp tục chạy website.
+
+Nếu một mô hình 3D bị lỗi:
+- Hiển thị mô hình dự phòng phù hợp.
+- Không làm crash toàn bộ cảnh.
+
+Nếu chuyển cảnh bị lỗi:
+- Reset trạng thái chuyển cảnh.
+- Cho phép người dùng thao tác lại.
+
+Nếu người dùng nhấn nhanh nhiều lần:
+- Không tạo nhiều timeline đồng thời.
+- Không phát nhiều bản âm thanh trùng nhau.
+- Không để trạng thái camera bị sai.
+
+---
+
+# PHẦN XI. QUY TRÌNH TRIỂN KHAI
+
+## 22. Giai đoạn 1 – Xây dựng nền tảng
+
+- Phân tích toàn bộ yêu cầu.
+- Thiết kế kiến trúc dự án.
+- Tạo Scene Manager.
+- Tạo Transition Manager.
+- Tạo Audio Manager.
+- Tạo giao diện điều khiển.
+- Tạo Intro Screen.
+
+Kiểm tra cơ chế chuyển cảnh và điều khiển trước khi triển khai toàn bộ nội dung.
+
+## 23. Giai đoạn 2 – Xây dựng các môi trường 3D
+
+Xây dựng 15 môi trường theo đúng danh sách.
+
+Ưu tiên hoàn thiện các cảnh 1, 2, 3 và 4 trước.
+
+Sau đó triển khai các cảnh 5 đến 11 với nhiều đoạn camera animation liên tiếp.
+
+Cuối cùng xây dựng các cảnh 12 đến 15.
+
+## 24. Giai đoạn 3 – Tích hợp âm thanh
+
+- Tạo cấu hình audio cho từng cảnh.
+- Tích hợp nhạc nền.
+- Tích hợp ambience.
+- Tích hợp SFX.
+- Tích hợp lời thoại nếu có nguồn giọng.
+- Xây dựng audio ducking.
+- Đồng bộ âm thanh với camera.
+- Kiểm tra âm lượng khi chuyển cảnh.
+
+## 25. Giai đoạn 4 – Kiểm thử
+
+Kiểm tra:
+
+- Đủ 15 cảnh.
+- Tất cả cảnh có hoạt ảnh.
+- Các cảnh 5, 6, 7, 8, 9, 10, 11 có những chuyến camera khám phá liên tục.
+- Chuyển cảnh hoạt động đúng.
+- Điều khiển NEXT và PREVIOUS hoạt động.
+- Âm thanh đổi đúng cảnh.
+- Không bị chồng âm.
+- Không mất âm thanh khi quay lại cảnh cũ.
+- Không lỗi khi nhấp chuột nhanh.
+- Không crash khi thiếu tài nguyên.
+- Website chạy thực tế trên trình duyệt.
+
+---
+
+# PHẦN XII. TIÊU CHUẨN NGHIỆM THU
+
+## 26. Những điều tuyệt đối không được làm
+
+1. Không biến website thành slideshow.
+2. Không chỉ dùng ảnh tĩnh làm phông nền.
+3. Không dùng một ảnh duy nhất cho các khu vực có nội dung khác nhau.
+4. Không để camera đứng yên trong toàn bộ cảnh.
+5. Không chỉ thêm hiệu ứng zoom vào ảnh tĩnh rồi gọi đó là 3D animation.
+6. Không thay toàn bộ mô hình bằng những hình hộp đơn giản.
+7. Không bỏ bất kỳ cảnh nào trong 15 cảnh.
+8. Không tự ý thay đổi nội dung câu chuyện.
+9. Không tự động chuyển cảnh khi chưa có thao tác của người xem.
+10. Không phát một bản nhạc duy nhất trong suốt website.
+11. Không phát âm thanh sai địa điểm hoặc sai thời điểm.
+12. Không để nhạc nền lấn át lời thoại.
+13. Không phát âm thanh cũ sang cảnh mới.
+14. Không giả vờ rằng tài nguyên chưa được tải đã hoạt động.
+15. Không tuyên bố một cảnh hoàn thiện nếu cảnh đó mới chỉ có mô hình tĩnh và chưa có animation.
+
+## 27. Tiêu chuẩn chất lượng cuối cùng
+
+Website được xem là đạt yêu cầu khi:
+
+**Về hình ảnh:**
+- Có chiều sâu 3D.
+- Có chuyển động camera điện ảnh.
+- Có vật thể chuyển động.
+- Có môi trường sống động.
+- Các cảnh có phong cách hình ảnh thống nhất.
+
+**Về chuyển cảnh:**
+- Mỗi thao tác chuyển cảnh có animation.
+- Chuyển cảnh phù hợp với nội dung.
+- Camera và môi trường không bị giật hoặc nhảy đột ngột.
+
+**Về âm thanh:**
+- Mỗi cảnh có nhạc nền phù hợp.
+- Mỗi cảnh có ambience riêng.
+- Các sự vật có SFX phù hợp.
+- Âm thanh đồng bộ với camera và animation.
+- Có Audio Ducking cho lời thoại.
+- Có giao diện điều chỉnh âm lượng.
+
+**Về tương tác:**
+- Chuyển tiếp và quay lại được.
+- Điều khiển hoạt động ổn định.
+- Không cần tải lại trang.
+- Có thể trình chiếu toàn màn hình.
+
+---
+
+# PHẦN XIII. CHỈ THỊ CUỐI CÙNG CHO AI LẬP TRÌNH
+
+Hãy bắt đầu triển khai dự án dựa trên toàn bộ đặc tả trên.
+
+Ưu tiên tuyệt đối:
+
+1. Chất lượng hình ảnh 3D.
+2. Animation camera và vật thể.
+3. Chuyển cảnh điện ảnh.
+4. Đồng bộ âm thanh và hoạt ảnh.
+5. Sự liền mạch của câu chuyện.
+6. Hiệu suất và tính ổn định.
+
+Nếu một hiệu ứng quá phức tạp, hãy tìm giải pháp kỹ thuật khả thi thay vì bỏ qua hiệu ứng đó.
+
+Nếu thiếu tài nguyên, hãy chủ động tìm tài nguyên phù hợp có giấy phép sử dụng, hoặc tạo phương án thay thế và ghi rõ những phần còn thiếu.
+
+Không được xây dựng sản phẩm giả lập chỉ để tạo cảm giác đã hoàn thành.
+
+Hãy kiểm tra từng cảnh bằng cách chạy website thực tế.
+
+**ĐỊNH HƯỚNG CUỐI CÙNG:**
+
+Tôi muốn người xem có cảm giác đang bước vào một bộ phim khoa học viễn tưởng 3D về Quảng Ninh năm 2076.
+
+Khi nhìn thấy thành phố, họ nghe được âm thanh của thành phố.
+
+Khi bay qua biển, họ cảm nhận được đại dương.
+
+Khi đi qua bệnh viện và trường học, họ nghe được hoạt động của những công trình tương lai.
+
+Khi nhìn lại ngành than, họ cảm nhận được lịch sử và sự đóng góp của con người.
+
+Khi cổng thời gian mở ra, họ thực sự cảm nhận được một hành trình xuyên thời gian.
+
+Mỗi lần nhấp chuột phải mở ra một phần mới của thế giới.
+
+**QUANG NINH 2076 – ONE CITY, ONE DREAM, ONE BRIGHT FUTURE.**
+
+Hãy biến câu chuyện này thành một trải nghiệm điện ảnh tương tác thực sự.
