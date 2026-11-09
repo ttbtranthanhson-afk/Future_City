@@ -1,10 +1,10 @@
 /**
- * Slides Component Stylesheet - Scene 1 & Master Layouts
- * Crafted for Quang Ninh 2076 Presentation
+ * Slides Component Stylesheet - Theatrical Stage Backdrop Edition
+ * 100% English // Pure Stage Visuals // 4x3 Pixel Character Grid
  */
 
 /* ==========================================================================
-   SLIDE 1: HERO TITLE DECK
+   SLIDE 1: HERO TITLE BACKDROP
    ========================================================================== */
 .slide-hero {
   display: flex;
@@ -12,458 +12,425 @@
   justify-content: center;
   align-items: center;
   text-align: center;
-  height: 100%;
+  height: 820px;
   position: relative;
 }
 
-.hero-meta {
+.hero-timeline-bridge {
   display: inline-flex;
   align-items: center;
-  gap: 16px;
-  background: rgba(34, 211, 238, 0.1);
-  border: 1px solid var(--border-glass);
-  padding: 10px 24px;
+  gap: 24px;
+  background: rgba(34, 211, 238, 0.08);
+  border: 1px solid rgba(34, 211, 238, 0.3);
+  padding: 12px 36px;
   border-radius: var(--primitive-radius-full);
   margin-bottom: var(--primitive-space-lg);
+  backdrop-filter: blur(12px);
 }
 
-.hero-meta .tag-year {
+.hero-timeline-bridge .bridge-node {
   font-family: var(--primitive-font-display);
   font-size: 16px;
-  font-weight: 700;
-  letter-spacing: 2px;
+  font-weight: 800;
+  letter-spacing: 3px;
   color: var(--text-accent-cyan);
 }
 
-.hero-meta .tag-divider {
-  width: 4px;
-  height: 4px;
-  background: var(--text-muted);
-  border-radius: 50%;
-}
-
-.hero-meta .tag-theme {
-  font-size: 15px;
-  color: var(--text-secondary);
-  letter-spacing: 1px;
+.hero-timeline-bridge .bridge-line {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: rgba(255, 255, 255, 0.3);
+  font-family: var(--primitive-font-mono);
+  font-size: 13px;
 }
 
 .hero-title {
   font-family: var(--primitive-font-display);
-  font-size: var(--primitive-text-hero);
+  font-size: 96px;
   font-weight: 900;
   line-height: 1.05;
-  letter-spacing: -1px;
+  letter-spacing: 2px;
   margin: 0 0 var(--primitive-space-md) 0;
-  background: linear-gradient(135deg, #ffffff 30%, #22d3ee 70%, #818cf8 100%);
+  background: linear-gradient(135deg, #ffffff 20%, #38bdf8 60%, #a855f7 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  text-shadow: 0 10px 40px rgba(0, 0, 0, 0.8);
+  text-shadow: 0 15px 50px rgba(0, 0, 0, 0.9);
 }
 
 .hero-subtitle {
-  font-size: var(--primitive-text-h3);
+  font-family: var(--primitive-font-body);
+  font-size: 26px;
   font-weight: 300;
-  color: var(--text-secondary);
-  max-width: 1100px;
-  line-height: 1.5;
-  margin-bottom: var(--primitive-space-2xl);
+  letter-spacing: 1.5px;
+  color: #94a3b8;
+  max-width: 1200px;
+  line-height: 1.6;
+  margin-bottom: var(--primitive-space-xl);
 }
 
-.hero-action-box {
+.hero-subtitle strong {
+  color: #f8fafc;
+  font-weight: 600;
+}
+
+.hero-pillars-row {
+  display: flex;
+  gap: 32px;
+  margin-top: 20px;
+}
+
+.hero-pillar-chip {
   display: flex;
   align-items: center;
-  gap: 20px;
-}
-
-.btn-primary {
-  display: inline-flex;
-  align-items: center;
   gap: 12px;
-  background: linear-gradient(135deg, var(--primitive-color-cyan-500), var(--primitive-color-blue-500));
-  color: var(--primitive-color-white);
-  padding: 16px 36px;
-  border-radius: var(--primitive-radius-full);
-  font-family: var(--primitive-font-sans);
-  font-size: var(--primitive-text-body);
-  font-weight: 600;
-  letter-spacing: 0.5px;
-  border: none;
-  cursor: pointer;
-  box-shadow: 0 0 25px rgba(6, 182, 212, 0.45);
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.btn-primary:hover {
-  transform: translateY(-2px) scale(1.03);
-  box-shadow: 0 0 40px rgba(6, 182, 212, 0.7);
-}
-
-.keyboard-hint {
-  font-size: var(--primitive-text-caption);
-  color: var(--text-muted);
+  background: rgba(15, 23, 42, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 10px 24px;
+  border-radius: var(--primitive-radius-md);
   font-family: var(--primitive-font-mono);
+  font-size: 13px;
+  letter-spacing: 1.5px;
+  color: #e2e8f0;
+  text-transform: uppercase;
 }
 
-.keyboard-hint kbd {
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  padding: 3px 8px;
-  border-radius: 4px;
-  color: var(--text-accent-cyan);
+.hero-pillar-chip .chip-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
 }
 
 /* ==========================================================================
-   SLIDE 2: THE CAST & 50-YEAR JOURNEY
+   SLIDE 2: 12-CHARACTER PIXEL ROSTER (4x3 BALANCED GRID)
    ========================================================================== */
-.cast-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: var(--primitive-space-lg);
-  margin-top: var(--primitive-space-sm);
-  height: 680px;
+.cast-section-header {
+  margin-bottom: 24px;
 }
 
-.cast-column {
-  background: var(--card-bg);
-  border: 1px solid var(--card-border);
-  border-radius: var(--card-radius);
-  padding: var(--primitive-space-md) var(--primitive-space-lg);
-  display: flex;
-  flex-direction: column;
-  backdrop-filter: blur(var(--card-blur));
-  position: relative;
-  overflow: hidden;
-}
-
-.cast-col-header {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  border-bottom: 1px solid var(--border-subtle);
-  padding-bottom: 16px;
-  margin-bottom: 20px;
-}
-
-.cast-badge {
-  padding: 6px 14px;
-  border-radius: var(--primitive-radius-full);
-  font-size: 13px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-}
-
-.cast-col-title {
+.cast-section-title {
   font-family: var(--primitive-font-display);
-  font-size: 20px;
-  color: var(--primitive-color-white);
+  font-size: 38px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  color: #ffffff;
+  margin: 0 0 6px 0;
+}
+
+.cast-section-desc {
+  font-size: 16px;
+  color: #94a3b8;
+  letter-spacing: 1px;
   margin: 0;
 }
 
-.cast-member-list {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  overflow-y: auto;
-  padding-right: 6px;
+/* 4x3 Grid that flawlessly balances the 1920x1080 stage */
+.character-matrix-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  gap: 20px;
+  height: 740px;
+  width: 100%;
 }
 
-.cast-member-card {
+.character-card {
+  background: rgba(15, 23, 42, 0.75);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+  padding: 16px 20px;
   display: flex;
   align-items: center;
-  gap: 14px;
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  padding: 12px 16px;
-  border-radius: var(--primitive-radius-md);
-  transition: all 0.2s ease;
+  gap: 18px;
+  backdrop-filter: blur(16px);
+  position: relative;
+  overflow: hidden;
+  transition: all 0.25s ease;
 }
 
-.cast-member-card:hover {
-  background: rgba(34, 211, 238, 0.08);
-  border-color: rgba(34, 211, 238, 0.3);
-  transform: translateX(4px);
+.character-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 3px;
+  height: 100%;
+  background: var(--card-accent, #38bdf8);
 }
 
-.cast-avatar {
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
+.character-card:hover {
+  background: rgba(30, 41, 59, 0.9);
+  border-color: var(--card-accent, #38bdf8);
+  transform: translateY(-3px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6);
+}
+
+/* Pixel Avatar Frame */
+.pixel-avatar-frame {
+  width: 64px;
+  height: 64px;
+  background: #020617;
+  border: 2px solid var(--card-accent, #38bdf8);
+  border-radius: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 20px;
-  background: rgba(255, 255, 255, 0.08);
   flex-shrink: 0;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.8), inset 0 0 10px rgba(0, 0, 0, 0.8);
+  image-rendering: pixelated;
 }
 
-.cast-info .name {
-  font-weight: 700;
-  font-size: 16px;
-  color: var(--primitive-color-white);
+.pixel-avatar-frame svg {
+  width: 48px;
+  height: 48px;
+  shape-rendering: crispEdges;
 }
 
-.cast-info .actor {
-  font-size: 13px;
-  color: var(--text-accent-cyan);
-  font-family: var(--primitive-font-mono);
-}
-
-.cast-info .role {
-  font-size: 13px;
-  color: var(--text-muted);
-}
-
-/* ==========================================================================
-   SLIDE 3: SCENE 1 - 2026 THE SPARK OF CURIOSITY
-   ========================================================================== */
-.split-layout {
-  display: grid;
-  grid-template-columns: 1.1fr 0.9fr;
-  gap: var(--primitive-space-xl);
-  align-items: center;
-  height: 720px;
-}
-
-.scene-context-card {
-  background: var(--card-bg);
-  border: 1px solid var(--card-border);
-  border-radius: var(--card-radius);
-  padding: var(--primitive-space-xl);
-  backdrop-filter: blur(var(--card-blur));
-  position: relative;
-}
-
-.scene-tag {
-  font-family: var(--primitive-font-mono);
-  font-size: 14px;
-  color: var(--text-accent-cyan);
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  margin-bottom: 12px;
-}
-
-.scene-headline {
-  font-family: var(--primitive-font-display);
-  font-size: var(--primitive-text-h1);
-  color: var(--primitive-color-white);
-  line-height: 1.15;
-  margin: 0 0 20px 0;
-}
-
-.scene-desc {
-  font-size: 19px;
-  line-height: 1.6;
-  color: var(--text-secondary);
-  margin-bottom: 28px;
-}
-
-.dialogue-box {
+/* Character Content */
+.character-details {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 4px;
+  flex: 1;
+  min-width: 0;
 }
 
-.dialogue-bubble {
-  background: rgba(255, 255, 255, 0.04);
-  border-left: 4px solid var(--border-focus);
-  padding: 14px 20px;
-  border-radius: 0 var(--primitive-radius-md) var(--primitive-radius-md) 0;
-}
-
-.dialogue-speaker {
-  font-weight: 700;
-  font-size: 14px;
-  color: var(--text-accent-cyan);
-  margin-bottom: 4px;
+.character-meta-row {
   display: flex;
+  justify-content: space-between;
   align-items: center;
   gap: 8px;
 }
 
-.dialogue-text {
+.character-name {
+  font-family: var(--primitive-font-sans);
   font-size: 17px;
-  color: var(--primitive-color-slate-100);
-  line-height: 1.5;
-  font-style: italic;
+  font-weight: 700;
+  color: #f8fafc;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-/* Right Visual Column */
-.visual-showcase {
+.character-actor {
+  font-family: var(--primitive-font-mono);
+  font-size: 12px;
+  color: var(--card-accent, #38bdf8);
+  background: rgba(255, 255, 255, 0.05);
+  padding: 2px 8px;
+  border-radius: 4px;
+  white-space: nowrap;
+}
+
+.character-tag {
+  display: inline-block;
+  align-self: flex-start;
+  font-family: var(--primitive-font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--card-accent, #38bdf8);
+  margin-top: 2px;
+}
+
+.character-focus {
+  font-size: 13px;
+  color: #94a3b8;
+  line-height: 1.35;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-top: 2px;
+}
+
+/* Category Accent Theme Overrides */
+.character-card.theme-cyan { --card-accent: #22d3ee; }
+.character-card.theme-violet { --card-accent: #a855f7; }
+.character-card.theme-emerald { --card-accent: #10b981; }
+.character-card.theme-amber { --card-accent: #f59e0b; }
+
+/* ==========================================================================
+   SLIDE 3: SCENE 1 BACKDROP — QUANG NINH 2026 (ENVIRONMENTAL SETTING)
+   ========================================================================== */
+.scene-triptych-stage {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 30px;
+  height: 740px;
+  width: 100%;
+}
+
+.scene-scenic-panel {
+  background: rgba(15, 23, 42, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  padding: 36px 32px;
   display: flex;
   flex-direction: column;
-  gap: var(--primitive-space-md);
-}
-
-.feature-pill-card {
-  background: rgba(17, 29, 64, 0.8);
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--card-radius);
-  padding: 24px;
-  display: flex;
-  align-items: center;
-  gap: 20px;
+  justify-content: space-between;
+  backdrop-filter: blur(16px);
+  position: relative;
+  overflow: hidden;
   transition: all 0.3s ease;
 }
 
-.feature-pill-card:hover {
-  border-color: var(--border-focus);
-  transform: translateY(-3px);
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+.scene-scenic-panel:hover {
+  border-color: rgba(34, 211, 238, 0.4);
+  background: rgba(15, 23, 42, 0.85);
 }
 
-.feature-pill-icon {
-  width: 56px;
-  height: 56px;
-  border-radius: var(--primitive-radius-md);
-  background: rgba(34, 211, 238, 0.1);
+.panel-header-badge {
+  font-family: var(--primitive-font-mono);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--panel-accent, #22d3ee);
   display: flex;
   align-items: center;
-  justify-content: center;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.panel-title {
+  font-family: var(--primitive-font-display);
   font-size: 28px;
-  flex-shrink: 0;
+  font-weight: 800;
+  color: #ffffff;
+  line-height: 1.25;
+  margin: 0 0 16px 0;
 }
 
-.feature-pill-content h4 {
-  margin: 0 0 6px 0;
-  font-size: 18px;
-  font-weight: 700;
-  color: var(--primitive-color-white);
+.panel-description {
+  font-size: 16px;
+  line-height: 1.6;
+  color: #94a3b8;
+  margin: 0 0 24px 0;
 }
 
-.feature-pill-content p {
-  margin: 0;
-  font-size: 15px;
-  color: var(--text-secondary);
-  line-height: 1.4;
+.panel-stat-box {
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  padding: 20px;
+  margin-top: auto;
+}
+
+.stat-value {
+  font-family: var(--primitive-font-display);
+  font-size: 36px;
+  font-weight: 900;
+  color: var(--panel-accent, #22d3ee);
+  margin-bottom: 4px;
+}
+
+.stat-label {
+  font-family: var(--primitive-font-mono);
+  font-size: 12px;
+  letter-spacing: 1.5px;
+  color: #cbd5e1;
+  text-transform: uppercase;
 }
 
 /* ==========================================================================
-   SLIDE 4: THE TIME PORTAL (3... 2... 1!)
+   SLIDE 4: TIME PORTAL QUANTUM WARP (FULL AUDIENCE IMMERSION)
    ========================================================================== */
-.portal-slide-container {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: var(--primitive-space-2xl);
-  align-items: center;
-  height: 720px;
-}
-
-.portal-visual-stage {
+.portal-stage-full {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
+  justify-content: center;
+  height: 800px;
   position: relative;
-  height: 540px;
+  text-align: center;
 }
 
-.portal-rings {
-  width: 480px;
-  height: 480px;
-  border-radius: 50%;
-  border: 3px dashed var(--primitive-color-cyan-400);
+.portal-vortex-assembly {
+  position: relative;
+  width: 520px;
+  height: 520px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 24px;
+}
+
+.portal-outer-ring {
   position: absolute;
-  box-shadow: var(--glow-cyan);
+  width: 500px;
+  height: 500px;
+  border-radius: 50%;
+  border: 3px dashed rgba(34, 211, 238, 0.6);
+  box-shadow: 0 0 50px rgba(34, 211, 238, 0.3);
 }
 
-.portal-rings-inner {
+.portal-middle-ring {
+  position: absolute;
   width: 380px;
   height: 380px;
   border-radius: 50%;
-  border: 3px solid var(--primitive-color-violet-500);
-  position: absolute;
-  box-shadow: var(--glow-violet);
+  border: 3px solid rgba(168, 85, 247, 0.7);
+  box-shadow: 0 0 60px rgba(168, 85, 247, 0.4);
 }
 
-.portal-core {
+.portal-center-core {
   width: 240px;
   height: 240px;
   border-radius: 50%;
-  background: radial-gradient(circle, #e879f9 0%, #8b5cf6 50%, #06b6d4 100%);
+  background: radial-gradient(circle, #f472b6 0%, #8b5cf6 60%, #0284c7 100%);
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 100px rgba(139, 92, 246, 0.9);
   position: relative;
-  z-index: 2;
-  box-shadow: 0 0 80px rgba(139, 92, 246, 0.8);
+  z-index: 5;
 }
 
-.countdown-number {
+.portal-count-big {
   font-family: var(--primitive-font-display);
-  font-size: 96px;
+  font-size: 108px;
   font-weight: 900;
   color: #ffffff;
   line-height: 1;
 }
 
-.countdown-sub {
+.portal-status-label {
   font-family: var(--primitive-font-mono);
-  font-size: 14px;
+  font-size: 12px;
   letter-spacing: 2px;
-  color: rgba(255, 255, 255, 0.9);
+  color: #ffffff;
   text-transform: uppercase;
 }
 
-/* Alex & ROBO Cards */
-.portal-dialogue-col {
-  display: flex;
-  flex-direction: column;
-  gap: var(--primitive-space-md);
+.portal-target-info {
+  margin-top: 10px;
 }
 
-.character-arrival-card {
-  background: var(--card-bg);
-  border: 1px solid var(--border-glow-violet);
-  border-radius: var(--card-radius);
-  padding: 28px;
-  backdrop-filter: blur(var(--card-blur));
-  position: relative;
-  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
-}
-
-.character-arrival-card.robo-card {
-  border-color: var(--border-glass);
-}
-
-.arrival-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 14px;
-}
-
-.arrival-identity {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.arrival-identity .avatar {
-  font-size: 28px;
-}
-
-.arrival-identity .title {
+.portal-target-title {
   font-family: var(--primitive-font-display);
-  font-size: 20px;
-  font-weight: 700;
-  color: var(--primitive-color-white);
+  font-size: 42px;
+  font-weight: 900;
+  letter-spacing: 4px;
+  color: #ffffff;
+  text-shadow: 0 0 30px rgba(34, 211, 238, 0.8);
+  margin: 0 0 12px 0;
 }
 
-.arrival-speech {
-  font-size: 18px;
-  line-height: 1.5;
-  color: var(--text-secondary);
-  margin-bottom: 16px;
-}
-
-.arrival-stats {
+.portal-metrics-pills {
   display: flex;
-  gap: 16px;
-  padding-top: 14px;
-  border-top: 1px solid var(--border-subtle);
+  gap: 20px;
+  justify-content: center;
+}
+
+.metric-pill {
+  background: rgba(15, 23, 42, 0.8);
+  border: 1px solid rgba(34, 211, 238, 0.3);
+  padding: 8px 20px;
+  border-radius: var(--primitive-radius-full);
   font-family: var(--primitive-font-mono);
   font-size: 13px;
-  color: var(--text-accent-cyan);
+  letter-spacing: 1.5px;
+  color: #22d3ee;
 }

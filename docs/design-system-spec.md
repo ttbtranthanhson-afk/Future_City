@@ -1,65 +1,65 @@
-# Tài Liệu Đặc Tả Thiết Kế (Design System & Modular Architecture)
-## Dự án: "Quảng Ninh 2076 — A Dream About the Future"
+# Theatrical Stage Backdrop Specification
+## Project: "Quang Ninh 2076 — A Dream About the Future"
+### Version: 2.0 (Theatrical Stage Backdrop Edition)
 
 ---
 
-## 1. Cấu trúc Thư mục Độc lập (Option B)
+## 1. Architectural Philosophy: Theatrical Stage Backdrop
 
-```
-Future_City/
-├── index.html                     # Entrypoint chứa cấu trúc HTML của các slide
-├── assets/
-│   ├── css/
-│   │   ├── design-tokens.css      # Hệ thống biến 3 lớp (Primitive → Semantic → Component)
-│   │   ├── viewport.css           # Căn chỉnh Canvas cố định 16:9 (1920x1080) và Stage HUD
-│   │   ├── animations.css         # Keyframes, glow neon, radar scan, warp tunnel
-│   │   └── slides.css             # Định dạng layout chuyên biệt cho từng Slide
-│   ├── js/
-│   │   ├── deck-stage.js          # Engine tự động co giãn ma trận transform theo viewport
-│   │   ├── sound-effects.js       # Bộ tổng hợp âm thanh Sci-Fi (Web Audio API) không cần file ngoài
-│   │   ├── particles.js           # Hệ thống hạt canvas tương tác chuột & chế độ bẻ cong không-thời gian
-│   │   └── presentation.js        # Bộ điều khiển chuyển cảnh, hotkeys bàn phím, countdown logic
-│   └── media/                     # Thư mục sẵn sàng để đưa thêm video/ảnh thực tế
-└── docs/
-    └── design-system-spec.md      # Bản đặc tả kỹ thuật này
-```
+The slides serve strictly as **Visual Stage Backdrops** projected behind the live actors on stage:
+1. **Zero Dialogue Duplication**: Actors speak their script live on stage; slides project atmospheric environments, scenic landscape statistics, and thematic visual cues.
+2. **Zero Visible UI Chrome**: No buttons, navigation chevrons, or prompt cues visible to the audience. The control is 100% invisible via keyboard hotkeys (`Space`, `→`, `←`, `F`, `M`, `1-4`) operated from the audio/visual booth, or smooth side edge-clicks.
+3. **100% English Presentation**: All titles, metadata, tags, and metrics are presented in elegant, concise English.
 
 ---
 
-## 2. Hệ Thống Design Tokens (3 Layers)
+## 2. Character Matrix Architecture (4x3 Balanced Grid)
 
-### Lớp 1: Primitive Tokens (Giá trị cốt lõi)
-- **Bảng màu Biển & Không Gian**: `--primitive-color-navy-950` (`#030712`), `--primitive-color-navy-900` (`#0b1329`), `--primitive-color-navy-800` (`#111d40`).
-- **Bảng màu Sinh thái & Vịnh Hạ Long**: `--primitive-color-cyan-400` (`#22d3ee`), `--primitive-color-emerald-400` (`#34d399`), `--primitive-color-emerald-500` (`#10b981`).
-- **Bảng màu Công nghệ Viễn tưởng**: `--primitive-color-violet-500` (`#8b5cf6`), `--primitive-color-magenta-400` (`#e879f9`), `--primitive-color-blue-500` (`#3b82f6`).
-- **Bảng màu Di sản & Đất mỏ**: `--primitive-color-amber-400` (`#fbbf24`), `--primitive-color-coal-900` (`#0f172a`).
+In Slide 2, all 12 characters are presented in a unified 4x3 responsive matrix that fills the 1920×1080 stage with zero awkward empty space:
 
-### Lớp 2: Semantic Tokens (Ý nghĩa bối cảnh)
-- Nền Slide: `--bg-slide` (Radial Gradient chiều sâu từ `#0d1b3e` ra đen không gian).
-- Thẻ Kính (Glassmorphism): `--bg-surface-glass` (`rgba(17, 29, 64, 0.65)` với `backdrop-filter: blur(16px)`).
-- Hiệu ứng phát quang (Glow): `--glow-cyan`, `--glow-violet`, `--glow-emerald`.
-
-### Lớp 3: Component Tokens (Phần tử giao diện)
-- Khung hình chuẩn: `--stage-width: 1920px`, `--stage-height: 1080px`.
-- Thẻ nhân vật, huy hiệu phân cảnh, nút điều hướng HUD, khối đối thoại kịch bản.
-
----
-
-## 3. Nội Dung Phân Cảnh 1 (Scene 1: A Dream About the Future)
-
-| Slide | Tên phân cảnh | Mô tả nội dung & Kịch học | Visual & Âm thanh |
-| :---: | :--- | :--- | :--- |
-| **1** | **Hero Deck: A Dream About the Future** | Mở màn vở kịch. Giới thiệu chuyến du hành Quảng Ninh 2026 $\rightarrow$ 2076. | Hiệu ứng nổi bồng bềnh, chữ gradient kim loại, nhạc dạo đầu dịu êm. |
-| **2** | **Dramatis Personae (12 Nhân vật)** | Giới thiệu 3 nhóm tuyến nhân vật: Thế hệ 2026 (Minh, Lan, Narrator), Sứ giả 2076 (Alex, ROBO, Thị trưởng), và Chuyên gia kiến tạo (Kỹ sư, Nhà khoa học, v.v.). | Grid 3 cột chia màu hologram (Cyan, Violet, Emerald), hover card dịch chuyển. |
-| **3** | **Scene 1: Quang Ninh 2026** | Minh và Lan ngắm bản đồ quê hương, đối thoại về vẻ đẹp Hạ Long và ước mơ xe bay/robot nhưng bảo vệ thiên nhiên. | Split-layout: Bên trái trích dẫn thoại nhân vật; bên phải 3 khối biểu tượng (Hạ Long, Mỏ than, Ước mơ). |
-| **4** | **The Time Portal (3... 2... 1!)** | Alex và Robot ROBO (99.99% IQ) xuất hiện. Khởi động cổng không-thời gian nhảy vọt 50 năm. | Vòng xoáy lượng tử Sci-Fi quay ngược chiều, đếm ngược `3... 2... 1!`, bẻ cong hạt vi lượng (Warp speed) kèm âm thanh rít không gian. |
+| Character | Actor | Role Category | Custom Pixel Art Element |
+| :--- | :--- | :--- | :--- |
+| **Narrator** | Tùng Lâm | Prologue Guide (Cyan) | Vintage Gold/Cyan Stage Microphone |
+| **Minh (2026)** | Khánh Duy | Inquisitive Youth (Cyan) | Forward Cap & Blue School Jacket |
+| **Lan (2026)** | Anh Huy | Ecological Guardian (Cyan) | Botanical Leaf Hairpin & Emerald Sweater |
+| **Alex (2076)** | Việt Hà | Temporal Guide (Violet) | Cybernetic Neon Visor & Purple Transit Collar |
+| **ROBO AI** | Thanh Hà | 99.99% Autonomous Core (Violet) | Cyan Android Head with Glowing LED Pixels |
+| **Future Mayor** | Thanh Sơn | Civic Governance (Violet) | Holographic Mayoral Crest & Indigo Suit |
+| **Tech Engineer** | Duy Phong | Infrastructure & Mobility (Emerald) | High-Vis Yellow Helmet with Cyber Goggles |
+| **Eco Scientist** | Hà Chi | Marine Restoration (Emerald) | Lab Goggles & Ocean Water Test Flask |
+| **Tourism Director** | Minh Nguyệt | Culture & Eco-Resorts (Emerald) | Subsea Diving Visor & Heritage Pagoda Crest |
+| **Smart Doctor** | Quỳnh Chi | AI Diagnostic Medicine (Emerald) | Medical White Coat & Red Cross Pixel Badge |
+| **Marine Fisherman** | Yến Nhi | Sustainable Oceanic Trade (Amber) | Navy Sailor Beanie & Acoustic Anchor |
+| **Elderly Miner** | Hải Nam | Coal Basin Heritage (Amber) | Traditional Hardhat with Glowing Headlamp |
 
 ---
 
-## 4. Hướng Dẫn Điều Khiển Sân Khấu
+## 3. Scene 1 Theatrical Backdrops
 
-- **Chuyển slide tới**: Nhấn phím `Space`, `ArrowRight` ($\rightarrow$), `PageDown` hoặc bấm nút **Tiếp** trên thanh điều khiển.
-- **Lùi lại slide trước**: Nhấn phím `ArrowLeft` ($\leftarrow$), `PageUp` hoặc bấm nút **Trước**.
-- **Chế độ toàn màn hình**: Nhấn phím `F` hoặc nút **F11** trên HUD để bung trọn màn hình trình chiếu máy chiếu/tivi.
-- **Bật / Tắt âm thanh**: Nhấn phím `M` hoặc bấm nút **Sound** trên HUD.
-- **Nhảy nhanh slide**: Nhấn phím số `1`, `2`, `3`, `4` trên bàn phím.
+- **Slide 1 — Hero Opening**:
+  - `2026 ─────── ◆ ─────── 2076` timeline bridge.
+  - Large display typography: *"A DREAM ABOUT THE FUTURE"*.
+  - 4 foundational pillar chips: Smart Metropolis, Ha Long Reborn, Mining Heritage, Human Progress.
+
+- **Slide 2 — Dramatis Personae**:
+  - High-density 4x3 grid with custom SVG pixel-art avatars, role tags, and character themes.
+
+- **Slide 3 — Scene 1: Quang Ninh 2026 (Theatrical Backdrop)**:
+  - Triptych panoramic landscape backdrop supporting Minh & Lan's conversation:
+    - *Pillar 01 (Nature)*: Ha Long Bay Sanctuary (`1,969 Limestone Karst Formations`).
+    - *Pillar 02 (Aspiration)*: The Genesis of a Dream (`50 Years Horizon: 2026 ➔ 2076`).
+    - *Pillar 03 (Industry)*: The Coal Basin Cradle (`140+ Years Industrial Mining Heritage`).
+
+- **Slide 4 — The Quantum Warp (3... 2... 1!)**:
+  - Fullscreen gyroscope quantum portal with counter `3... 2... 1! ➔ 2076`.
+  - Hyperspace light streaks and Web Audio API warp whoosh + robot chirp sound triggers.
+
+---
+
+## 4. Stage Control Hotkeys (AV Booth Operator)
+
+- `Space` / `ArrowRight` ($\rightarrow$) / `PageDown`: Advance to next backdrop.
+- `ArrowLeft` ($\leftarrow$) / `PageUp`: Return to previous backdrop.
+- `F` / `f`: Toggle full-screen presentation mode (`1920x1080` pixel-perfect scaling).
+- `M` / `m`: Mute or unmute synthesized sound effects.
+- `1`, `2`, `3`, `4`: Instant jump to Slide 1, 2, 3, or 4.

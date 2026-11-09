@@ -1,64 +1,53 @@
 /**
- * Presentation Controller - Master Orchestrator
- * Connects DeckStage, SoundEffects, and ParticleSystem with keyboard navigation.
+ * Presentation Controller - Audience Stage Backdrop Edition
+ * Zero visible UI chrome. Seamless keyboard & edge-click navigation.
  */
 
 document.addEventListener('DOMContentLoaded', () => {
-  // Initialize Core Subsystems
   const stageManager = new DeckStageManager();
   const sfx = new SoundEffects();
   const particles = new ParticleSystem('stageParticles');
 
   const slides = document.querySelectorAll('.slide');
-  const counterEl = document.getElementById('slideCounter');
-  const muteBtn = document.getElementById('btnMute');
-  const fullscreenBtn = document.getElementById('btnFullscreen');
-  const prevBtn = document.getElementById('btnPrev');
-  const nextBtn = document.getElementById('btnNext');
-
+  const indicatorEl = document.getElementById('slideIndicator');
   let currentIndex = 0;
   const totalSlides = slides.length;
 
-  function updateSlide(newIndex, reason = 'nav') {
+  function updateSlide(newIndex) {
     if (newIndex < 0 || newIndex >= totalSlides) return;
 
-    // Remove active from previous
     slides[currentIndex].classList.remove('active');
-
     currentIndex = newIndex;
     slides[currentIndex].classList.add('active');
 
-    // Update HUD Counter
-    if (counterEl) {
-      counterEl.textContent = `${currentIndex + 1} / ${totalSlides}`;
+    // Update discrete audience indicator
+    if (indicatorEl) {
+      indicatorEl.textContent = `SCENE 1 // SLIDE 0${currentIndex + 1}`;
     }
 
-    // Trigger Slide-specific behaviors & Sound cues
-    handleSlideTriggers(currentIndex);
+    // Trigger scene-specific audio and visual state
+    handleSlideCues(currentIndex);
   }
 
-  function handleSlideTriggers(index) {
+  function handleSlideCues(index) {
     sfx.playClick();
 
     if (index === 0) {
-      // Hero opening
+      // Slide 1: Hero Opening
       particles.setWarpMode(false);
       sfx.playChime();
     } else if (index === 1) {
-      // Cast list
+      // Slide 2: 12-Character Pixel Matrix
       particles.setWarpMode(false);
     } else if (index === 2) {
-      // Scene 1: 2026 discussion
+      // Slide 3: Scene 1 Environmental Backdrop (2026)
       particles.setWarpMode(false);
     } else if (index === 3) {
-      // Time Travel Portal: Activate Warp Mode & SFX
+      // Slide 4: Quantum Portal Warp
       particles.setWarpMode(true);
       sfx.playWarp();
-      setTimeout(() => {
-        sfx.playRobotBeep();
-      }, 1400);
+      setTimeout(() => sfx.playRobotBeep(), 1200);
 
-      // Trigger countdown visual animation
       runCountdown();
     }
   }
@@ -69,8 +58,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const sequence = ['3', '2', '1', '2076!'];
     let step = 0;
-
     countdownEl.textContent = sequence[0];
+
     const timer = setInterval(() => {
       step++;
       if (step < sequence.length) {
@@ -82,7 +71,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }, 700);
   }
 
-  // Navigation handlers
+  // Navigation commands
   function nextSlide() {
     if (currentIndex < totalSlides - 1) {
       updateSlide(currentIndex + 1);
@@ -95,7 +84,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  // Keyboard navigation
+  // Keyboard navigation (Technician / Presenter hotkeys)
   window.addEventListener('keydown', (e) => {
     switch (e.key) {
       case 'ArrowRight':
@@ -111,11 +100,15 @@ document.addEventListener('DOMContentLoaded', () => {
         break;
       case 'f':
       case 'F':
-        toggleFullscreen();
+        if (!document.fullscreenElement) {
+          document.documentElement.requestFullscreen().catch(() => {});
+        } else {
+          document.exitFullscreen().catch(() => {});
+        }
         break;
       case 'm':
       case 'M':
-        toggleMute();
+        sfx.toggleMute();
         break;
       case '1':
       case '2':
@@ -127,45 +120,17 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // HUD Button Click Events
-  if (nextBtn) nextBtn.addEventListener('click', nextSlide);
-  if (prevBtn) prevBtn.addEventListener('click', prevSlide);
-
-  if (muteBtn) {
-    muteBtn.addEventListener('click', toggleMute);
-  }
-
-  function toggleMute() {
-    const isMuted = sfx.toggleMute();
-    if (muteBtn) {
-      muteBtn.innerHTML = isMuted
-        ? '<span class="icon">🔇</span> <span>Muted</span>'
-        : '<span class="icon">🔊</span> <span>Sound</span>';
-      muteBtn.style.opacity = isMuted ? '0.6' : '1';
-    }
-  }
-
-  if (fullscreenBtn) {
-    fullscreenBtn.addEventListener('click', toggleFullscreen);
-  }
-
-  function toggleFullscreen() {
-    if (!document.fullscreenElement) {
-      document.documentElement.requestFullscreen().catch(() => {});
-    } else {
-      document.exitFullscreen().catch(() => {});
-    }
-  }
-
-  // Global Start Button on Hero Slide
-  const startBtn = document.getElementById('btnStartPresentation');
-  if (startBtn) {
-    startBtn.addEventListener('click', () => {
-      sfx.ensureContext();
+  // Edge-click navigation (Click right edge to advance, left to go back)
+  window.addEventListener('click', (e) => {
+    sfx.ensureContext();
+    const width = window.innerWidth;
+    if (e.clientX > width * 0.75) {
       nextSlide();
-    });
-  }
+    } else if (e.clientX < width * 0.25) {
+      prevSlide();
+    }
+  });
 
   // Initialize first slide
-  updateSlide(0, 'init');
+  updateSlide(0);
 });

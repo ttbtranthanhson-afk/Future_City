@@ -1,16 +1,16 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Quang Ninh 2076 — Stage Presentation (Scene 1)</title>
+  <title>Quang Ninh 2076 — Theatrical Stage Backdrop (Scene 1)</title>
 
-  <!-- Typography: Space Grotesk, Orbitron, Plus Jakarta Sans, JetBrains Mono -->
+  <!-- Google Typography: Space Grotesk, Orbitron, Plus Jakarta Sans, JetBrains Mono -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Orbitron:wght@600;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
 
-  <!-- Modular CSS (Option B Architecture) -->
+  <!-- Modular Stylesheets (Option B Architecture) -->
   <link rel="stylesheet" href="assets/css/design-tokens.css">
   <link rel="stylesheet" href="assets/css/viewport.css">
   <link rel="stylesheet" href="assets/css/animations.css">
@@ -18,32 +18,35 @@
 </head>
 <body>
 
-  <!-- Viewport Outer Container -->
+  <!-- Full-Window Stage Viewport -->
   <div class="deck-viewport">
     
     <!-- 1920x1080 Fixed Canvas Stage -->
     <main class="deck-stage" id="deckStage">
       
-      <!-- Interactive Background Particle Canvas -->
+      <!-- Interactive Particle Atmosphere Canvas -->
       <canvas id="stageParticles" class="stage-canvas-bg"></canvas>
 
+      <!-- Discreet Stage Slide Indicator for AV Tech -->
+      <div class="stage-slide-indicator" id="slideIndicator">SCENE 1 // SLIDE 01</div>
+
       <!-- ====================================================================
-           SLIDE 1: HERO TITLE & OVERVIEW
+           SLIDE 1: HERO TITLE BACKDROP
            ==================================================================== -->
-      <section class="slide active" data-slide="1" data-label="Title Deck">
+      <section class="slide active" data-slide="1" data-label="Title Stage">
         <header class="slide-header">
           <div class="brand-tag">
             <span class="brand-dot"></span>
-            <span>Quang Ninh Future Vision</span>
+            <span>PROVINCE OF QUANG NINH // DRAMA PRESENTATION</span>
           </div>
-          <div class="slide-category">50-YEAR DRAMA PRESENTATION // 2026 → 2076</div>
+          <div class="slide-category">50-YEAR THEATRICAL JOURNEY // 2026 ➔ 2076</div>
         </header>
 
         <div class="slide-hero">
-          <div class="hero-meta reveal reveal-delay-1">
-            <span class="tag-year">2026 ➔ 2076</span>
-            <span class="tag-divider"></span>
-            <span class="tag-theme">ENGLISH DRAMA & FUTURE CITY VISION</span>
+          <div class="hero-timeline-bridge reveal reveal-delay-1">
+            <span class="bridge-node">2026</span>
+            <span class="bridge-line">──────── ◆ ────────</span>
+            <span class="bridge-node" style="color: #a855f7;">2076</span>
           </div>
 
           <h1 class="hero-title reveal reveal-delay-2 anim-float">
@@ -51,367 +54,467 @@
           </h1>
 
           <p class="hero-subtitle reveal reveal-delay-3">
-            Hành trình khám phá <strong>Quảng Ninh 2076</strong> — Nơi công nghệ trí tuệ nhân tạo, năng lượng sạch và kỳ quan vịnh biển Hạ Long hòa quyện trong một tương lai thịnh vượng, bền vững.
+            Where ancient limestone wonders meet the dawn of <strong>clean energy</strong>, <strong>artificial intelligence</strong>, and <strong>sustainable prosperity</strong>.
           </p>
 
-          <div class="hero-action-box reveal reveal-delay-4">
-            <button class="btn-primary" id="btnStartPresentation">
-              <span>BẮT ĐẦU CHUYẾN DU HÀNH</span>
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                <line x1="5" y1="12" x2="19" y2="12"></line>
-                <polyline points="12 5 19 12 12 19"></polyline>
+          <div class="hero-pillars-row reveal reveal-delay-4">
+            <div class="hero-pillar-chip">
+              <span class="chip-dot" style="background: #22d3ee; box-shadow: 0 0 10px #22d3ee;"></span>
+              <span>SMART METROPOLIS</span>
+            </div>
+            <div class="hero-pillar-chip">
+              <span class="chip-dot" style="background: #10b981; box-shadow: 0 0 10px #10b981;"></span>
+              <span>HA LONG REBORN</span>
+            </div>
+            <div class="hero-pillar-chip">
+              <span class="chip-dot" style="background: #f59e0b; box-shadow: 0 0 10px #f59e0b;"></span>
+              <span>MINING HERITAGE</span>
+            </div>
+            <div class="hero-pillar-chip">
+              <span class="chip-dot" style="background: #a855f7; box-shadow: 0 0 10px #a855f7;"></span>
+              <span>HUMAN PROGRESS</span>
+            </div>
+          </div>
+        </div>
+
+        <footer class="slide-footer">
+          <div class="footer-location">
+            <span class="loc-dot"></span>
+            <span>NORTHERN VIETNAM COASTAL ECONOMIC ZONE</span>
+          </div>
+          <div class="footer-coords">20°57' N // 107°05' E</div>
+        </footer>
+      </section>
+
+      <!-- ====================================================================
+           SLIDE 2: 12-CHARACTER PIXEL ROSTER (BALANCED 4x3 GRID)
+           ==================================================================== -->
+      <section class="slide" data-slide="2" data-label="Dramatis Personae">
+        <header class="slide-header">
+          <div class="brand-tag">
+            <span class="brand-dot"></span>
+            <span>DRAMATIS PERSONAE</span>
+          </div>
+          <div class="slide-category">12 CHARACTERS // 3 GENERATIONS</div>
+        </header>
+
+        <div class="cast-section-header">
+          <h2 class="cast-section-title">THE VOICES OF QUANG NINH</h2>
+          <p class="cast-section-desc">Twelve perspectives uniting past sacrifices, present dreams, and future innovations.</p>
+        </div>
+
+        <!-- 4 Columns x 3 Rows = 12 Balanced Cards -->
+        <div class="character-matrix-grid">
+
+          <!-- 1. Narrator -->
+          <div class="character-card theme-cyan reveal reveal-delay-1">
+            <div class="pixel-avatar-frame">
+              <svg viewBox="0 0 16 16">
+                <!-- Retro Microphone / Scroll -->
+                <rect x="6" y="2" width="4" height="6" fill="#38bdf8"/>
+                <rect x="5" y="4" width="6" height="3" fill="#22d3ee"/>
+                <rect x="7" y="8" width="2" height="4" fill="#cbd5e1"/>
+                <rect x="5" y="12" width="6" height="2" fill="#94a3b8"/>
+                <rect x="4" y="5" width="1" height="3" fill="#ffffff"/>
               </svg>
-            </button>
-            <div class="keyboard-hint">
-              Nhấn <kbd>Space</kbd> hoặc phím <kbd>→</kbd> để chuyển cảnh
+            </div>
+            <div class="character-details">
+              <div class="character-meta-row">
+                <span class="character-name">Narrator</span>
+                <span class="character-actor">Tùng Lâm</span>
+              </div>
+              <span class="character-tag">Prologue Guide</span>
+              <span class="character-focus">Weaving historical memory and future vision</span>
             </div>
           </div>
+
+          <!-- 2. Minh -->
+          <div class="character-card theme-cyan reveal reveal-delay-1">
+            <div class="pixel-avatar-frame">
+              <svg viewBox="0 0 16 16">
+                <!-- Youth with Cap -->
+                <rect x="4" y="2" width="8" height="3" fill="#3b82f6"/>
+                <rect x="11" y="4" width="3" height="1" fill="#3b82f6"/>
+                <rect x="5" y="5" width="6" height="5" fill="#fed7aa"/>
+                <rect x="6" y="7" width="1" height="1" fill="#1e293b"/>
+                <rect x="9" y="7" width="1" height="1" fill="#1e293b"/>
+                <rect x="4" y="10" width="8" height="5" fill="#0284c7"/>
+              </svg>
+            </div>
+            <div class="character-details">
+              <div class="character-meta-row">
+                <span class="character-name">Minh (2026)</span>
+                <span class="character-actor">Khánh Duy</span>
+              </div>
+              <span class="character-tag">Inquisitive Youth</span>
+              <span class="character-focus">Dreaming of flying transit and smart robotics</span>
+            </div>
+          </div>
+
+          <!-- 3. Lan -->
+          <div class="character-card theme-cyan reveal reveal-delay-1">
+            <div class="pixel-avatar-frame">
+              <svg viewBox="0 0 16 16">
+                <!-- Student with Botanical Hairpin -->
+                <rect x="4" y="2" width="8" height="4" fill="#78350f"/>
+                <rect x="3" y="4" width="2" height="2" fill="#10b981"/>
+                <rect x="5" y="5" width="6" height="5" fill="#fed7aa"/>
+                <rect x="6" y="7" width="1" height="1" fill="#0f172a"/>
+                <rect x="9" y="7" width="1" height="1" fill="#0f172a"/>
+                <rect x="4" y="10" width="8" height="5" fill="#059669"/>
+              </svg>
+            </div>
+            <div class="character-details">
+              <div class="character-meta-row">
+                <span class="character-name">Lan (2026)</span>
+                <span class="character-actor">Anh Huy</span>
+              </div>
+              <span class="character-tag">Ecological Guardian</span>
+              <span class="character-focus">Dedicated to safeguarding Ha Long Bay's serenity</span>
+            </div>
+          </div>
+
+          <!-- 4. Alex -->
+          <div class="character-card theme-violet reveal reveal-delay-2">
+            <div class="pixel-avatar-frame" style="border-color: #a855f7;">
+              <svg viewBox="0 0 16 16">
+                <!-- Time Guide with Cyber Visor -->
+                <rect x="4" y="2" width="8" height="4" fill="#4c1d95"/>
+                <rect x="4" y="6" width="8" height="2" fill="#f43f5e"/>
+                <rect x="5" y="8" width="6" height="3" fill="#fed7aa"/>
+                <rect x="3" y="11" width="10" height="4" fill="#7c3aed"/>
+                <rect x="7" y="12" width="2" height="3" fill="#22d3ee"/>
+              </svg>
+            </div>
+            <div class="character-details">
+              <div class="character-meta-row">
+                <span class="character-name">Alex (2076)</span>
+                <span class="character-actor">Việt Hà</span>
+              </div>
+              <span class="character-tag" style="color: #c084fc;">Temporal Guide</span>
+              <span class="character-focus">Piloting the 50-year quantum transition</span>
+            </div>
+          </div>
+
+          <!-- 5. ROBO -->
+          <div class="character-card theme-violet reveal reveal-delay-2">
+            <div class="pixel-avatar-frame" style="border-color: #22d3ee;">
+              <svg viewBox="0 0 16 16">
+                <!-- Cybernetic AI Robot -->
+                <rect x="7" y="1" width="2" height="2" fill="#06b6d4"/>
+                <rect x="4" y="3" width="8" height="7" fill="#1e293b"/>
+                <rect x="5" y="5" width="2" height="2" fill="#22d3ee"/>
+                <rect x="9" y="5" width="2" height="2" fill="#22d3ee"/>
+                <rect x="6" y="8" width="4" height="1" fill="#38bdf8"/>
+                <rect x="3" y="11" width="10" height="4" fill="#0f172a"/>
+              </svg>
+            </div>
+            <div class="character-details">
+              <div class="character-meta-row">
+                <span class="character-name">ROBO AI</span>
+                <span class="character-actor">Thanh Hà</span>
+              </div>
+              <span class="character-tag" style="color: #22d3ee;">99.99% Autonomous Core</span>
+              <span class="character-focus">Augmenting human intellect and civic daily life</span>
+            </div>
+          </div>
+
+          <!-- 6. Future Mayor -->
+          <div class="character-card theme-violet reveal reveal-delay-2">
+            <div class="pixel-avatar-frame" style="border-color: #a855f7;">
+              <svg viewBox="0 0 16 16">
+                <!-- Civic Leader with Holographic Sash -->
+                <rect x="4" y="2" width="8" height="4" fill="#1e1b4b"/>
+                <rect x="5" y="5" width="6" height="5" fill="#fde68a"/>
+                <rect x="6" y="7" width="1" height="1" fill="#0f172a"/>
+                <rect x="9" y="7" width="1" height="1" fill="#0f172a"/>
+                <rect x="3" y="10" width="10" height="5" fill="#312e81"/>
+                <rect x="7" y="10" width="2" height="5" fill="#fbbf24"/>
+              </svg>
+            </div>
+            <div class="character-details">
+              <div class="character-meta-row">
+                <span class="character-name">Future Mayor</span>
+                <span class="character-actor">Thanh Sơn</span>
+              </div>
+              <span class="character-tag" style="color: #c084fc;">Civic Governance</span>
+              <span class="character-focus">Harmonizing economic power and green ecology</span>
+            </div>
+          </div>
+
+          <!-- 7. Tech Engineer -->
+          <div class="character-card theme-emerald reveal reveal-delay-3">
+            <div class="pixel-avatar-frame" style="border-color: #10b981;">
+              <svg viewBox="0 0 16 16">
+                <!-- Engineer with Goggles -->
+                <rect x="4" y="2" width="8" height="3" fill="#eab308"/>
+                <rect x="4" y="5" width="8" height="2" fill="#0284c7"/>
+                <rect x="5" y="7" width="6" height="3" fill="#fed7aa"/>
+                <rect x="3" y="10" width="10" height="5" fill="#047857"/>
+                <rect x="7" y="11" width="2" height="4" fill="#facc15"/>
+              </svg>
+            </div>
+            <div class="character-details">
+              <div class="character-meta-row">
+                <span class="character-name">Tech Engineer</span>
+                <span class="character-actor">Duy Phong</span>
+              </div>
+              <span class="character-tag" style="color: #34d399;">Infrastructure & Mobility</span>
+              <span class="character-focus">Pioneering flying transit and subterranean rails</span>
+            </div>
+          </div>
+
+          <!-- 8. Environmental Scientist -->
+          <div class="character-card theme-emerald reveal reveal-delay-3">
+            <div class="pixel-avatar-frame" style="border-color: #10b981;">
+              <svg viewBox="0 0 16 16">
+                <!-- Eco Scientist with Test Flask -->
+                <rect x="4" y="2" width="8" height="4" fill="#064e3b"/>
+                <rect x="5" y="5" width="6" height="4" fill="#fed7aa"/>
+                <rect x="6" y="6" width="1" height="1" fill="#0f172a"/>
+                <rect x="9" y="6" width="1" height="1" fill="#0f172a"/>
+                <rect x="3" y="9" width="10" height="6" fill="#f8fafc"/>
+                <rect x="7" y="11" width="2" height="3" fill="#10b981"/>
+              </svg>
+            </div>
+            <div class="character-details">
+              <div class="character-meta-row">
+                <span class="character-name">Eco Scientist</span>
+                <span class="character-actor">Hà Chi</span>
+              </div>
+              <span class="character-tag" style="color: #34d399;">Marine Restoration</span>
+              <span class="character-focus">Eliminating microplastics & purifying coastal waters</span>
+            </div>
+          </div>
+
+          <!-- 9. Tourism Director -->
+          <div class="character-card theme-emerald reveal reveal-delay-3">
+            <div class="pixel-avatar-frame" style="border-color: #10b981;">
+              <svg viewBox="0 0 16 16">
+                <!-- Marine Explorer / Pagoda Crest -->
+                <rect x="4" y="2" width="8" height="4" fill="#134e4a"/>
+                <rect x="5" y="5" width="6" height="4" fill="#fde68a"/>
+                <rect x="6" y="6" width="1" height="1" fill="#0f172a"/>
+                <rect x="9" y="6" width="1" height="1" fill="#0f172a"/>
+                <rect x="3" y="9" width="10" height="6" fill="#0f766e"/>
+                <rect x="7" y="11" width="2" height="2" fill="#2dd4bf"/>
+              </svg>
+            </div>
+            <div class="character-details">
+              <div class="character-meta-row">
+                <span class="character-name">Tourism Director</span>
+                <span class="character-actor">Minh Nguyệt</span>
+              </div>
+              <span class="character-tag" style="color: #34d399;">Culture & Eco-Resorts</span>
+              <span class="character-focus">Subsea glass tunnels & Yen Tu heritage preservation</span>
+            </div>
+          </div>
+
+          <!-- 10. Smart Doctor -->
+          <div class="character-card theme-emerald reveal reveal-delay-3">
+            <div class="pixel-avatar-frame" style="border-color: #10b981;">
+              <svg viewBox="0 0 16 16">
+                <!-- Doctor with Red Cross -->
+                <rect x="4" y="2" width="8" height="4" fill="#1e293b"/>
+                <rect x="5" y="5" width="6" height="4" fill="#fed7aa"/>
+                <rect x="6" y="6" width="1" height="1" fill="#0f172a"/>
+                <rect x="9" y="6" width="1" height="1" fill="#0f172a"/>
+                <rect x="3" y="9" width="10" height="6" fill="#f1f5f9"/>
+                <rect x="7" y="11" width="2" height="3" fill="#ef4444"/>
+                <rect x="6.5" y="12" width="3" height="1" fill="#ef4444"/>
+              </svg>
+            </div>
+            <div class="character-details">
+              <div class="character-meta-row">
+                <span class="character-name">Smart Doctor</span>
+                <span class="character-actor">Quỳnh Chi</span>
+              </div>
+              <span class="character-tag" style="color: #34d399;">AI Diagnostic Medicine</span>
+              <span class="character-focus">Early predictive screening & universal healthcare</span>
+            </div>
+          </div>
+
+          <!-- 11. Marine Fisherman -->
+          <div class="character-card theme-amber reveal reveal-delay-3">
+            <div class="pixel-avatar-frame" style="border-color: #f59e0b;">
+              <svg viewBox="0 0 16 16">
+                <!-- Sailor with Maritime Beanie -->
+                <rect x="4" y="2" width="8" height="3" fill="#0369a1"/>
+                <rect x="5" y="5" width="6" height="4" fill="#fed7aa"/>
+                <rect x="6" y="6" width="1" height="1" fill="#0f172a"/>
+                <rect x="9" y="6" width="1" height="1" fill="#0f172a"/>
+                <rect x="3" y="9" width="10" height="6" fill="#075985"/>
+                <rect x="7" y="11" width="2" height="3" fill="#f59e0b"/>
+              </svg>
+            </div>
+            <div class="character-details">
+              <div class="character-meta-row">
+                <span class="character-name">Marine Fisherman</span>
+                <span class="character-actor">Yến Nhi</span>
+              </div>
+              <span class="character-tag" style="color: #fbbf24;">Sustainable Oceanic Trade</span>
+              <span class="character-focus">Strict anti-overfishing sensors & marine stewardship</span>
+            </div>
+          </div>
+
+          <!-- 12. Veteran Miner -->
+          <div class="character-card theme-amber reveal reveal-delay-3">
+            <div class="pixel-avatar-frame" style="border-color: #f59e0b;">
+              <svg viewBox="0 0 16 16">
+                <!-- Miner with Glowing Headlamp -->
+                <rect x="4" y="2" width="8" height="3" fill="#475569"/>
+                <rect x="7" y="1" width="2" height="2" fill="#fbbf24"/>
+                <rect x="5" y="5" width="6" height="4" fill="#fed7aa"/>
+                <rect x="5" y="8" width="6" height="2" fill="#94a3b8"/>
+                <rect x="3" y="10" width="10" height="5" fill="#1e293b"/>
+              </svg>
+            </div>
+            <div class="character-details">
+              <div class="character-meta-row">
+                <span class="character-name">Elderly Miner</span>
+                <span class="character-actor">Hải Nam</span>
+              </div>
+              <span class="character-tag" style="color: #fbbf24;">Coal Basin Heritage</span>
+              <span class="character-focus">Honoring ancestral toil & automated safety mining</span>
+            </div>
+          </div>
+
         </div>
 
         <footer class="slide-footer">
-          <div class="speaker-cue">
-            <span class="cue-badge">CUE:</span>
-            <span>Mở màn kịch bản — Nhạc dạo đầu vịnh biển êm đềm</span>
+          <div class="footer-location">
+            <span class="loc-dot" style="background: #a855f7;"></span>
+            <span>CAST OF CHARACTERS // 12 ROLES UNITED</span>
           </div>
-          <div class="brand-tag">SCENE 1 : PROLOGUE</div>
+          <div class="footer-coords">SECTION: DRAMATIS PERSONAE</div>
         </footer>
       </section>
 
       <!-- ====================================================================
-           SLIDE 2: THE CAST & 50-YEAR JOURNEY
+           SLIDE 3: SCENE 1 BACKDROP — QUANG NINH 2026
            ==================================================================== -->
-      <section class="slide" data-slide="2" data-label="The Cast">
+      <section class="slide" data-slide="3" data-label="Scene 1 Setting">
         <header class="slide-header">
           <div class="brand-tag">
             <span class="brand-dot"></span>
-            <span>Dramatis Personae</span>
+            <span>SCENE 01 // THEATRICAL BACKDROP</span>
           </div>
-          <div class="slide-category">12 CHARACTERS // 3 TIMELINES</div>
+          <div class="slide-category">TEMPORAL COORD: AUTUMN 2026</div>
         </header>
 
-        <div style="margin-bottom: 10px;">
-          <h2 style="font-family: var(--primitive-font-display); font-size: var(--primitive-text-h2); margin: 0 0 6px 0; color: #fff;">
-            ĐỘI NGŨ NHÂN VẬT & TUYẾN KỊCH BẢN
-          </h2>
-          <p style="font-size: 16px; color: var(--text-secondary); margin: 0;">
-            12 nhân vật đại diện cho quá khứ hào hùng, hiện tại nhiệt huyết và tương lai công nghệ xanh.
-          </p>
-        </div>
+        <!-- 3-Column Scenic Panorama (Visual Environment Backdrop) -->
+        <div class="scene-triptych-stage">
 
-        <div class="cast-grid">
-          <!-- Col 1: 2026 Generation -->
-          <div class="cast-column reveal reveal-delay-1">
-            <div class="cast-col-header">
-              <span class="cast-badge" style="background: rgba(34, 211, 238, 0.15); color: #22d3ee; border: 1px solid rgba(34, 211, 238, 0.4);">
-                Năm 2026
-              </span>
-              <h3 class="cast-col-title">Thế Hệ Hiện Tại</h3>
+          <!-- Left: Ecological Wonder -->
+          <div class="scene-scenic-panel reveal reveal-delay-1" style="--panel-accent: #22d3ee;">
+            <div>
+              <div class="panel-header-badge">
+                <span>🌊 PILLAR 01 // NATURE</span>
+              </div>
+              <h3 class="panel-title">HA LONG BAY SANCTUARY</h3>
+              <p class="panel-description">
+                A UNESCO World Heritage marvel crowned by thousands of ancient limestone islets. The emerald waters demand relentless conservation against urban and industrial runoff.
+              </p>
             </div>
-            <div class="cast-member-list">
-              <div class="cast-member-card">
-                <div class="cast-avatar">🎙️</div>
-                <div class="cast-info">
-                  <div class="name">Narrator <span class="actor">(Tùng Lâm)</span></div>
-                  <div class="role">Người dẫn chuyện dẫn lối câu chuyện</div>
-                </div>
-              </div>
-              <div class="cast-member-card">
-                <div class="cast-avatar">🎒</div>
-                <div class="cast-info">
-                  <div class="name">Minh <span class="actor">(Khánh Duy)</span></div>
-                  <div class="role">Học sinh 2026, tò mò về tương lai</div>
-                </div>
-              </div>
-              <div class="cast-member-card">
-                <div class="cast-avatar">✨</div>
-                <div class="cast-info">
-                  <div class="name">Lan <span class="actor">(Anh Huy)</span></div>
-                  <div class="role">Bạn của Minh, yêu thiên nhiên quê hương</div>
-                </div>
-              </div>
+
+            <div class="panel-stat-box">
+              <div class="stat-value">1,969</div>
+              <div class="stat-label">Limestone Karst Formations</div>
             </div>
           </div>
 
-          <!-- Col 2: 2076 Guides -->
-          <div class="cast-column reveal reveal-delay-2" style="border-color: var(--border-glow-violet);">
-            <div class="cast-col-header">
-              <span class="cast-badge" style="background: rgba(139, 92, 246, 0.2); color: #c084fc; border: 1px solid rgba(139, 92, 246, 0.4);">
-                Năm 2076
-              </span>
-              <h3 class="cast-col-title">Sứ Giả Tương Lai</h3>
+          <!-- Center: The Spark of Wonder -->
+          <div class="scene-scenic-panel reveal reveal-delay-2" style="--panel-accent: #a855f7; border-color: rgba(168, 85, 247, 0.3);">
+            <div>
+              <div class="panel-header-badge" style="color: #c084fc;">
+                <span>✨ PILLAR 02 // ASPIRATION</span>
+              </div>
+              <h3 class="panel-title">THE GENESIS OF A DREAM</h3>
+              <p class="panel-description">
+                Over an antique province map, youth curiosity sparks a timeless question: How will technological leapfrogging preserve our natural paradise over the next half-century?
+              </p>
             </div>
-            <div class="cast-member-list">
-              <div class="cast-member-card">
-                <div class="cast-avatar">🧭</div>
-                <div class="cast-info">
-                  <div class="name">Alex <span class="actor">(Việt Hà)</span></div>
-                  <div class="role">Hướng dẫn viên thời gian đến từ 2076</div>
-                </div>
-              </div>
-              <div class="cast-member-card">
-                <div class="cast-avatar">🤖</div>
-                <div class="cast-info">
-                  <div class="name">ROBO AI <span class="actor">(Thanh Hà)</span></div>
-                  <div class="role">Robot AI thông minh 99.99%</div>
-                </div>
-              </div>
-              <div class="cast-member-card">
-                <div class="cast-avatar">🏛️</div>
-                <div class="cast-info">
-                  <div class="name">Future Mayor <span class="actor">(Thanh Sơn)</span></div>
-                  <div class="role">Thị trưởng Quảng Ninh 2076</div>
-                </div>
-              </div>
+
+            <div class="panel-stat-box" style="border-color: rgba(168, 85, 247, 0.2);">
+              <div class="stat-value" style="color: #c084fc;">50 YEARS</div>
+              <div class="stat-label">Temporal Horizon: 2026 ➔ 2076</div>
             </div>
           </div>
 
-          <!-- Col 3: 2076 Experts & Heritage -->
-          <div class="cast-column reveal reveal-delay-3">
-            <div class="cast-col-header">
-              <span class="cast-badge" style="background: rgba(16, 185, 129, 0.15); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.4);">
-                Chuyên Gia & Di Sản
-              </span>
-              <h3 class="cast-col-title">Kiến Tạo Tương Lai</h3>
+          <!-- Right: Industrial Bedrock -->
+          <div class="scene-scenic-panel reveal reveal-delay-3" style="--panel-accent: #f59e0b;">
+            <div>
+              <div class="panel-header-badge" style="color: #fbbf24;">
+                <span>⛏️ PILLAR 03 // INDUSTRY</span>
+              </div>
+              <h3 class="panel-title">THE COAL BASIN CRADLE</h3>
+              <p class="panel-description">
+                Vietnam's premier energy cornerstone. Generations of coal miners fueled national modernization, paving the path toward an eco-friendly automated energy transition.
+              </p>
             </div>
-            <div class="cast-member-list">
-              <div class="cast-member-card">
-                <div class="cast-avatar">⚙️</div>
-                <div class="cast-info">
-                  <div class="name">Engineer <span class="actor">(Duy Phong)</span></div>
-                  <div class="role">Kỹ sư giao thông thông minh & xe bay</div>
-                </div>
-              </div>
-              <div class="cast-member-card">
-                <div class="cast-avatar">🌿</div>
-                <div class="cast-info">
-                  <div class="name">Scientist <span class="actor">(Hà Chi)</span></div>
-                  <div class="role">Nhà khoa học làm sạch vịnh Hạ Long</div>
-                </div>
-              </div>
-              <div class="cast-member-card">
-                <div class="cast-avatar">🏝️</div>
-                <div class="cast-info">
-                  <div class="name">Tourism Mgr <span class="actor">(Minh Nguyệt)</span></div>
-                  <div class="role">Quản lý bảo tàng ngầm & di sản Yên Tử</div>
-                </div>
-              </div>
-              <div class="cast-member-card">
-                <div class="cast-avatar">🩺</div>
-                <div class="cast-info">
-                  <div class="name">Doctor <span class="actor">(Quỳnh Chi)</span></div>
-                  <div class="role">Bác sĩ bệnh viện AI quốc tế</div>
-                </div>
-              </div>
-              <div class="cast-member-card">
-                <div class="cast-avatar">⚓</div>
-                <div class="cast-info">
-                  <div class="name">Fisherman <span class="actor">(Yến Nhi)</span></div>
-                  <div class="role">Ngư dân công nghệ biển bền vững</div>
-                </div>
-              </div>
-              <div class="cast-member-card">
-                <div class="cast-avatar">⛏️</div>
-                <div class="cast-info">
-                  <div class="name">Elderly Miner <span class="actor">(Hải Nam)</span></div>
-                  <div class="role">Thợ mỏ kỳ cựu - Ký ức đất mỏ than</div>
-                </div>
-              </div>
+
+            <div class="panel-stat-box" style="border-color: rgba(245, 158, 11, 0.2);">
+              <div class="stat-value" style="color: #fbbf24;">140+ YRS</div>
+              <div class="stat-label">Industrial Mining Heritage</div>
             </div>
           </div>
+
         </div>
 
         <footer class="slide-footer">
-          <div class="speaker-cue">
-            <span class="cue-badge">CUE:</span>
-            <span>Narrator: "Welcome to Quang Ninh, a beautiful province in northern Vietnam..."</span>
+          <div class="footer-location">
+            <span class="loc-dot"></span>
+            <span>LOCATION: PROVINCIAL MAP EXHIBITION // QUANG NINH 2026</span>
           </div>
-          <div class="brand-tag">CHARACTERS OVERVIEW</div>
+          <div class="footer-coords">TEMPORAL SHIFT IMMINENT</div>
         </footer>
       </section>
 
       <!-- ====================================================================
-           SLIDE 3: SCENE 1 - QUANG NINH 2026
+           SLIDE 4: THE QUANTUM WARP (3... 2... 1!)
            ==================================================================== -->
-      <section class="slide" data-slide="3" data-label="Scene 1: 2026">
+      <section class="slide" data-slide="4" data-label="Quantum Warp">
         <header class="slide-header">
           <div class="brand-tag">
-            <span class="brand-dot"></span>
-            <span>SCENE 1: A DREAM ABOUT THE FUTURE</span>
+            <span class="brand-dot" style="background: #a855f7; box-shadow: 0 0 15px #a855f7;"></span>
+            <span>QUANTUM LEAP TRANSIT PROTOCOL</span>
           </div>
-          <div class="slide-category">SETTING: QUANG NINH 2026</div>
+          <div class="slide-category">TEMPORAL DISPLACEMENT: +50 YEARS</div>
         </header>
 
-        <div class="split-layout">
-          <!-- Left Column: Story & Dialogue -->
-          <div class="scene-context-card reveal reveal-delay-1">
-            <div class="scan-line"></div>
-            <div class="scene-tag">HỌC SINH 2026 // ĐỐI THOẠI TRĂN TRỞ</div>
-            <h2 class="scene-headline">
-              QUẢNG NINH HÔM NAY & GIẤC MƠ VỀ 2076
-            </h2>
-            <p class="scene-desc">
-              Bên tấm bản đồ quê hương, hai bạn trẻ cùng chia sẻ những kỳ vọng về một thành phố hiện đại với xe bay và robot, nhưng không đánh mất vẻ đẹp nguyên sơ của vịnh Hạ Long.
-            </p>
-
-            <div class="dialogue-box">
-              <div class="dialogue-bubble">
-                <div class="dialogue-speaker">
-                  <span>🎒 MINH:</span>
-                </div>
-                <div class="dialogue-text">
-                  "Hey, Lan! Have you ever wondered what Quang Ninh will look like in 2076? I wish we could travel to the future and see it with our own eyes!"
-                </div>
-              </div>
-
-              <div class="dialogue-bubble" style="border-left-color: var(--primitive-color-emerald-400);">
-                <div class="dialogue-speaker" style="color: var(--primitive-color-emerald-400);">
-                  <span>✨ LAN:</span>
-                </div>
-                <div class="dialogue-text">
-                  "I think it will become a modern city with flying cars and robots! But I don't want our city to become so modern that we lose our natural beauty."
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Right Column: Visual Infographic Cards -->
-          <div class="visual-showcase reveal reveal-delay-2">
-            <div class="feature-pill-card">
-              <div class="feature-pill-icon">🌊</div>
-              <div class="feature-pill-content">
-                <h4>Kỳ quan Thiên nhiên Thế giới</h4>
-                <p>Vịnh Hạ Long với hàng ngàn đảo đá vôi kỳ vĩ cần được gìn giữ trong sạch cho muôn đời sau.</p>
-              </div>
-            </div>
-
-            <div class="feature-pill-card">
-              <div class="feature-pill-icon" style="background: rgba(245, 158, 11, 0.1);">⛏️</div>
-              <div class="feature-pill-content">
-                <h4 style="color: var(--primitive-color-amber-400);">Ngành Công Nghiệp Mỏ Than</h4>
-                <p>Nền tảng kinh tế truyền thống lâu đời của tỉnh, đặt ra bài toán chuyển đổi năng lượng xanh.</p>
-              </div>
-            </div>
-
-            <div class="feature-pill-card">
-              <div class="feature-pill-icon" style="background: rgba(139, 92, 246, 0.15);">⏳</div>
-              <div class="feature-pill-content">
-                <h4 style="color: var(--primitive-color-violet-500);">Khát vọng Du hành Thời gian</h4>
-                <p>Ước mơ của thế hệ trẻ được tận mắt chứng kiến quê hương sau đúng nửa thế kỷ (50 năm).</p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <footer class="slide-footer">
-          <div class="speaker-cue">
-            <span class="cue-badge">CUE:</span>
-            <span>(Đột nhiên có tiếng nhạc khoa học viễn tưởng vang lên. Alex & ROBO xuất hiện!)</span>
-          </div>
-          <div class="brand-tag">TIMELINE: YEAR 2026</div>
-        </footer>
-      </section>
-
-      <!-- ====================================================================
-           SLIDE 4: THE TIME PORTAL (3... 2... 1!)
-           ==================================================================== -->
-      <section class="slide" data-slide="4" data-label="Time Portal">
-        <header class="slide-header">
-          <div class="brand-tag">
-            <span class="brand-dot" style="background: var(--primitive-color-violet-500); box-shadow: var(--glow-violet);"></span>
-            <span>TIME WARP EVENT // 3... 2... 1!</span>
-          </div>
-          <div class="slide-category">QUANTUM LEAP: 2026 ➔ 2076</div>
-        </header>
-
-        <div class="portal-slide-container">
-          <!-- Left: Rotating Sci-Fi Vortex with Countdown -->
-          <div class="portal-visual-stage reveal-scale">
-            <div class="portal-rings portal-vortex"></div>
-            <div class="portal-rings-inner portal-vortex" style="animation-direction: reverse; animation-duration: 12s;"></div>
+        <div class="portal-stage-full">
+          <!-- Concentric Gyroscope Rings -->
+          <div class="portal-vortex-assembly reveal-scale">
+            <div class="portal-outer-ring portal-vortex"></div>
+            <div class="portal-middle-ring portal-vortex" style="animation-direction: reverse; animation-duration: 12s;"></div>
             
-            <div class="portal-core anim-pulse-violet">
-              <div class="countdown-number anim-glitch" id="countdownDisplay">3</div>
-              <div class="countdown-sub">LEAPING TO 2076</div>
+            <div class="portal-center-core anim-pulse-violet">
+              <div class="portal-count-big anim-glitch" id="countdownDisplay">3</div>
+              <div class="portal-status-label">WARPING TIME</div>
             </div>
           </div>
 
-          <!-- Right: Alex & ROBO Arrival Announcement -->
-          <div class="portal-dialogue-col reveal reveal-delay-2">
-            <div class="character-arrival-card">
-              <div class="arrival-header">
-                <div class="arrival-identity">
-                  <span class="avatar">🧭</span>
-                  <span class="title">ALEX — TOUR GUIDE 2076</span>
-                </div>
-                <span class="cast-badge" style="background: rgba(139, 92, 246, 0.2); color: #c084fc;">TIME TRAVELER</span>
-              </div>
-              <div class="arrival-speech">
-                "Hello, everyone! Did someone say they wanted to visit the future? Get ready! We are going to the future in 3... 2... 1!"
-              </div>
-              <div class="arrival-stats">
-                <span>DESTINATION: QUANG NINH 2076</span>
-                <span>•</span>
-                <span>STATUS: PORTAL OPEN</span>
-              </div>
-            </div>
-
-            <div class="character-arrival-card robo-card">
-              <div class="arrival-header">
-                <div class="arrival-identity">
-                  <span class="avatar">🤖</span>
-                  <span class="title">AI ROBOT ROBO</span>
-                </div>
-                <span class="cast-badge" style="background: rgba(34, 211, 238, 0.2); color: #22d3ee;">AI AGENT</span>
-              </div>
-              <div class="arrival-speech">
-                "Beep! Beep! Hello, humans! I am Robo, an artificial intelligence robot. My intelligence level is <strong>99.99 percent!</strong>"
-              </div>
-              <div class="arrival-stats">
-                <span>INTELLIGENCE: 99.99%</span>
-                <span>•</span>
-                <span>QUANTUM CORE: READY</span>
-              </div>
+          <div class="portal-target-info reveal reveal-delay-2">
+            <h2 class="portal-target-title">DESTINATION: QUANG NINH 2076</h2>
+            
+            <div class="portal-metrics-pills">
+              <span class="metric-pill">QUANTUM SYNC: 99.99%</span>
+              <span class="metric-pill" style="border-color: rgba(16, 185, 129, 0.4); color: #34d399;">GRID STATUS: 100% CLEAN ENERGY</span>
+              <span class="metric-pill" style="border-color: rgba(168, 85, 247, 0.4); color: #c084fc;">ECOLOGICAL MATRIX: ACTIVE</span>
             </div>
           </div>
         </div>
 
         <footer class="slide-footer">
-          <div class="speaker-cue">
-            <span class="cue-badge">STAGE ACTION:</span>
-            <span>Ánh sáng sân khấu chuyển xanh tím. Âm thanh warp vang dội. Mở ra Quang Ninh 2076!</span>
+          <div class="footer-location">
+            <span class="loc-dot" style="background: #a855f7;"></span>
+            <span>QUANTUM SPACE-TIME EVENT // TRAVERSING 5 DECADES</span>
           </div>
-          <div class="brand-tag">TRANSITION TO SCENE 2</div>
+          <div class="footer-coords">ARRIVAL COORD: QUANG NINH 2076</div>
         </footer>
       </section>
 
     </main>
-
-    <!-- Stage HUD Bottom Navigation -->
-    <nav class="deck-hud" aria-label="Slide Controls">
-      <button class="hud-btn" id="btnPrev" title="Slide trước (Phím ←)">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"></polyline></svg>
-        <span>Trước</span>
-      </button>
-
-      <div class="hud-counter" id="slideCounter">1 / 4</div>
-
-      <button class="hud-btn" id="btnNext" title="Slide tiếp (Phím → hoặc Space)">
-        <span>Tiếp</span>
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
-      </button>
-
-      <span style="width: 1px; height: 16px; background: rgba(255,255,255,0.2);"></span>
-
-      <button class="hud-btn" id="btnMute" title="Bật/Tắt âm thanh (Phím M)">
-        <span class="icon">🔊</span>
-        <span>Sound</span>
-      </button>
-
-      <button class="hud-btn" id="btnFullscreen" title="Toàn màn hình (Phím F)">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path></svg>
-        <span>F11</span>
-      </button>
-    </nav>
 
   </div>
 
