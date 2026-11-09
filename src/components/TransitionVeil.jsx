@@ -1,16 +1,16 @@
 import { useExperience } from '../store/useExperience';
 
 const LABELS = {
-  portal: 'CỔNG KHÔNG GIAN',
-  warp: 'XUYÊN KHÔNG GIAN',
-  light: 'ÁNH SÁNG',
-  fly: 'BAY QUA THÀNH PHỐ',
-  water: 'LẶN XUỐNG ĐẠI DƯƠNG',
-  blur: 'CHUYỂN CẢNH',
-  dust: 'BỤI THAN',
-  rise: 'VƯƠN LÊN',
-  wide: 'MỞ RỘNG',
-  end: 'KẾT THÚC',
+  portal: 'PORTAL',
+  warp: 'WARP',
+  light: 'LIGHT',
+  fly: 'FLY TO CITY',
+  water: 'FALL DOWN HIGHWAY',
+  blur: 'PANEL TRANSITION',
+  dust: 'DUST',
+  rise: 'RISE',
+  wide: 'WIDE',
+  end: 'END',
 };
 
 export default function TransitionVeil() {

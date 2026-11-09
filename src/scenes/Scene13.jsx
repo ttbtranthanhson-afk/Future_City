@@ -6,7 +6,7 @@ import { Human, Robo } from './shared/characters';
 import { bigTitleTexture } from '../utils/textures';
 
 export default function Scene13() {
-  const title = useMemo(() => bigTitleTexture('TRỞ VỀ 2026', 'HÀNH TRÌNH KHÉP LẠI', '#ffe0b0'), []);
+  const title = useMemo(() => bigTitleTexture('RETURN TO 2026', 'RETURN JOURNEY', '#ffe0b0'), []);
   useCinematicCamera({
     path: [
       [0, 2, -10],
@@ -28,8 +28,8 @@ export default function Scene13() {
   });
   useSceneSegments(
     [
-      { t: 0, caption: 'Trở về...', ambience: 'return' },
-      { t: 5, caption: 'Nhưng tương lai vẫn ở trong tim mỗi người', ambience: 'return' },
+      { t: 0, caption: 'Return...', ambience: 'return' },
+      { t: 5, caption: "But the future is still in everyone's heart", ambience: 'return' },
     ],
     30,
     { delay: 0.4 }

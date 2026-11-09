@@ -484,15 +484,15 @@ function drawIcon(ctx, icon, x, y, size, accent, alpha = 1) {
 
 export function themeTexture(theme) {
   const themes = {
-    technology: { title: 'CÔNG NGHỆ', lines: ['AI điều hành thành phố', 'Giao thông tự hành', 'Năng lượng sạch 100%'], icon: 'tech', accent: '#6ff0ff' },
-    environment: { title: 'MÔI TRƯỜNG', lines: ['Biển và rừng được bảo vệ', 'Nước sạch bằng công nghệ', 'Đa dạng sinh học trở lại'], icon: 'nature', accent: '#79f2d0' },
-    health: { title: 'Y TẾ', lines: ['Chẩn đoán bằng AI', 'Robot y tế thông minh', 'Chăm sóc toàn dân'], icon: 'health', accent: '#9fe8ff' },
-    tourism: { title: 'DU LỊCH', lines: ['Di sản thế giới', 'Du lịch bền vững', 'Văn hóa đặc sắc'], icon: 'tourism', accent: '#ffd77a' },
-    fishing: { title: 'BIỂN CẢ', lines: ['Đại dương bình yên', 'Tàu cá hiện đại', 'Ngư dân yên tâm'], icon: 'fishing', accent: '#5ed9c7' },
-    mining: { title: 'LỊCH SỬ', lines: ['Niềm tự hào ngành than', 'Những thế hệ công nhân', 'Không bao giờ quên'], icon: 'mining', accent: '#d9a45b' },
-    city: { title: 'QUẢNG NINH 2076', lines: ['Xanh · Thông minh · Đẹp', 'Một thành phố đáng sống', 'Tương lai bắt đầu hôm nay'], icon: 'city', accent: '#6ff0ff' },
-    education: { title: 'GIÁO DỤC', lines: ['Học tập bằng hologram', 'Trợ lý AI cá nhân', 'Sáng tạo không giới hạn'], icon: 'education', accent: '#86b8ff' },
-    people: { title: 'CON NGƯỜI', lines: ['Lấy con người làm trung tâm', 'Cơ hội cho tất cả mọi người', 'Đoàn kết và nhân ái'], icon: 'people', accent: '#ffd77a' },
+    technology: { title: 'TECHNOLOGY', lines: ['AI City Management', 'Autonomous Transport', '100% Clean Energy'], icon: 'tech', accent: '#6ff0ff' },
+    environment: { title: 'ENVIRONMENT', lines: ['Protected Oceans & Forests', 'Clean Water via Technology', 'Biodiversity Restored'], icon: 'nature', accent: '#79f2d0' },
+    health: { title: 'HEALTH', lines: ['AI Diagnosis', 'Smart Medical Robot', 'Public Care for All'], icon: 'health', accent: '#9fe8ff' },
+    tourism: { title: 'TOURISM', lines: ['World Heritage Sites', 'Sustainable Tourism', 'Distinctive Culture'], icon: 'tourism', accent: '#ffd77a' },
+    fishing: { title: 'FISHING', lines: ['Peaceful Ocean', 'Modern Fishing Boats', 'Content Fishermen'], icon: 'fishing', accent: '#5ed9c7' },
+    mining: { title: 'HISTORY', lines: ['Mining Industry Pride', 'Generations of Workers', 'Never Forgotten'], icon: 'mining', accent: '#d9a45b' },
+    city: { title: 'QUẢNG NINH 2076', lines: ['Green · Smart · Beautiful', 'A Livable City', 'The Future Starts Today'], icon: 'city', accent: '#6ff0ff' },
+    education: { title: 'EDUCATION', lines: ['Hologram Learning', 'Personal AI Assistant', 'Unlimited Creativity'], icon: 'education', accent: '#86b8ff' },
+    people: { title: 'PEOPLE', lines: ['Human at Center', 'Opportunities for All', 'Unity and Harmony'], icon: 'people', accent: '#ffd77a' },
   };
   const t = themes[theme] || themes.city;
   return screenTexture({ title: t.title, subtitle: 'QUẢNG NINH 2076', rows: t.lines, accent: t.accent, theme: t.icon });

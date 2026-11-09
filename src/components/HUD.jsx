@@ -60,7 +60,7 @@ export default function HUD({ onPrev, onNext, onFullscreen }) {
   return (
     <>
       <header className={`hud-top ${visible ? '' : 'is-hidden'}`}>
-        <button type="button" className="brandmark brandmark--button" onClick={() => setHudVisible(false)} aria-label="Ẩn giao diện">
+        <button type="button" className="brandmark brandmark--button" onClick={() => setHudVisible(false)} aria-label="Hide HUD">
           <span className="brandmark__dot" />
           <span>QN / 2076</span>
         </button>
@@ -96,12 +96,12 @@ export default function HUD({ onPrev, onNext, onFullscreen }) {
       <div className={`controls ${visible ? '' : 'is-hidden'}`}>
         {soundOpen && <SoundPanel />}
         <div className="controls__row">
-          <button type="button" className="ctrl" onClick={onPrev} disabled={isFirst} aria-label="Cảnh trước">
+          <button type="button" className="ctrl" onClick={onPrev} disabled={isFirst} aria-label="Previous Scene">
             <Arrow dir="left" />
-            <span>TRƯỚC</span>
+            <span>PREV</span>
           </button>
-          <button type="button" className="ctrl ctrl--next" onClick={onNext} aria-label={isLast ? 'Kết thúc' : 'Cảnh tiếp theo'}>
-            <span>{isLast ? 'KẾT THÚC' : 'TIẾP THEO'}</span>
+          <button type="button" className="ctrl ctrl--next" onClick={onNext} aria-label={isLast ? 'End' : 'Next Scene'}>
+            <span>{isLast ? 'END' : 'NEXT'}</span>
             <Arrow />
           </button>
           <span className="controls__divider" />
@@ -109,11 +109,11 @@ export default function HUD({ onPrev, onNext, onFullscreen }) {
             type="button"
             className={`icon-btn ${soundOpen ? 'is-active' : ''} ${muted ? 'is-muted' : ''}`}
             onClick={() => setSoundOpen(!soundOpen)}
-            aria-label="Cài đặt âm thanh"
+            aria-label="Sound Settings"
           >
             <SoundIcon muted={muted} />
           </button>
-          <button type="button" className="icon-btn" onClick={onFullscreen} aria-label="Toàn màn hình">
+          <button type="button" className="icon-btn" onClick={onFullscreen} aria-label="Fullscreen">
             <FullscreenIcon />
           </button>
           <button type="button" className="icon-btn" onClick={() => setHudVisible(false)} aria-label="Ẩn giao diện">
@@ -132,7 +132,7 @@ export default function HUD({ onPrev, onNext, onFullscreen }) {
       {!visible && (
         <button type="button" className="hud-reveal" onClick={() => setHudVisible(true)} aria-label="Hiện giao diện">
           <span className="hud-reveal__dot" />
-          HIỆN GIAO DIỆN
+          SHOW HUD
         </button>
       )}
     </>

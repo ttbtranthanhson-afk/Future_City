@@ -15,7 +15,7 @@ const BOATS = [
 ];
 
 export default function Scene07() {
-  const title = useMemo(() => bigTitleTexture('DU LỊCH & VĂN HÓA', 'HẠ LONG · YÊN TỬ · BÁI TỬ LONG', '#ffddb0'), []);
+  const title = useMemo(() => bigTitleTexture('TOURISM & CULTURE', 'HALONG BAY · FAIRY ISLE · BAI TU LONG', '#ffddb0'), []);
   useCinematicCamera({
     path: [
       [28, 10, 8],

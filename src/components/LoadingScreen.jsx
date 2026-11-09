@@ -1,10 +1,10 @@
 import { useExperience } from '../store/useExperience';
 
 const STEPS = [
-  { at: 0, label: 'Đang khởi tạo địa hình Quảng Ninh...' },
-  { at: 32, label: 'Đang dựng thành phố năm 2076...' },
-  { at: 62, label: 'Đang kết nối hệ thống âm thanh...' },
-  { at: 86, label: 'Đang chuẩn bị hành trình...' },
+  { at: 0, label: 'Initializing Quảng Ninh terrain...' },
+  { at: 32, label: 'Building city 2076...' },
+  { at: 62, label: 'Connecting audio system...' },
+  { at: 86, label: 'Preparing journey...' },
 ];
 
 export default function LoadingScreen() {
@@ -23,7 +23,7 @@ export default function LoadingScreen() {
         <span className="eyebrow">INTERACTIVE CINEMATIC EXPERIENCE</span>
       </div>
       <div className="boot__center">
-        <span className="eyebrow eyebrow--gold">QUẢNG NINH · VIỆT NAM</span>
+        <span className="eyebrow eyebrow--gold">QUẢNG NINH</span>
         <h1 className="boot__title">
           OUR FUTURE,
           <br />

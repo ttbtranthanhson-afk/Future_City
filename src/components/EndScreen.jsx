@@ -3,24 +3,24 @@ export default function EndScreen({ onReplay }) {
     <div className="ending">
       <div className="ending__scrim" aria-hidden="true" />
       <div className="ending__content">
-        <span className="eyebrow eyebrow--gold">QUẢNG NINH · 2076</span>
+        <span className="eyebrow eyebrow--gold">QUẢNG NINH 2076</span>
         <h1 className="ending__title">
-          TƯƠNG LAI CỦA CHÚNG TA
+          OUR FUTURE
           <br />
-          <span>TRÁCH NHIỆM CỦA CHÚNG TA</span>
+          <span>OUR RESPONSIBILITY</span>
         </h1>
-        <p className="ending__vi">Một thành phố, một giấc mơ, một tương lai tươi sáng.</p>
+        <p className="ending__vi">One city, one dream, one bright future.</p>
         <div className="ending__rule" />
         <p className="ending__desc">
-          Hành trình khép lại — nhưng tương lai chỉ thực sự bắt đầu khi mỗi chúng ta hành động, từ hôm nay.
+          Journey complete — but the future truly begins when each of us acts, starting today.
         </p>
         <div className="ending__actions">
           <button type="button" className="btn btn--primary btn--large" onClick={onReplay}>
-            <span>XEM LẠI HÀNH TRÌNH</span>
+            <span>REWATCH JOURNEY</span>
             <span className="btn__arrow">↺</span>
           </button>
         </div>
-        <span className="ending__credit">HỌC TẬP · SÁNG TẠO · BẢO VỆ QUÊ HƯƠNG</span>
+        <span className="ending__credit">LEARN · CREATE · PROTECT</span>
       </div>
     </div>
   );

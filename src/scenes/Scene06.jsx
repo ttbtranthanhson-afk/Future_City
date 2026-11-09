@@ -29,9 +29,9 @@ export default function Scene06() {
   });
   useSceneSegments(
     [
-      { t: 0, caption: 'Vịnh Hạ Long — di sản giữa biển khơi', ambience: 'bay' },
-      { t: 6.5, caption: 'Lặn xuống thế giới đại dương', ambience: 'underwater', sfx: 'splash' },
-      { t: 13, caption: 'Hệ sinh thái biển được phục hồi', ambience: 'underwater' },
+      { t: 0, caption: 'Halong Bay - World Heritage', ambience: 'bay' },
+      { t: 6.5, caption: 'Dive into the vast ocean', ambience: 'underwater', sfx: 'splash' },
+      { t: 13, caption: 'Marine ecosystem recovered', ambience: 'underwater' },
     ],
     26,
     { delay: 0.5 }

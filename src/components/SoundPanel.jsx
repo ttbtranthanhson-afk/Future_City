@@ -2,11 +2,11 @@ import { useExperience } from '../store/useExperience';
 import { audioManager } from '../managers/AudioManager';
 
 const CHANNELS = [
-  { key: 'master', label: 'Tổng', sub: 'Master' },
-  { key: 'music', label: 'Nhạc nền', sub: 'Music' },
-  { key: 'ambience', label: 'Môi trường', sub: 'Ambience' },
-  { key: 'sfx', label: 'Hiệu ứng', sub: 'SFX' },
-  { key: 'voice', label: 'Giọng nói', sub: 'Voice' },
+  { key: 'master', label: 'Master', sub: 'Master' },
+  { key: 'music', label: 'Music', sub: 'Music' },
+  { key: 'ambience', label: 'Ambience', sub: 'Ambience' },
+  { key: 'sfx', label: 'SFX', sub: 'SFX' },
+  { key: 'voice', label: 'Voice', sub: 'Voice' },
 ];
 
 export default function SoundPanel() {
@@ -29,10 +29,10 @@ export default function SoundPanel() {
   };
 
   return (
-    <div className="sound" role="dialog" aria-label="Cài đặt âm thanh">
+    <div className="sound" role="dialog" aria-label="Sound Settings">
       <div className="sound__head">
         <div>
-          <span className="eyebrow eyebrow--gold">ÂM THANH</span>
+          <span className="eyebrow eyebrow--gold">SOUND</span>
           <h3>Sound design</h3>
         </div>
         <button type="button" className="icon-btn" aria-label="Đóng cài đặt âm thanh" onClick={() => setSoundOpen(false)}>
@@ -68,7 +68,7 @@ export default function SoundPanel() {
           </label>
         ))}
       </div>
-      <p className="sound__hint">Nhạc và hiệu ứng được tổng hợp trực tiếp trong trình duyệt.</p>
+      <p className="sound__hint">Sound and effects are synthesized directly in the browser.</p>
     </div>
   );
 }

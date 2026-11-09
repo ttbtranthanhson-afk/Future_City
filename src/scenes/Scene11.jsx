@@ -27,7 +27,7 @@ const CROWD = Array.from({ length: 28 }, (_, i) => {
 });
 
 export default function Scene11() {
-  const banner = useMemo(() => bigTitleTexture('MỘT THÀNH PHỐ · MỘT GIẤC MƠ', 'QUẢNG NINH 2076', '#ffeba8'), []);
+  const banner = useMemo(() => bigTitleTexture('A CITY · A DREAM', 'QUANG NINH 2076', '#ffeba8'), []);
   useCinematicCamera({
     path: [
       [18, 9.5, 19],

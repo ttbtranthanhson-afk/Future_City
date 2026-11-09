@@ -12,27 +12,27 @@ export default function IntroScreen({ onStart }) {
       </div>
       <div className="intro__content">
         <div className="intro__eyebrow">
-          <span className="eyebrow eyebrow--gold">DỰ ÁN ĐIỆN ẢNH TƯƠNG TÁC</span>
+          <span className="eyebrow eyebrow--gold">FUTURE CITY PROJECT</span>
           <span className="intro__line" />
-          <span className="eyebrow">15 CHƯƠNG · 2076</span>
+          <span className="eyebrow">15 CHAPTERS · 2076</span>
         </div>
         <h1 className="intro__title">
-          <span className="intro__title-top">QUẢNG NINH</span>
+          <span className="intro__title-top">QUANG NINH</span>
           <span className="intro__title-year">2076</span>
         </h1>
-        <p className="intro__tagline">Tương lai của chúng ta, trách nhiệm của chúng ta.</p>
+        <p className="intro__tagline">Our future, our responsibility.</p>
         <p className="intro__desc">
-          Một hành trình xuyên không gian cùng Minh, Lan, Alex và Robo — từ căn phòng nhỏ năm 2026 đến một
-          Quảng Ninh xanh, thông minh và đáng sống.
+          A journey through space with Minh, Lan, Alex and Robo — from a small room in 2026 to a
+          green, smart and livable Quảng Ninh.
         </p>
         <div className="intro__actions">
           <button type="button" className="btn btn--primary btn--large" onClick={onStart} autoFocus>
-            <span>BẮT ĐẦU HÀNH TRÌNH</span>
+            <span>START JOURNEY</span>
             <span className="btn__arrow">→</span>
           </button>
           <div className="intro__note">
             <span className="headphone" aria-hidden="true">◖</span>
-            <span>Bật âm thanh để có trải nghiệm trọn vẹn nhất</span>
+            <span>Turn on sound for the best experience</span>
           </div>
         </div>
         <div className="intro__slogans">
