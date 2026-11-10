@@ -716,7 +716,7 @@ export function Pagoda({ position = [0, 0, 0], scale = 1, rotation = [0, 0, 0], 
     : <meshStandardMaterial color="#c9a24e" metalness={0.7} roughness={0.35} emissive="#6b4d18" emissiveIntensity={0.15} />;
   const lanternMat = holo
     ? <meshBasicMaterial color="#ffdfff" transparent opacity={0.9} />
-    : <meshStandardMaterial color="#ff5a3c" emissive="#ff4a2a" emissiveIntensity={2.2} roughness={0.6} />;
+    : <meshStandardMaterial color="#c85d45" emissive="#a94735" emissiveIntensity={0.85} roughness={0.72} />;
   let y = 0.7;
   return (
     <group position={position} scale={scale} rotation={rotation}>
