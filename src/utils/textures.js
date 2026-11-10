@@ -119,108 +119,62 @@ export function mapTexture() {
   return cached('map', () => {
     const canvas = createCanvas(1024, 512);
     const ctx = canvas.getContext('2d');
-    const bg = ctx.createLinearGradient(0, 0, 0, 512);
-    bg.addColorStop(0, '#f0e2c4');
-    bg.addColorStop(1, '#d8c39c');
-    ctx.fillStyle = bg;
-    ctx.fillRect(0, 0, 1024, 512);
+    // Stylized wall map based on the supplied reference, not a boundary dataset.
+    ctx.fillStyle = '#f5f3eb'; ctx.fillRect(0, 0, 1024, 512);
+    ctx.fillStyle = '#b9ddf3';
+    ctx.beginPath(); ctx.moveTo(0, 300); ctx.bezierCurveTo(200, 270, 270, 330, 430, 294);
+    ctx.bezierCurveTo(610, 252, 760, 309, 1024, 220); ctx.lineTo(1024, 512); ctx.lineTo(0, 512); ctx.fill();
+    ctx.fillStyle = '#e9e6d8'; ctx.beginPath(); ctx.moveTo(0, 0); ctx.lineTo(1024, 0); ctx.lineTo(1024, 154);
+    ctx.bezierCurveTo(820, 180, 718, 151, 584, 184); ctx.bezierCurveTo(402, 226, 304, 173, 182, 208);
+    ctx.bezierCurveTo(100, 232, 48, 214, 0, 244); ctx.fill();
 
-    ctx.fillStyle = '#a9d3d0';
-    ctx.fillRect(0, 0, 1024, 512);
-
-    ctx.strokeStyle = 'rgba(120,150,150,0.35)';
-    ctx.lineWidth = 1;
-    for (let x = 0; x < 1024; x += 64) {
-      ctx.beginPath();
-      ctx.moveTo(x, 0);
-      ctx.lineTo(x, 512);
-      ctx.stroke();
-    }
-    for (let y = 0; y < 512; y += 64) {
-      ctx.beginPath();
-      ctx.moveTo(0, y);
-      ctx.lineTo(1024, y);
-      ctx.stroke();
-    }
-
-    ctx.fillStyle = '#d8d3a8';
-    ctx.beginPath();
-    ctx.moveTo(0, 60);
-    ctx.lineTo(150, 40);
-    ctx.lineTo(330, 95);
-    ctx.lineTo(500, 60);
-    ctx.lineTo(640, 120);
-    ctx.lineTo(700, 210);
-    ctx.lineTo(620, 300);
-    ctx.lineTo(540, 360);
-    ctx.lineTo(420, 330);
-    ctx.lineTo(330, 390);
-    ctx.lineTo(200, 360);
-    ctx.lineTo(120, 280);
-    ctx.lineTo(0, 250);
-    ctx.closePath();
-    ctx.fill();
-    ctx.strokeStyle = '#9fa68b';
-    ctx.lineWidth = 3;
-    ctx.stroke();
-
-    ctx.fillStyle = '#d8d3a8';
-    ctx.beginPath();
-    ctx.moveTo(720, 150);
-    ctx.lineTo(900, 120);
-    ctx.lineTo(1024, 200);
-    ctx.lineTo(1024, 430);
-    ctx.lineTo(880, 420);
-    ctx.lineTo(780, 340);
-    ctx.closePath();
-    ctx.fill();
-    ctx.stroke();
-
-    const islands = [
-      [470, 250, 26],
-      [512, 285, 18],
-      [545, 255, 22],
-      [585, 300, 14],
-      [610, 265, 16],
-      [430, 300, 12],
-      [640, 320, 10],
-      [505, 330, 9],
+    const province = new Path2D();
+    province.moveTo(94,169); province.lineTo(155,124); province.lineTo(245,137); province.lineTo(292,100);
+    province.lineTo(375,115); province.lineTo(435,83); province.lineTo(519,111); province.lineTo(590,91);
+    province.lineTo(671,116); province.lineTo(754,100); province.lineTo(836,126); province.lineTo(891,158);
+    province.lineTo(866,196); province.lineTo(814,204); province.lineTo(790,240); province.lineTo(741,245);
+    province.lineTo(715,276); province.lineTo(672,268); province.lineTo(648,306); province.lineTo(611,295);
+    province.lineTo(589,334); province.lineTo(547,322); province.lineTo(516,359); province.lineTo(478,343);
+    province.lineTo(450,380); province.lineTo(412,365); province.lineTo(376,390); province.lineTo(335,364);
+    province.lineTo(293,377); province.lineTo(258,347); province.lineTo(216,351); province.lineTo(190,320);
+    province.lineTo(145,319); province.lineTo(120,285); province.lineTo(84,274); province.lineTo(108,239);
+    province.lineTo(78,216); province.closePath();
+    ctx.save(); ctx.clip(province); ctx.fillStyle='#d9d9ba'; ctx.fill(province);
+    const regions = [
+      ['#eabd69',[[55,205],[85,165],[173,144],[217,183],[206,252],[143,278],[75,259]]],
+      ['#70c9df',[[174,141],[264,131],[302,180],[285,245],[207,261],[217,183]]],
+      ['#43b7d1',[[207,261],[285,245],[326,280],[306,337],[257,346],[215,321],[143,278]]],
+      ['#5eae91',[[285,131],[381,110],[414,155],[391,216],[326,230],[302,180]]],
+      ['#8fc572',[[285,245],[326,230],[391,216],[414,265],[374,316],[306,337],[326,280]]],
+      ['#e79b84',[[381,110],[474,93],[508,146],[480,202],[414,206],[391,156]]],
+      ['#f18c78',[[391,216],[414,206],[480,202],[499,258],[458,303],[414,315],[374,316],[414,265]]],
+      ['#e7c467',[[474,93],[560,99],[585,147],[547,188],[508,146]]],
+      ['#bf9bc7',[[560,99],[650,108],[681,151],[634,193],[585,147]]],
+      ['#a59bce',[[650,108],[749,99],[802,129],[786,177],[727,191],[681,151]]],
+      ['#8b82c2',[[749,99],[865,132],[911,162],[866,202],[814,204],[786,177],[802,129]]],
+      ['#e9ad76',[[480,202],[508,146],[547,188],[585,147],[634,193],[611,236],[566,245],[544,283],[499,258]]],
+      ['#71b8cf',[[634,193],[681,151],[727,191],[715,245],[672,268],[611,236]]],
+      ['#d0a778',[[727,191],[786,177],[814,204],[790,240],[741,245],[715,276],[672,268],[715,245]]],
     ];
-    islands.forEach(([x, y, r]) => {
-      ctx.fillStyle = '#7f9f86';
-      ctx.beginPath();
-      ctx.ellipse(x, y, r * 1.4, r, 0.5, 0, Math.PI * 2);
-      ctx.fill();
-      ctx.strokeStyle = 'rgba(50,80,60,0.5)';
-      ctx.stroke();
+    regions.forEach(([color,points]) => {
+      ctx.beginPath(); points.forEach(([x,y],i) => i ? ctx.lineTo(x,y) : ctx.moveTo(x,y)); ctx.closePath();
+      ctx.fillStyle=color; ctx.fill(); ctx.strokeStyle='rgba(255,255,255,.9)'; ctx.lineWidth=3; ctx.stroke();
     });
+    const roads=[[[104,236],[208,225],[313,239],[407,225],[513,228],[616,207],[740,190],[852,164]],[[188,159],[234,226],[274,303],[348,350],[420,340],[496,301],[552,249],[609,188],[665,132]],[[331,121],[364,180],[407,227],[454,282],[485,338]],[[536,112],[552,175],[585,218],[631,266]]];
+    roads.forEach((points,i)=>{ctx.beginPath();points.forEach(([x,y],n)=>n?ctx.lineTo(x,y):ctx.moveTo(x,y));ctx.lineCap='round';ctx.strokeStyle='#fff9ed';ctx.lineWidth=i?4:7;ctx.stroke();ctx.strokeStyle='rgba(201,157,103,.55)';ctx.lineWidth=1.2;ctx.stroke();});
+    ctx.restore(); ctx.strokeStyle='#80685c'; ctx.lineWidth=5; ctx.stroke(province); ctx.strokeStyle='rgba(255,255,255,.8)'; ctx.lineWidth=1.5; ctx.stroke(province);
 
-    ctx.strokeStyle = '#e04848';
-    ctx.lineWidth = 4;
-    ctx.setLineDash([12, 9]);
-    ctx.beginPath();
-    ctx.moveTo(250, 160);
-    ctx.bezierCurveTo(380, 210, 460, 210, 520, 265);
-    ctx.stroke();
-    ctx.setLineDash([]);
-
-    ctx.fillStyle = 'rgba(180, 40, 40, 0.9)';
-    ctx.beginPath();
-    ctx.arc(520, 265, 10, 0, Math.PI * 2);
-    ctx.fill();
-
-    ctx.fillStyle = '#1f3b4a';
-    ctx.font = '700 46px "Be Vietnam Pro", sans-serif';
-    ctx.fillText('QUẢNG NINH', 70, 460);
-    ctx.font = '500 22px "Be Vietnam Pro", sans-serif';
-    ctx.fillStyle = '#2c5a66';
-    ctx.fillText('VỊNH HẠ LONG · 2026', 72, 492);
-
-    ctx.fillStyle = 'rgba(45, 40, 30, 0.7)';
-    ctx.font = '600 18px "Be Vietnam Pro", sans-serif';
-    ctx.fillText('HÒN GAI', 405, 215);
-    ctx.fillText('CẨM PHẢ', 760, 250);
-    ctx.fillText('MÓNG CÁI', 300, 120);
+    const islands=[[477,391,15,7],[501,407,12,6],[527,393,10,5],[552,418,16,7],[582,399,11,5],[609,424,13,6],[643,402,9,5],[676,421,12,5],[710,394,8,4],[742,414,10,5],[780,383,8,4],[825,357,7,4],[856,330,6,4],[452,414,7,4],[625,447,8,4],[690,452,7,4]];
+    islands.forEach(([x,y,rx,ry])=>{ctx.beginPath();ctx.ellipse(x,y,rx,ry,-.3,0,Math.PI*2);ctx.fillStyle='#83b8a2';ctx.fill();ctx.strokeStyle='#668b80';ctx.lineWidth=1.4;ctx.stroke();});
+    ctx.textAlign='center'; ctx.textBaseline='middle';
+    const places=[['ĐÔNG TRIỀU',161,216],['UÔNG BÍ',263,205],['QUẢNG YÊN',249,303],['HẠ LONG',355,278],['CẨM PHẢ',462,240],['VÂN ĐỒN',579,281],['TIÊN YÊN',567,170],['ĐẦM HÀ',658,148],['HẢI HÀ',739,154],['MÓNG CÁI',825,166]];
+    places.forEach(([name,x,y],i)=>{ctx.beginPath();ctx.arc(x,y,i===3?6:4,0,Math.PI*2);ctx.fillStyle=i===3?'#c94f45':'#72574b';ctx.fill();ctx.font=`${i===3?'700':'600'} ${i===3?16:13}px "Be Vietnam Pro", sans-serif`;ctx.lineWidth=3;ctx.strokeStyle='rgba(255,255,255,.94)';ctx.strokeText(name,x,y-13);ctx.fillStyle='#3f4b4c';ctx.fillText(name,x,y-13);});
+    ctx.font='italic 18px "Be Vietnam Pro", sans-serif';ctx.fillStyle='#39789a';ctx.fillText('VỊNH HẠ LONG',482,469);ctx.fillText('VỊNH BÁI TỬ LONG',722,346);
+    ctx.textAlign='left';ctx.font='500 14px "Be Vietnam Pro", sans-serif';ctx.fillStyle='#697579';ctx.fillText('HẢI PHÒNG',58,344);ctx.fillText('HẢI DƯƠNG',54,294);ctx.fillText('LẠNG SƠN',862,92);ctx.fillText('TRUNG QUỐC',886,218);
+    ctx.fillStyle='rgba(255,255,255,.92)';ctx.fillRect(18,18,988,56);ctx.fillStyle='#173e52';ctx.font='700 25px "Be Vietnam Pro", sans-serif';ctx.fillText('QUẢNG NINH',36,46);ctx.fillStyle='#52717c';ctx.font='500 14px "Be Vietnam Pro", sans-serif';ctx.fillText('BẢN ĐỒ VỊNH HẠ LONG · 2026',36,65);
+    ctx.textAlign='right';ctx.fillStyle='#173e52';ctx.font='700 20px sans-serif';ctx.fillText('N',974,102);ctx.beginPath();ctx.moveTo(974,110);ctx.lineTo(966,132);ctx.lineTo(974,127);ctx.lineTo(982,132);ctx.closePath();ctx.fill();
+    ctx.textAlign='left';ctx.fillStyle='#536a70';ctx.font='500 12px "Be Vietnam Pro", sans-serif';ctx.fillText('SƠ ĐỒ MINH HỌA',36,492);ctx.strokeStyle='#465e62';ctx.lineWidth=3;ctx.beginPath();ctx.moveTo(891,481);ctx.lineTo(961,481);ctx.stroke();ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(891,475);ctx.lineTo(891,487);ctx.moveTo(961,475);ctx.lineTo(961,487);ctx.stroke();ctx.fillText('0',889,500);ctx.fillText('10 km',951,500);
+    ctx.strokeStyle='rgba(65,83,86,.45)';ctx.lineWidth=2;ctx.strokeRect(8,8,1008,496);
     return toTexture(canvas);
   });
 }

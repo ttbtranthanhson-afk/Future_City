@@ -334,20 +334,20 @@ export function MapWall({ position = [4.55, 2.3, -5.86], rotation = [0, 0, 0] })
   return (
     <group position={position} rotation={rotation}>
       <mesh>
-        <boxGeometry args={[2.9, 2.0, 0.08]} />
+        <boxGeometry args={[2.9, 1.55, 0.08]} />
         <meshStandardMaterial color="#2e241c" roughness={0.7} />
       </mesh>
       <mesh position={[0, 0, 0.05]}>
-        <planeGeometry args={[2.7, 1.8]} />
+        <planeGeometry args={[2.7, 1.35]} />
         <meshStandardMaterial map={mapTexture()} roughness={0.85} />
       </mesh>
-      <mesh position={[0, 0.96, 0.08]}>
+      <mesh position={[0, 0.75, 0.08]}>
         <boxGeometry args={[2.9, 0.06, 0.1]} />
         <meshStandardMaterial color="#d9b26b" emissive="#d9b26b" emissiveIntensity={0.35} />
       </mesh>
       {[-1, 1].map((s) => (
         <mesh key={s} position={[s * 1.42, 0, 0.08]}>
-          <boxGeometry args={[0.06, 2.0, 0.1]} />
+          <boxGeometry args={[0.06, 1.55, 0.1]} />
           <meshStandardMaterial color="#d9b26b" emissive="#d9b26b" emissiveIntensity={0.35} />
         </mesh>
       ))}
