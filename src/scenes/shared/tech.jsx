@@ -293,7 +293,7 @@ export function MedicalBed({ position = [0, 0, 0], rotation = [0, 0, 0], accent 
       )}
       <mesh position={[0, 0.73, 0.5]}>
         <boxGeometry args={[2.1, 0.055, 0.04]} />
-        <meshStandardMaterial color={accent} emissive={accent} emissiveIntensity={0.9} />
+        <meshStandardMaterial color={accent} emissive={accent} emissiveIntensity={0.45} />
       </mesh>
       {patient && (
         <>
@@ -322,7 +322,7 @@ export function MedicalBed({ position = [0, 0, 0], rotation = [0, 0, 0], accent 
         </mesh>
         <mesh position={[0.25, 1.92, 0]}>
           <boxGeometry args={[0.36, 0.26, 0.05]} />
-          <meshStandardMaterial color="#0d2734" emissive={accent} emissiveIntensity={0.7} />
+          <meshStandardMaterial color="#0d2734" emissive={accent} emissiveIntensity={0.35} />
         </mesh>
         <mesh position={[0, 0.05, 0]}>
           <cylinderGeometry args={[0.26, 0.3, 0.08, 10]} />
@@ -338,27 +338,27 @@ export function Scanner({ position = [0, 0, 0], rotation = [0, 0, 0], accent = '
   const beam = useRef();
   useFrame(({ clock }) => {
     if (inner.current) inner.current.rotation.z = clock.elapsedTime * 0.9;
-    if (beam.current) beam.current.material.opacity = 0.12 + Math.sin(clock.elapsedTime * 2) * 0.06;
+    if (beam.current) beam.current.material.opacity = 0.06 + Math.sin(clock.elapsedTime * 2) * 0.03;
   });
   return (
     <group position={position} rotation={rotation}>
       <mesh>
         <torusGeometry args={[1.5, 0.22, 10, 40]} />
-        <meshStandardMaterial color={color} metalness={0.35} roughness={0.35} emissive={accent} emissiveIntensity={0.25} />
+        <meshStandardMaterial color={color} metalness={0.35} roughness={0.35} emissive={accent} emissiveIntensity={0.125} />
       </mesh>
       <group ref={inner}>
         <mesh>
           <torusGeometry args={[1.25, 0.05, 6, 32]} />
-          <meshStandardMaterial color={accent} emissive={accent} emissiveIntensity={2.4} />
+          <meshStandardMaterial color={accent} emissive={accent} emissiveIntensity={1.2} />
         </mesh>
         <mesh rotation={[0, 0, Math.PI / 2]}>
           <torusGeometry args={[1.25, 0.035, 6, 32]} />
-          <meshStandardMaterial color={accent} emissive={accent} emissiveIntensity={1.6} />
+          <meshStandardMaterial color={accent} emissive={accent} emissiveIntensity={0.8} />
         </mesh>
       </group>
       <mesh ref={beam} rotation={[-Math.PI / 2, 0, 0]} position={[0, -0.2, 0]}>
         <ringGeometry args={[0.2, 1.25, 32]} />
-        <meshBasicMaterial color={accent} transparent opacity={0.15} blending={THREE.AdditiveBlending} side={THREE.DoubleSide} depthWrite={false} />
+        <meshBasicMaterial color={accent} transparent opacity={0.075} blending={THREE.AdditiveBlending} side={THREE.DoubleSide} depthWrite={false} />
       </mesh>
       {[-1, 1].map((s) => (
         <mesh key={s} position={[0, -1.15, 0]}>
@@ -394,7 +394,7 @@ export function MedTrolley({ position = [0, 0, 0], path = 10, speed = 0.4, phase
       </mesh>
       <mesh position={[0.2, 0.92, 0.1]}>
         <boxGeometry args={[0.14, 0.16, 0.1]} />
-        <meshStandardMaterial color={accent} emissive={accent} emissiveIntensity={0.8} />
+        <meshStandardMaterial color={accent} emissive={accent} emissiveIntensity={0.4} />
       </mesh>
       <mesh position={[0, 1.25, 0]}>
         <sphereGeometry args={[0.17, 12, 10]} />
@@ -402,7 +402,7 @@ export function MedTrolley({ position = [0, 0, 0], path = 10, speed = 0.4, phase
       </mesh>
       <mesh position={[0, 1.28, 0.14]}>
         <boxGeometry args={[0.18, 0.05, 0.02]} />
-        <meshStandardMaterial color={accent} emissive={accent} emissiveIntensity={2} />
+        <meshStandardMaterial color={accent} emissive={accent} emissiveIntensity={1} />
       </mesh>
       <mesh position={[0, 0.55, 0]}>
         <cylinderGeometry args={[0.12, 0.16, 0.3, 8]} />
@@ -438,17 +438,17 @@ export function HospitalDoor({ position = [0, 1.5, 0], rotation = [0, 0, 0], wid
       {[-1, 1].map((s, i) => (
         <mesh key={s} ref={i === 0 ? left : right} position={[s * width * 0.25, 0, 0]}>
           <boxGeometry args={[width * 0.5, height, 0.12]} />
-          <meshStandardMaterial color="#e6f4f7" metalness={0.25} roughness={0.35} transparent opacity={0.85} emissive={accent} emissiveIntensity={0.08} />
+          <meshStandardMaterial color="#e6f4f7" metalness={0.25} roughness={0.35} transparent opacity={0.85} emissive={accent} emissiveIntensity={0.04} />
         </mesh>
       ))}
       <mesh position={[0, height * 0.52, 0]}>
         <boxGeometry args={[width * 1.4, 0.08, 0.14]} />
-        <meshStandardMaterial color={accent} emissive={accent} emissiveIntensity={2} />
+        <meshStandardMaterial color={accent} emissive={accent} emissiveIntensity={1} />
       </mesh>
       {[-1, 1].map((s) => (
         <mesh key={`g${s}`} position={[s * width * 0.7, 0, 0]}>
           <boxGeometry args={[0.12, height * 1.05, 0.16]} />
-          <meshStandardMaterial color={accent} emissive={accent} emissiveIntensity={1.2} />
+          <meshStandardMaterial color={accent} emissive={accent} emissiveIntensity={0.6} />
         </mesh>
       ))}
     </group>
@@ -811,7 +811,7 @@ export function Drone({ position = [0, 8, 0], color = '#dfe9ee', accent = '#6ff0
 
 export function HospitalWallPanel({ position = [0, 1.8, 0], rotation = [0, 0, 0], title = 'AI DIAGNOSTICS', rows = [], accent = '#9fe8ff' }) {
   const tex = useMemo(() => screenTexture({ title, subtitle: 'SMART HOSPITAL 2076', rows, accent, theme: 'health' }), [title, rows, accent]);
-  return <HoloPanel position={position} rotation={rotation} width={3.4} height={1.9} texture={tex} color={accent} opacity={0.85} bob={false} />;
+  return <HoloPanel position={position} rotation={rotation} width={3.4} height={1.9} texture={tex} color={accent} opacity={0.425} bob={false} />;
 }
 
 export function MayorPodium({ position = [0, 0, 0], rotation = [0, 0, 0], accent = '#ffd77a' }) {
@@ -887,11 +887,11 @@ export function LabEquipment({ position = [0, 0, 0], rotation = [0, 0, 0], accen
       </mesh>
       <mesh position={[0, 1.25, 0.36]}>
         <boxGeometry args={[0.6, 0.4, 0.03]} />
-        <meshStandardMaterial color="#0d2734" emissive={accent} emissiveIntensity={0.8} />
+        <meshStandardMaterial color="#0d2734" emissive={accent} emissiveIntensity={0.4} />
       </mesh>
       <mesh position={[0, 0.6, 0.36]}>
         <boxGeometry args={[0.6, 0.04, 0.03]} />
-        <meshStandardMaterial color={accent} emissive={accent} emissiveIntensity={1.6} />
+        <meshStandardMaterial color={accent} emissive={accent} emissiveIntensity={0.8} />
       </mesh>
       <mesh position={[0, 1.7, 0]}>
         <cylinderGeometry args={[0.12, 0.16, 0.2, 10]} />

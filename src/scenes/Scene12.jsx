@@ -11,7 +11,7 @@ import { Fireflies } from './shared/effects';
 import { bigTitleTexture, glowTexture } from '../utils/textures';
 
 export default function Scene12() {
-  const title = useMemo(() => bigTitleTexture('TƯƠNG LAI BẮT ĐẦU TỪ HÔM NAY', 'HỌC TẬP · SÁNG TẠO · BẢO VỆ QUÊ HƯƠNG', '#ffe6a8'), []);
+  const title = useMemo(() => bigTitleTexture('THE FUTURE STARTS TODAY', 'LEARN · CREATE · PROTECT OUR HOME', '#ffe6a8'), []);
   useCinematicCamera({
     path: [
       [-1.5, 1.8, 10.5],
@@ -29,12 +29,12 @@ export default function Scene12() {
     ],
     loop: 48,
     fov: 55,
-    shake: 0.016,
+    shake: 0.007,
   });
   useSceneSegments(
     [
-      { t: 0, caption: 'Mỗi hành động nhỏ hôm nay...', ambience: 'hope' },
-      { t: 8, caption: '...tạo nên tương lai tươi sáng ngày mai', ambience: 'hope' },
+      { t: 0, caption: 'Every small action today...', ambience: 'hope' },
+      { t: 8, caption: '...helps create a brighter tomorrow', ambience: 'hope' },
     ],
     26,
     { delay: 0.4 }

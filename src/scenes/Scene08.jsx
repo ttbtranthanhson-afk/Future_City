@@ -1,3 +1,5 @@
+import { useLayoutEffect } from 'react';
+import { useThree } from '@react-three/fiber';
 import { useCinematicCamera } from '../hooks/useCinematicCamera';
 import { useSceneSegments } from '../hooks/useSceneSegments';
 import { SceneFog } from './shared/effects';
@@ -23,27 +25,28 @@ export default function Scene08() {
       [-1.4, 1.6, -11],
       [0, 1.5, -16],
     ],
-    loop: 48,
+    loop: 42,
     fov: 55,
-    shake: 0.012,
+    shake: 0.006,
   });
   useSceneSegments(
     [
-      { t: 0, caption: 'Bệnh viện thông minh · Quảng Ninh 2076', ambience: 'hospital' },
-      { t: 7, caption: 'AI chẩn đoán sớm, robot hỗ trợ chăm sóc', ambience: 'hospital' },
+      { t: 0, caption: 'Smart hospital · Quang Ninh 2076', ambience: 'hospital' },
+      { t: 7, caption: 'Early AI diagnosis · Robotic care', ambience: 'hospital' },
     ],
     24,
     { delay: 0.4 }
   );
   return (
     <group>
+      <HospitalExposure />
       <SceneFog color="#dceef2" near={9} far={52} />
-      <ambientLight color="#e8f6ff" intensity={0.62} />
-      <hemisphereLight args={['#eaf9ff', '#bcd2d8', 0.55]} />
+      <ambientLight color="#e8f6ff" intensity={0.31} />
+      <hemisphereLight args={['#eaf9ff', '#bcd2d8', 0.275]} />
       <directionalLight
         position={[6, 12, 6]}
         color="#ffffff"
-        intensity={1.35}
+        intensity={0.675}
         castShadow
         shadow-mapSize={[1024, 1024]}
         shadow-camera-left={-9}
@@ -60,8 +63,8 @@ export default function Scene08() {
       <MedicalBed position={[3.3, 0, -2]} rotation={[0, -Math.PI / 2, 0]} patient={false} accent="#9fe8ff" />
       <HospitalDoor position={[4.92, 1.55, -2]} rotation={[0, -Math.PI / 2, 0]} width={2.6} height={3.1} accent="#9fe8ff" open={0.75} />
       <HospitalDoor position={[-4.92, 1.55, -10.5]} rotation={[0, Math.PI / 2, 0]} width={2.6} height={3.1} accent="#7fffd4" open={0.9} />
-      <HospitalWallPanel position={[-4.86, 2.1, -5]} rotation={[0, Math.PI / 2, 0]} title="AI CHẨN ĐOÁN" rows={['Nhịp tim: 72 bpm', 'Nhiệt độ: 36.6°C', 'Xét nghiệm: hoàn tất', 'Kết quả: bình thường']} accent="#9fe8ff" />
-      <HospitalWallPanel position={[4.86, 2.1, -11]} rotation={[0, -Math.PI / 2, 0]} title="ROBOT Y TẾ" rows={['Ca trực: 24/7', 'Thuốc: 12/12', 'Hỗ trợ mổ: 3', 'Kết nối AI: ổn định']} accent="#7fffd4" />
+      <HospitalWallPanel position={[-4.86, 2.1, -5]} rotation={[0, Math.PI / 2, 0]} title="AI DIAGNOSTICS" rows={['Heart rate: 72 bpm', 'Temperature: 36.6°C', 'Tests: complete', 'Status: normal']} accent="#9fe8ff" />
+      <HospitalWallPanel position={[4.86, 2.1, -11]} rotation={[0, -Math.PI / 2, 0]} title="MEDICAL ROBOT" rows={['Shift: 24/7', 'Medication: 12/12', 'Surgery assist: 3', 'AI link: stable']} accent="#7fffd4" />
       <MedTrolley position={[-2.4, 0, -3.5]} path={1.6} speed={0.35} phase={0.4} accent="#9fe8ff" />
       <MedTrolley position={[2.6, 0, -10.8]} path={1.4} speed={0.28} phase={2.2} accent="#7fffd4" />
       <Human preset="doctor" position={[1.6, 0, -4.8]} rotation={[0, -0.4, 0]} talking phase={0.2} />
@@ -70,10 +73,22 @@ export default function Scene08() {
       <LabEquipment position={[4.2, 0, -13.5]} rotation={[0, -Math.PI / 2, 0]} accent="#7fffd4" />
       <RoomPlant position={[-3.9, 0, 0.4]} scale={0.8} />
       <RoomPlant position={[3.9, 0, -15.2]} scale={0.75} />
-      <pointLight position={[0, 4.3, -3]} color="#c8f6ff" intensity={28} distance={26} decay={2} />
-      <pointLight position={[0, 4.3, -11]} color="#bfffe8" intensity={22} distance={22} decay={2} />
+      <pointLight position={[0, 4.3, -3]} color="#c8f6ff" intensity={14} distance={26} decay={2} />
+      <pointLight position={[0, 4.3, -11]} color="#bfffe8" intensity={11} distance={22} decay={2} />
     </group>
   );
+}
+
+function HospitalExposure() {
+  const { scene } = useThree();
+  useLayoutEffect(() => {
+    const previousIntensity = scene.environmentIntensity;
+    scene.environmentIntensity = previousIntensity * 0.5;
+    return () => {
+      scene.environmentIntensity = previousIntensity;
+    };
+  }, [scene]);
+  return null;
 }
 
 function HospitalHall() {
@@ -119,7 +134,7 @@ function HospitalHall() {
           </mesh>
           <mesh position={[s * 5.35, 1.1, -2]}>
             <boxGeometry args={[0.04, 0.06, 32]} />
-            <meshStandardMaterial color="#9fe8ff" emissive="#9fe8ff" emissiveIntensity={0.9} transparent opacity={0.75} />
+            <meshStandardMaterial color="#9fe8ff" emissive="#9fe8ff" emissiveIntensity={0.45} transparent opacity={0.75} />
           </mesh>
           {Array.from({ length: 8 }, (_, i) => (
             <mesh key={`seam${i}`} position={[s * 5.34, 2.6, 12 - i * 4]}>
@@ -133,7 +148,7 @@ function HospitalHall() {
         <group key={i} position={[0, 4.9, 13 - i * 2.9]}>
           <mesh>
             <boxGeometry args={[5.2, 0.08, 0.5]} />
-            <meshStandardMaterial color="#ffffff" emissive="#d8f6ff" emissiveIntensity={2.4} toneMapped={false} />
+            <meshStandardMaterial color="#ffffff" emissive="#d8f6ff" emissiveIntensity={1.2} toneMapped={false} />
           </mesh>
           <mesh position={[0, 0.06, 0]}>
             <boxGeometry args={[5.5, 0.04, 0.7]} />
@@ -144,7 +159,7 @@ function HospitalHall() {
       {[-1, 1].map((s) => (
         <mesh key={s} position={[s * 0.7, 0.012, -2]}>
           <boxGeometry args={[0.1, 0.02, 30]} />
-          <meshStandardMaterial color="#7fffd4" emissive="#7fffd4" emissiveIntensity={1.4} transparent opacity={0.8} />
+          <meshStandardMaterial color="#7fffd4" emissive="#7fffd4" emissiveIntensity={0.7} transparent opacity={0.8} />
         </mesh>
       ))}
       {[-1, 1].flatMap((s) =>
@@ -156,7 +171,7 @@ function HospitalHall() {
             </mesh>
             <mesh position={[0, 1.5, 0]}>
               <boxGeometry args={[0.08, 0.08, 2.3]} />
-              <meshStandardMaterial color="#9fe8ff" emissive="#9fe8ff" emissiveIntensity={1.1} />
+              <meshStandardMaterial color="#9fe8ff" emissive="#9fe8ff" emissiveIntensity={0.55} />
             </mesh>
           </group>
         ))
@@ -170,14 +185,14 @@ function HospitalHall() {
             </mesh>
             <mesh position={[-s * 0.22, 0.5, 0]}>
               <boxGeometry args={[0.03, 0.9, 1.25]} />
-              <meshStandardMaterial color="#9fe8ff" emissive="#9fe8ff" emissiveIntensity={0.5} />
+              <meshStandardMaterial color="#9fe8ff" emissive="#9fe8ff" emissiveIntensity={0.25} />
             </mesh>
           </group>
         ))
       )}
       <mesh position={[0, 3.4, -17.9]}>
         <boxGeometry args={[4.2, 0.1, 0.06]} />
-        <meshStandardMaterial color="#9fe8ff" emissive="#9fe8ff" emissiveIntensity={1.6} />
+        <meshStandardMaterial color="#9fe8ff" emissive="#9fe8ff" emissiveIntensity={0.8} />
       </mesh>
       <mesh position={[0, 1.9, -17.88]}>
         <boxGeometry args={[0.06, 2.8, 0.06]} />

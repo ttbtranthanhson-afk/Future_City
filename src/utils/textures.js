@@ -167,13 +167,13 @@ export function mapTexture() {
     const islands=[[477,391,15,7],[501,407,12,6],[527,393,10,5],[552,418,16,7],[582,399,11,5],[609,424,13,6],[643,402,9,5],[676,421,12,5],[710,394,8,4],[742,414,10,5],[780,383,8,4],[825,357,7,4],[856,330,6,4],[452,414,7,4],[625,447,8,4],[690,452,7,4]];
     islands.forEach(([x,y,rx,ry])=>{ctx.beginPath();ctx.ellipse(x,y,rx,ry,-.3,0,Math.PI*2);ctx.fillStyle='#83b8a2';ctx.fill();ctx.strokeStyle='#668b80';ctx.lineWidth=1.4;ctx.stroke();});
     ctx.textAlign='center'; ctx.textBaseline='middle';
-    const places=[['ĐÔNG TRIỀU',161,216],['UÔNG BÍ',263,205],['QUẢNG YÊN',249,303],['HẠ LONG',355,278],['CẨM PHẢ',462,240],['VÂN ĐỒN',579,281],['TIÊN YÊN',567,170],['ĐẦM HÀ',658,148],['HẢI HÀ',739,154],['MÓNG CÁI',825,166]];
+    const places=[['DONG TRIEU',161,216],['UONG BI',263,205],['QUANG YEN',249,303],['HA LONG',355,278],['CAM PHA',462,240],['VAN DON',579,281],['TIEN YEN',567,170],['DAM HA',658,148],['HAI HA',739,154],['MONG CAI',825,166]];
     places.forEach(([name,x,y],i)=>{ctx.beginPath();ctx.arc(x,y,i===3?6:4,0,Math.PI*2);ctx.fillStyle=i===3?'#c94f45':'#72574b';ctx.fill();ctx.font=`${i===3?'700':'600'} ${i===3?16:13}px "Be Vietnam Pro", sans-serif`;ctx.lineWidth=3;ctx.strokeStyle='rgba(255,255,255,.94)';ctx.strokeText(name,x,y-13);ctx.fillStyle='#3f4b4c';ctx.fillText(name,x,y-13);});
-    ctx.font='italic 18px "Be Vietnam Pro", sans-serif';ctx.fillStyle='#39789a';ctx.fillText('VỊNH HẠ LONG',482,469);ctx.fillText('VỊNH BÁI TỬ LONG',722,346);
-    ctx.textAlign='left';ctx.font='500 14px "Be Vietnam Pro", sans-serif';ctx.fillStyle='#697579';ctx.fillText('HẢI PHÒNG',58,344);ctx.fillText('HẢI DƯƠNG',54,294);ctx.fillText('LẠNG SƠN',862,92);ctx.fillText('TRUNG QUỐC',886,218);
-    ctx.fillStyle='rgba(255,255,255,.92)';ctx.fillRect(18,18,988,56);ctx.fillStyle='#173e52';ctx.font='700 25px "Be Vietnam Pro", sans-serif';ctx.fillText('QUẢNG NINH',36,46);ctx.fillStyle='#52717c';ctx.font='500 14px "Be Vietnam Pro", sans-serif';ctx.fillText('BẢN ĐỒ VỊNH HẠ LONG · 2026',36,65);
+    ctx.font='italic 18px "Be Vietnam Pro", sans-serif';ctx.fillStyle='#39789a';ctx.fillText('HA LONG BAY',482,469);ctx.fillText('BAI TU LONG BAY',722,346);
+    ctx.textAlign='left';ctx.font='500 14px "Be Vietnam Pro", sans-serif';ctx.fillStyle='#697579';ctx.fillText('HAI PHONG',58,344);ctx.fillText('HAI DUONG',54,294);ctx.fillText('LANG SON',862,92);ctx.fillText('CHINA',886,218);
+    ctx.fillStyle='rgba(255,255,255,.92)';ctx.fillRect(18,18,988,56);ctx.fillStyle='#173e52';ctx.font='700 25px "Be Vietnam Pro", sans-serif';ctx.fillText('QUANG NINH',36,46);ctx.fillStyle='#52717c';ctx.font='500 14px "Be Vietnam Pro", sans-serif';ctx.fillText('HA LONG BAY MAP · 2026',36,65);
     ctx.textAlign='right';ctx.fillStyle='#173e52';ctx.font='700 20px sans-serif';ctx.fillText('N',974,102);ctx.beginPath();ctx.moveTo(974,110);ctx.lineTo(966,132);ctx.lineTo(974,127);ctx.lineTo(982,132);ctx.closePath();ctx.fill();
-    ctx.textAlign='left';ctx.fillStyle='#536a70';ctx.font='500 12px "Be Vietnam Pro", sans-serif';ctx.fillText('SƠ ĐỒ MINH HỌA',36,492);ctx.strokeStyle='#465e62';ctx.lineWidth=3;ctx.beginPath();ctx.moveTo(891,481);ctx.lineTo(961,481);ctx.stroke();ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(891,475);ctx.lineTo(891,487);ctx.moveTo(961,475);ctx.lineTo(961,487);ctx.stroke();ctx.fillText('0',889,500);ctx.fillText('10 km',951,500);
+    ctx.textAlign='left';ctx.fillStyle='#536a70';ctx.font='500 12px "Be Vietnam Pro", sans-serif';ctx.fillText('ILLUSTRATIVE MAP',36,492);ctx.strokeStyle='#465e62';ctx.lineWidth=3;ctx.beginPath();ctx.moveTo(891,481);ctx.lineTo(961,481);ctx.stroke();ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(891,475);ctx.lineTo(891,487);ctx.moveTo(961,475);ctx.lineTo(961,487);ctx.stroke();ctx.fillText('0',889,500);ctx.fillText('10 km',951,500);
     ctx.strokeStyle='rgba(65,83,86,.45)';ctx.lineWidth=2;ctx.strokeRect(8,8,1008,496);
     return toTexture(canvas);
   });
@@ -444,12 +444,12 @@ export function themeTexture(theme) {
     tourism: { title: 'TOURISM', lines: ['World Heritage Sites', 'Sustainable Tourism', 'Distinctive Culture'], icon: 'tourism', accent: '#ffd77a' },
     fishing: { title: 'FISHING', lines: ['Peaceful Ocean', 'Modern Fishing Boats', 'Content Fishermen'], icon: 'fishing', accent: '#5ed9c7' },
     mining: { title: 'HISTORY', lines: ['Mining Industry Pride', 'Generations of Workers', 'Never Forgotten'], icon: 'mining', accent: '#d9a45b' },
-    city: { title: 'QUẢNG NINH 2076', lines: ['Green · Smart · Beautiful', 'A Livable City', 'The Future Starts Today'], icon: 'city', accent: '#6ff0ff' },
+    city: { title: 'QUANG NINH 2076', lines: ['Green · Smart · Beautiful', 'A Livable City', 'The Future Starts Today'], icon: 'city', accent: '#6ff0ff' },
     education: { title: 'EDUCATION', lines: ['Hologram Learning', 'Personal AI Assistant', 'Unlimited Creativity'], icon: 'education', accent: '#86b8ff' },
     people: { title: 'PEOPLE', lines: ['Human at Center', 'Opportunities for All', 'Unity and Harmony'], icon: 'people', accent: '#ffd77a' },
   };
   const t = themes[theme] || themes.city;
-  return screenTexture({ title: t.title, subtitle: 'QUẢNG NINH 2076', rows: t.lines, accent: t.accent, theme: t.icon });
+  return screenTexture({ title: t.title, subtitle: 'QUANG NINH 2076', rows: t.lines, accent: t.accent, theme: t.icon });
 }
 
 export function bigTitleTexture(text, sub = '', accent = '#8ff6ff') {

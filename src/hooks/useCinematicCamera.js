@@ -6,6 +6,15 @@ function isNested(arr) {
   return Array.isArray(arr) && Array.isArray(arr[0]);
 }
 
+function parameterAtTime(progress, times, pointCount) {
+  if (!times || times.length !== pointCount || times[0] !== 0 || times[times.length - 1] !== 1) return progress;
+  let index = 0;
+  while (index < times.length - 2 && progress > times[index + 1]) index += 1;
+  const span = times[index + 1] - times[index];
+  const local = span > 0 ? (progress - times[index]) / span : 0;
+  return (index + THREE.MathUtils.clamp(local, 0, 1)) / (pointCount - 1);
+}
+
 export function useCinematicCamera({
   path,
   look,
@@ -16,6 +25,8 @@ export function useCinematicCamera({
   tension = 0.35,
   startAt = 0,
   lookAhead = false,
+  pathTimes = null,
+  targetSmoothing = 9,
 }) {
   const { camera } = useThree();
   const startRef = useRef(null);
@@ -42,13 +53,16 @@ export function useCinematicCamera({
     if (!posCurve) return;
     if (startRef.current === null) startRef.current = state.clock.elapsedTime;
     const elapsed = state.clock.elapsedTime - startRef.current;
-    const t = (((elapsed / loop) + startAt) % 1 + 1) % 1;
-    const pos = posCurve.getPointAt(t);
+    const rawProgress = elapsed / loop + startAt;
+    const t = closed ? ((rawProgress % 1) + 1) % 1 : THREE.MathUtils.clamp(rawProgress, 0, 1);
+    const curveT = !closed && pathTimes ? parameterAtTime(t, pathTimes, path.length) : t;
+    const pos = closed ? posCurve.getPointAt(t) : posCurve.getPoint(curveT);
     let target;
     if (lookCurve instanceof THREE.Vector3) {
       target = lookCurve;
     } else if (lookCurve) {
-      target = lookCurve.getPointAt(t);
+      const lookT = !closed && pathTimes ? parameterAtTime(t, pathTimes, look.length) : t;
+      target = closed ? lookCurve.getPointAt(t) : lookCurve.getPoint(lookT);
     } else {
       const tangent = posCurve.getTangentAt(t);
       target = pos.clone().add(tangent.multiplyScalar(12));
@@ -62,14 +76,14 @@ export function useCinematicCamera({
       lookTarget.current.copy(target);
       initialized.current = true;
     } else {
-      lookTarget.current.lerp(target, Math.min(1, delta * 9));
+      lookTarget.current.lerp(target, 1 - Math.exp(-targetSmoothing * delta));
     }
     camera.position.copy(pos);
     camera.position.x += sx;
     camera.position.y += sy;
     camera.lookAt(lookTarget.current);
     if (Math.abs(camera.fov - fov) > 0.02) {
-      camera.fov += (fov - camera.fov) * Math.min(1, delta * 3.2);
+      camera.fov += (fov - camera.fov) * (1 - Math.exp(-3.2 * delta));
       camera.updateProjectionMatrix();
     }
   });

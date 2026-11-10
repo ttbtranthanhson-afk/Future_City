@@ -20,11 +20,11 @@ export default class ErrorBoundary extends Component {
         <div className="fatal">
           <div className="fatal__panel">
             <span className="eyebrow">WEBGL / RUNTIME ERROR</span>
-            <h1>Không thể khởi động trải nghiệm</h1>
+            <h1>Unable to start the experience</h1>
             <p>{this.state.message}</p>
-            <p className="fatal__hint">Hãy thử trình duyệt Chrome hoặc Edge mới nhất, bật tăng tốc phần cứng và tải lại trang.</p>
+            <p className="fatal__hint">Try the latest version of Chrome or Edge, enable hardware acceleration, and reload the page.</p>
             <button type="button" className="btn btn--primary" onClick={() => window.location.reload()}>
-              TẢI LẠI
+              RELOAD
             </button>
           </div>
         </div>

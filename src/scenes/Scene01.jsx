@@ -17,9 +17,9 @@ export default function Scene01() {
       [-1.4, 1.3, -4.4],
       [-3.4, 1.45, -5.6],
     ],
-    loop: 44,
+    loop: 36,
     fov: 46,
-    shake: 0.014,
+    shake: 0.006,
   });
   return (
     <group>

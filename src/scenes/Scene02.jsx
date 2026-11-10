@@ -20,9 +20,9 @@ export default function Scene02() {
       [0.2, 2.1, -4.2],
       [0.4, 2.0, -3.8],
     ],
-    loop: 40,
+    loop: 32,
     fov: 48,
-    shake: 0.02,
+    shake: 0.006,
   });
   return (
     <group>

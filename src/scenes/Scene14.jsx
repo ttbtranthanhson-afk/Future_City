@@ -19,14 +19,14 @@ export default function Scene14() {
       [-0.6, 1.5, -5.0],
       [-1.0, 1.45, -5.4],
     ],
-    loop: 42,
+    loop: 34,
     fov: 46,
-    shake: 0.012,
+    shake: 0.006,
   });
   useSceneSegments(
     [
-      { t: 0, caption: 'Buổi sáng của một khởi đầu mới', ambience: 'newday' },
-      { t: 8, caption: 'Quyết tâm giữ lấy tương lai', ambience: 'newday' },
+      { t: 0, caption: 'Morning brings a new beginning', ambience: 'newday' },
+      { t: 8, caption: 'Determined to protect our future', ambience: 'newday' },
     ],
     24,
     { delay: 0.4 }

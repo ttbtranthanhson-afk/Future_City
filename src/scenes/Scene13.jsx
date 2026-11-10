@@ -24,7 +24,7 @@ export default function Scene13() {
     ],
     loop: 30,
     fov: 66,
-    shake: 0.04,
+    shake: 0.018,
   });
   useSceneSegments(
     [

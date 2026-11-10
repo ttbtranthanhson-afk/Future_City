@@ -14,6 +14,7 @@ import EndScreen from './components/EndScreen';
 import CaptionBar from './components/CaptionBar';
 import TransitionVeil from './components/TransitionVeil';
 import ErrorBoundary from './components/ErrorBoundary';
+import HalongBayEnvironment from './scenes/shared/HalongBayEnvironment';
 
 const SCENE_COUNT = 15;
 
@@ -188,6 +189,8 @@ export default function App() {
               <Lightformer intensity={0.35} position={[0, -4, 1]} scale={[12, 6, 1]} color="#1a5f78" />
             </Environment>
             <Suspense fallback={null}>
+              {/* Keep one persistent bay group while its camera and lighting scenes switch. */}
+              {(current === 6 || current === 7) && <HalongBayEnvironment />}
               <group key={sceneKey}>{SceneComponent ? <SceneComponent /> : null}</group>
             </Suspense>
             <Effects />

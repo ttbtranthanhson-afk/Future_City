@@ -40,7 +40,7 @@ export default function Scene05() {
     ],
     loop: 46,
     fov: 52,
-    shake: 0.02,
+    shake: 0.008,
   });
   return (
     <group>
@@ -58,7 +58,7 @@ export default function Scene05() {
         <SkyTraffic points={TRAFFIC} count={12} color="#6ff0ff" speed={0.03} spread={12} seed={9} />
       </group>
       <EnergyCore position={[0, 4.4, -9]} scale={1.7} color="#6ff0ff" accent="#79f2d0" />
-      <DataWall position={[0, 5.2, -17]} width={11} height={5} title="AI CENTRAL CONTROL" subtitle="QUẢNG NINH 2076" rows={['Smart Transport', 'Renewable Energy', 'Environment Data', 'Social Security']} accent="#6ff0ff" theme="tech" />
+      <DataWall position={[0, 5.2, -17]} width={11} height={5} title="AI CENTRAL CONTROL" subtitle="QUANG NINH 2076" rows={['Smart Transport', 'Renewable Energy', 'Environment Data', 'Social Security']} accent="#6ff0ff" theme="tech" />
       <ControlScreen position={[-13, 4.5, -10]} rotation={[0, 0.65, 0]} width={6} height={3.2} title="GREEN ENERGY" rows={['Solar 42%', 'Wind 31%', 'Tidal 18%', 'Storage 9%']} accent="#79f2d0" />
       <ControlScreen position={[13, 4.2, -8]} rotation={[0, -0.65, 0]} width={6} height={3.2} title="TRANSPORT" rows={['Air Routes: 24', 'Ferry: 12', 'Autonomous Cars: 86', 'Traffic: 0']} accent="#b18cff" />
       <HoloBillboard position={[-24, 20, -34]} rotation={[0, 0.5, 0]} width={18} height={9} title="GREEN CITY" lines={['100% RENEWABLE ENERGY']} accent="#79f2d0" icon="eco" />

@@ -47,7 +47,7 @@ export default function Scene15() {
     ],
     loop: 50,
     fov: 52,
-    shake: 0.012,
+    shake: 0.006,
   });
   return (
     <group>

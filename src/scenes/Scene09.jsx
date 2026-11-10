@@ -33,14 +33,14 @@ export default function Scene09() {
       [-2.4, 2.5, -7.5],
       [0, 2.7, -8],
     ],
-    loop: 44,
+    loop: 38,
     fov: 54,
-    shake: 0.012,
+    shake: 0.006,
   });
   useSceneSegments(
     [
-      { t: 0, caption: 'Ngôi trường của năm 2076', ambience: 'school' },
-      { t: 8, caption: 'Kiến thức hiện ra ngay trong không gian', ambience: 'school' },
+      { t: 0, caption: 'The school of 2076', ambience: 'school' },
+      { t: 8, caption: 'Knowledge comes alive all around us', ambience: 'school' },
     ],
     24,
     { delay: 0.4 }
@@ -75,7 +75,7 @@ export default function Scene09() {
       <Human preset="student" position={[3.8, 0, -6.2]} rotation={[0, 0.7, 0]} phase={1.9} />
       <HologramSolarSystem position={[0, 4.3, -7.4]} scale={0.72} color="#ffd77a" accent="#6ff0ff" />
       <HoloPagoda position={[-4.4, 1.1, -7.4]} scale={0.5} accent="#8ff6ff" />
-      <DataWall position={[4.4, 2.6, -9.7]} rotation={[0, -0.2, 0]} width={4.4} height={2.4} title="LỚP HỌC 2076" subtitle="HỌC TẬP CÁ NHÂN HÓA" rows={['Toán · Vật lý · Lịch sử', 'Hologram tương tác', 'Trợ lý AI đồng hành', 'Sáng tạo không giới hạn']} accent="#86b8ff" theme="tech" />
+      <DataWall position={[4.4, 2.6, -9.7]} rotation={[0, -0.2, 0]} width={4.4} height={2.4} title="CLASSROOM 2076" subtitle="PERSONALIZED LEARNING" rows={['Math · Physics · History', 'Interactive holograms', 'AI learning companion', 'Limitless creativity']} accent="#86b8ff" theme="tech" />
       <HoloPanel position={[-4.6, 2.4, -9.4]} rotation={[0, 0.25, 0]} width={3.2} height={2.2} texture={windows[2]} color="#ffd86e" opacity={0.55} />
       <pointLight position={[0, 4.2, -5]} color="#d8e9ff" intensity={26} distance={22} decay={2} />
       <pointLight position={[0, 1.4, 3]} color="#ffe2b0" intensity={18} distance={18} decay={2} />

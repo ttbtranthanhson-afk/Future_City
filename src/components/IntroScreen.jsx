@@ -23,7 +23,7 @@ export default function IntroScreen({ onStart }) {
         <p className="intro__tagline">Our future, our responsibility.</p>
         <p className="intro__desc">
           A journey through space with Minh, Lan, Alex and Robo — from a small room in 2026 to a
-          green, smart and livable Quảng Ninh.
+          green, smart and livable Quang Ninh.
         </p>
         <div className="intro__actions">
           <button type="button" className="btn btn--primary btn--large" onClick={onStart} autoFocus>

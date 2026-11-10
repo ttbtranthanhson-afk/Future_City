@@ -519,7 +519,7 @@ function Headphones({ position }) {
 }
 
 function Laptop({ position, rotation, night }) {
-  const tex = useMemo(() => screenTexture({ title: 'QUẢNG NINH 2076', subtitle: 'Dự án tương lai', rows: ['Năng lượng xanh', 'Giao thông thông minh', 'Bảo tồn di sản'], accent: '#6ff0ff', theme: 'tech' }), []);
+  const tex = useMemo(() => screenTexture({ title: 'QUANG NINH 2076', subtitle: 'A future project', rows: ['Green energy', 'Smart transport', 'Heritage preservation'], accent: '#6ff0ff', theme: 'tech' }), []);
   return (
     <group position={position} rotation={rotation}>
       <mesh position={[0, 0.01, 0]} castShadow>

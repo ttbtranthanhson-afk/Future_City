@@ -7,10 +7,10 @@ function estimateMs(text) {
   return 2200 + text.replace(/\s+/g, ' ').length * 75;
 }
 
-function findVietnameseVoice() {
+function findEnglishVoice() {
   if (!synthAvailable) return null;
   const voices = window.speechSynthesis.getVoices();
-  return voices.find((v) => /^vi([-_]|$)/i.test(v.lang)) || null;
+  return voices.find((v) => /^en([-_]|$)/i.test(v.lang)) || null;
 }
 
 class DialogueManager {
@@ -24,7 +24,7 @@ class DialogueManager {
     if (synthAvailable) {
       const load = () => {
         this.voicesReady = true;
-        this.cachedVoice = findVietnameseVoice();
+        this.cachedVoice = findEnglishVoice();
       };
       load();
       window.speechSynthesis.addEventListener?.('voiceschanged', load);
@@ -61,17 +61,17 @@ class DialogueManager {
       synthAvailable &&
       state.volumes.voice > 0.02 &&
       !state.muted &&
-      (this.cachedVoice || findVietnameseVoice());
+      (this.cachedVoice || findEnglishVoice());
 
     if (useVoice) {
       try {
-        if (!this.cachedVoice) this.cachedVoice = findVietnameseVoice();
+        if (!this.cachedVoice) this.cachedVoice = findEnglishVoice();
         const utter = new SpeechSynthesisUtterance(line.text.replace(/—/g, ', '));
-        utter.lang = 'vi-VN';
+        utter.lang = 'en-US';
         if (this.cachedVoice) utter.voice = this.cachedVoice;
         utter.volume = state.volumes.voice;
         utter.rate = line.speaker === 'Robo' ? 1.08 : 0.97;
-        utter.pitch = line.speaker === 'Robo' ? 1.35 : line.speaker === 'TẤT CẢ' ? 0.85 : 1;
+        utter.pitch = line.speaker === 'Robo' ? 1.35 : line.speaker === 'EVERYONE' ? 0.85 : 1;
         utter.onend = advance;
         utter.onerror = () => {
           if (!advanced) {

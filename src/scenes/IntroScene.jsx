@@ -26,7 +26,7 @@ export default function IntroScene() {
     ],
     loop: 38,
     fov: 52,
-    shake: 0.03,
+    shake: 0.01,
   });
   return (
     <group>

@@ -1,7 +1,7 @@
 import { useExperience } from '../store/useExperience';
 
 const STEPS = [
-  { at: 0, label: 'Initializing Quảng Ninh terrain...' },
+  { at: 0, label: 'Initializing Quang Ninh terrain...' },
   { at: 32, label: 'Building city 2076...' },
   { at: 62, label: 'Connecting audio system...' },
   { at: 86, label: 'Preparing journey...' },
@@ -23,7 +23,7 @@ export default function LoadingScreen() {
         <span className="eyebrow">INTERACTIVE CINEMATIC EXPERIENCE</span>
       </div>
       <div className="boot__center">
-        <span className="eyebrow eyebrow--gold">QUẢNG NINH</span>
+        <span className="eyebrow eyebrow--gold">QUANG NINH</span>
         <h1 className="boot__title">
           OUR FUTURE,
           <br />
@@ -31,8 +31,8 @@ export default function LoadingScreen() {
         </h1>
         {webglError ? (
           <div className="boot__error">
-            <p>Trình duyệt chưa hỗ trợ WebGL 2.0.</p>
-            <p>Vui lòng bật tăng tốc phần cứng hoặc dùng Chrome / Edge phiên bản mới.</p>
+            <p>This browser does not support WebGL 2.0.</p>
+            <p>Enable hardware acceleration or use the latest version of Chrome or Edge.</p>
           </div>
         ) : (
           <>

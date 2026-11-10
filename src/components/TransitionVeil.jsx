@@ -35,7 +35,7 @@ export default function TransitionVeil() {
       </div>
       <div className="veil__label">
         <span className="eyebrow">TRANSITION</span>
-        <span>{LABELS[type] || 'CHUYỂN CẢNH'}</span>
+        <span>{LABELS[type] || 'TRANSITION'}</span>
       </div>
     </div>
   );

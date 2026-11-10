@@ -3,7 +3,7 @@ export default function EndScreen({ onReplay }) {
     <div className="ending">
       <div className="ending__scrim" aria-hidden="true" />
       <div className="ending__content">
-        <span className="eyebrow eyebrow--gold">QUẢNG NINH 2076</span>
+        <span className="eyebrow eyebrow--gold">QUANG NINH 2076</span>
         <h1 className="ending__title">
           OUR FUTURE
           <br />

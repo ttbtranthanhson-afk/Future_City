@@ -21,12 +21,12 @@ export default function Scene03() {
     ],
     loop: 30,
     fov: 68,
-    shake: 0.05,
+    shake: 0.026,
   });
   useSceneSegments(
     [
-      { t: 0, caption: 'Cổng không gian mở ra...', ambience: 'warp' },
-      { t: 5, caption: 'Năm 2076 đang ở phía trước', ambience: 'warp' },
+      { t: 0, caption: 'The space portal opens...', ambience: 'warp' },
+      { t: 5, caption: 'The year 2076 lies ahead', ambience: 'warp' },
     ],
     30,
     { delay: 0.6 }

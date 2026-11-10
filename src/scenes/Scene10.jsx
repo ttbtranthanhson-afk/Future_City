@@ -23,12 +23,12 @@ export default function Scene10() {
     ],
     loop: 50,
     fov: 56,
-    shake: 0.022,
+    shake: 0.007,
   });
   useSceneSegments(
     [
-      { t: 0, caption: 'Những năm tháng của ngành than', ambience: 'mining' },
-      { t: 8, caption: 'Lịch sử là niềm tự hào của Quảng Ninh', ambience: 'mining' },
+      { t: 0, caption: 'The story of coal mining', ambience: 'mining' },
+      { t: 8, caption: 'A proud legacy of Quang Ninh', ambience: 'mining' },
     ],
     26,
     { delay: 0.6 }
@@ -71,7 +71,7 @@ export default function Scene10() {
       <Human preset="oldminer" position={[0, 0, -8.6]} rotation={[0, 0.12, 0]} talking phase={0.3} />
       <Human preset="miner" position={[-2.6, 0, -10.4]} rotation={[0, 0.55, 0]} phase={1.7} />
       <Human preset="miner" position={[2.5, 0, -11.2]} rotation={[0, -0.5, 0]} phase={2.9} />
-      <DataWall position={[-6.1, 2.2, -3.4]} rotation={[0, Math.PI / 2, 0]} width={5} height={2.8} title="LỊCH SỬ NGÀNH THAN" subtitle="QUẢNG NINH · TỰ HÀO" rows={['1888 · Bắt đầu khai thác', '1955 · Xây dựng lại', '1990 · Đổi mới', '2076 · Di sản được gìn giữ']} accent="#ffc16a" theme="heritage" />
+      <DataWall position={[-6.1, 2.2, -3.4]} rotation={[0, Math.PI / 2, 0]} width={5} height={2.8} title="COAL MINING HISTORY" subtitle="QUANG NINH · A PROUD LEGACY" rows={['1888 · Mining begins', '1955 · Rebuilding', '1990 · Renewal', '2076 · Heritage preserved']} accent="#ffc16a" theme="heritage" />
       <CoalPile position={[-4.8, 0, -1]} scale={1.3} />
       <CoalPile position={[4.6, 0, -9]} scale={1.6} />
       <CoalPile position={[-4.2, 0, -12]} scale={1.9} />

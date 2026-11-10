@@ -50,7 +50,7 @@ export default function Scene04() {
     ],
     loop: 52,
     fov: 55,
-    shake: 0.018,
+    shake: 0.009,
   });
   return (
     <group>
@@ -76,7 +76,7 @@ export default function Scene04() {
         <WindFarm center={[-82, 2, 66]} count={5} spacing={14} height={40} />
         <SolarFarm position={[74, 0.4, 58]} rows={3} cols={5} gap={3.4} accent="#6ff0ff" />
         <PlazaTrees count={12} radius={26} height={0.4} />
-        <HoloBillboard position={[0, 66, 8]} width={30} height={13} title="QUẢNG NINH 2076" lines={['XANH · THÔNG MINH · ĐÁNG SỐNG']} accent="#8ff6e0" icon="tech" />
+        <HoloBillboard position={[0, 66, 8]} width={30} height={13} title="QUANG NINH 2076" lines={['GREEN · SMART · LIVABLE']} accent="#8ff6e0" icon="tech" />
         <pointLight position={[0, 30, 20]} color="#8ff6e0" intensity={160} distance={120} decay={2} />
       </group>
       <IslandCluster center={[-170, -0.5, -70]} count={5} spread={34} seed={18} scale={0.7} />
