@@ -51,6 +51,8 @@ export default function Scene15() {
   });
   return (
     <group>
+      <hemisphereLight args={['#5a6f9c', '#2a1c1c', 0.4]} />
+      <directionalLight position={[-40, 70, 50]} color="#ffd7a8" intensity={0.6} />
       <GradientSky top="#0a1b36" bottom="#7a4663" horizon="#ffbd7a" sunColor="#ffd69a" sunDir={[-0.3, 0.16, -1]} radius={700} />
       <Stars count={700} radius={340} size={1.4} opacity={0.8} />
       <CloudLayer count={14} height={60} radius={240} color="#ffcfae" opacity={0.3} speed={0.3} />
@@ -67,22 +69,74 @@ export default function Scene15() {
         <meshStandardMaterial color="#334c44" roughness={0.95} />
       </mesh>
       <group position={[0, 0, 10]}>
-        <mesh position={[0, 0.1, 0]}>
-          <cylinderGeometry args={[15, 16, 0.4, 32]} />
+        <mesh position={[0, -0.25, 0]} receiveShadow>
+          <cylinderGeometry args={[19.5, 20.5, 0.35, 40]} />
+          <meshStandardMaterial color="#0f1a22" metalness={0.5} roughness={0.45} />
+        </mesh>
+        <mesh position={[0, -0.05, 0]} receiveShadow>
+          <cylinderGeometry args={[17, 18, 0.4, 40]} />
+          <meshStandardMaterial color="#152430" metalness={0.45} roughness={0.48} />
+        </mesh>
+        <mesh position={[0, 0.1, 0]} receiveShadow>
+          <cylinderGeometry args={[15, 16, 0.4, 36]} />
           <meshStandardMaterial color="#1a2a34" metalness={0.4} roughness={0.5} />
         </mesh>
-        <mesh position={[0, 0.35, 0]}>
-          <cylinderGeometry args={[12.5, 13, 0.5, 32]} />
+        <mesh position={[0, 0.35, 0]} receiveShadow>
+          <cylinderGeometry args={[12.5, 13, 0.5, 36]} />
           <meshStandardMaterial color="#22323e" metalness={0.4} roughness={0.45} />
         </mesh>
-        <mesh position={[0, 0.48, 0]}>
-          <cylinderGeometry args={[10.5, 11, 0.4, 32]} />
+        <mesh position={[0, 0.48, 0]} receiveShadow>
+          <cylinderGeometry args={[10.5, 11, 0.4, 36]} />
           <meshStandardMaterial color="#2a3b46" metalness={0.4} roughness={0.4} />
         </mesh>
-        <mesh position={[0, 0.55, 0]} rotation={[-Math.PI / 2, 0, 0]}>
+        {[13.2, 15.4, 18.2].map((r, i) => (
+          <mesh key={`litring${r}`} position={[0, [0.605, 0.305, 0.155][i], 0]} rotation={[-Math.PI / 2, 0, 0]}>
+            <ringGeometry args={[r, r + 0.12, 64]} />
+            <meshBasicMaterial color="#ffd77a" transparent opacity={0.55} side={THREE.DoubleSide} depthWrite={false} />
+          </mesh>
+        ))}
+        <mesh position={[0, 0.555, 0]} rotation={[-Math.PI / 2, 0, 0]}>
           <ringGeometry args={[10.6, 11.2, 48]} />
-          <meshBasicMaterial color="#ffd77a" transparent opacity={0.6} side={THREE.DoubleSide} />
+          <meshBasicMaterial color="#ffe4a6" transparent opacity={0.75} side={THREE.DoubleSide} />
         </mesh>
+        <mesh position={[0, 0.556, 0]} rotation={[-Math.PI / 2, 0, 0]}>
+          <ringGeometry args={[3.4, 3.55, 48]} />
+          <meshBasicMaterial color="#6ff0ff" transparent opacity={0.4} side={THREE.DoubleSide} depthWrite={false} />
+        </mesh>
+        {Array.from({ length: 12 }, (_, i) => {
+          const a = (i / 12) * Math.PI * 2;
+          const r = 16;
+          return (
+            <group key={`bollard${i}`} position={[Math.cos(a) * r, 0, Math.sin(a) * r]}>
+              <mesh position={[0, 0.45, 0]}>
+                <cylinderGeometry args={[0.07, 0.1, 0.9, 6]} />
+                <meshStandardMaterial color="#2c3a44" metalness={0.6} roughness={0.35} />
+              </mesh>
+              <mesh position={[0, 0.94, 0]}>
+                <sphereGeometry args={[0.11, 8, 6]} />
+                <meshStandardMaterial color="#ffe7b4" emissive="#ffd77a" emissiveIntensity={2.6} toneMapped={false} />
+              </mesh>
+            </group>
+          );
+        })}
+        {[0, 1, 2, 3].map((i) => {
+          const a = Math.PI / 4 + (i / 4) * Math.PI * 2;
+          return (
+            <group key={`torch${i}`} position={[Math.cos(a) * 13.5, 0, Math.sin(a) * 13.5]}>
+              <mesh position={[0, 2.4, 0]}>
+                <cylinderGeometry args={[0.1, 0.16, 4.8, 6]} />
+                <meshStandardMaterial color="#3a2d21" metalness={0.4} roughness={0.7} />
+              </mesh>
+              <mesh position={[0, 4.9, 0]}>
+                <coneGeometry args={[0.34, 0.5, 8]} />
+                <meshStandardMaterial color="#ffd77a" emissive="#ffb655" emissiveIntensity={2.4} toneMapped={false} />
+              </mesh>
+              <sprite position={[0, 5.1, 0]} scale={[1.6, 2.2, 1]}>
+                <spriteMaterial map={glowTexture('#ffffff')} color="#ffcf7a" transparent opacity={0.55} depthWrite={false} blending={THREE.AdditiveBlending} />
+              </sprite>
+            </group>
+          );
+        })}
       </group>
       {CAST.map((c, i) => (
         <Human key={i} preset={c.preset} position={c.position} rotation={[0, c.rotation, 0]} phase={i * 0.8} talking={i < 3} />

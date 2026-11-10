@@ -49,6 +49,8 @@ export default function Scene11() {
   });
   return (
     <group>
+      <hemisphereLight args={['#ffe1c2', '#3f4a3c', 0.6]} />
+      <directionalLight position={[70, 85, 70]} color="#ffe2b8" intensity={1.1} />
       <GradientSky top="#1b3b63" bottom="#e6b077" horizon="#ffe0a8" sunColor="#ffd79a" sunDir={[0.5, 0.2, -1]} radius={700} />
       <SunSprite position={[150, 36, -320]} scale={80} color="#ffd99e" opacity={0.92} />
       <CloudLayer count={16} height={58} radius={240} color="#ffe4cc" opacity={0.4} speed={0.35} />
@@ -78,6 +80,8 @@ export default function Scene11() {
       <HoloPagoda position={[-7.5, 1.3, -9]} scale={0.42} accent="#8ff6ff" />
       <HoloPanel position={[0, 10, -34]} width={30} height={8} texture={banner} color="#ffd77a" opacity={0.7} />
       <pointLight position={[0, 4, 4]} color="#ffdca8" intensity={50} distance={30} decay={2} />
+      <pointLight position={[-8, 5, 2]} color="#6ff0ff" intensity={18} distance={20} decay={2} />
+      <pointLight position={[8, 5, 2]} color="#b18cff" intensity={16} distance={20} decay={2} />
       <Haze position={[0, 8, -140]} scale={[380, 70, 1]} color="#ffddba" opacity={0.2} />
       <Motes count={130} area={[50, 16, 40]} color="#ffe0ad" size={0.08} speed={0.1} center={[0, 6, 0]} opacity={0.35} />
     </group>

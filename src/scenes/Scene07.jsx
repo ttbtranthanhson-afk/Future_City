@@ -2,7 +2,7 @@ import { useMemo } from 'react';
 import { useCinematicCamera } from '../hooks/useCinematicCamera';
 import { GradientSky, SunSprite, CloudLayer, Haze, BirdFlock, Motes } from './shared/atmosphere';
 import { Ocean } from './shared/water';
-import { IslandCluster, TourBoat, Pagoda } from './shared/nature';
+import { IslandCluster, TourBoat, Pagoda, Tree } from './shared/nature';
 import { Lanterns } from './shared/effects';
 import { HoloPanel } from './shared/tech';
 import { bigTitleTexture } from '../utils/textures';
@@ -39,6 +39,8 @@ export default function Scene07() {
   });
   return (
     <group>
+      <hemisphereLight args={['#ffd9b4', '#2d3a34', 0.55]} />
+      <directionalLight position={[-80, 60, 70]} color="#ffd9a8" intensity={1.0} />
       <GradientSky top="#1e4160" bottom="#f0b06d" horizon="#ffe0a8" sunColor="#ffd08a" sunDir={[-0.4, 0.18, -1]} radius={680} />
       <SunSprite position={[-150, 38, -300]} scale={86} color="#ffd695" opacity={0.95} />
       <CloudLayer count={18} height={60} radius={230} color="#ffe3c8" opacity={0.45} speed={0.3} />
@@ -68,34 +70,95 @@ export default function Scene07() {
 function PagodaIsland() {
   return (
     <group position={[-32, 0, -56]}>
-      <mesh position={[0, 2, 0]}>
-        <cylinderGeometry args={[17, 21, 8, 9]} />
-        <meshStandardMaterial color="#3a4a42" roughness={1} flatShading />
+      <mesh position={[0, 2, 0]} castShadow receiveShadow>
+        <cylinderGeometry args={[17, 22, 8, 11]} />
+        <meshStandardMaterial color="#32443c" roughness={1} flatShading />
       </mesh>
-      <mesh position={[0, 8, 0]}>
-        <cylinderGeometry args={[9, 12, 10, 8]} />
-        <meshStandardMaterial color="#47564b" roughness={1} flatShading />
+      <mesh position={[0, 7.6, 0]} castShadow receiveShadow>
+        <cylinderGeometry args={[9.4, 13, 9.4, 9]} />
+        <meshStandardMaterial color="#40544a" roughness={1} flatShading />
       </mesh>
-      <mesh position={[0, 13.2, 0]}>
-        <cylinderGeometry args={[6.5, 8, 2, 8]} />
-        <meshStandardMaterial color="#566456" roughness={1} flatShading />
+      <mesh position={[0, 13.1, 0]} castShadow receiveShadow>
+        <cylinderGeometry args={[6.8, 8.6, 2.2, 9]} />
+        <meshStandardMaterial color="#536356" roughness={1} flatShading />
       </mesh>
-      <group position={[0, 14, 1]} rotation={[0, 0.3, 0]}>
+      <mesh position={[0, 14.24, 0]} receiveShadow>
+        <cylinderGeometry args={[6.9, 6.9, 0.18, 9]} />
+        <meshStandardMaterial color="#6f7c69" roughness={1} />
+      </mesh>
+      {Array.from({ length: 9 }, (_, i) => {
+        const a = (i / 9) * Math.PI * 2 + 0.3;
+        const r = 17 + (i % 3) * 2.4;
+        return (
+          <mesh key={`rock${i}`} position={[Math.cos(a) * r, 1.4 + (i % 3) * 1.1, Math.sin(a) * r]} rotation={[i * 0.5, i * 0.9, i * 0.3]} castShadow>
+            <dodecahedronGeometry args={[2 + (i % 4) * 0.7, 0]} />
+            <meshStandardMaterial color="#33443c" roughness={1} flatShading />
+          </mesh>
+        );
+      })}
+      {[
+        [-4.6, 13.2, 2.4],
+        [4.4, 13.2, 2.8],
+        [5.6, 13.2, -1.4],
+        [-5.2, 13.2, -2.2],
+      ].map((p, i) => (
+        <Tree key={`t${i}`} position={p} scale={0.72} phase={i * 1.3} />
+      ))}
+      <group position={[0, 14.3, 1]} rotation={[0, 0.3, 0]}>
         <Pagoda scale={1.25} />
       </group>
       {[-1, 1].map((s) => (
-        <mesh key={s} position={[s * 3.4, 14.8, 3.4]}>
-          <boxGeometry args={[0.24, 1.1, 0.24]} />
-          <meshStandardMaterial color="#d9b25c" emissive="#ffcf6e" emissiveIntensity={0.7} />
+        <group key={s} position={[s * 3.5, 14.3, 3.6]}>
+          <mesh>
+            <boxGeometry args={[0.16, 1.4, 0.16]} />
+            <meshStandardMaterial color="#5b4a33" roughness={0.85} />
+          </mesh>
+          <mesh position={[0, 0.82, 0]}>
+            <boxGeometry args={[0.24, 0.12, 0.24]} />
+            <meshStandardMaterial color="#d9b25c" emissive="#ffcf6e" emissiveIntensity={0.8} metalness={0.5} roughness={0.35} />
+          </mesh>
+          <mesh position={[0, 0.74, 0]}>
+            <sphereGeometry args={[0.2, 10, 8]} />
+            <meshStandardMaterial color="#ffcf8a" emissive="#ffcf6e" emissiveIntensity={2.2} toneMapped={false} />
+          </mesh>
+        </group>
+      ))}
+      {Array.from({ length: 5 }, (_, i) => (
+        <mesh key={`step${i}`} position={[0, 13.35 + i * 0.16, 4.6 + i * 0.28]} receiveShadow>
+          <boxGeometry args={[2.8 - i * 0.2, 0.16, 0.34]} />
+          <meshStandardMaterial color="#75806f" roughness={0.95} />
         </mesh>
       ))}
-      {Array.from({ length: 9 }, (_, i) => (
-        <mesh key={i} position={[0, 14.4, -2 + i * 0.9]}>
-          <boxGeometry args={[0.2, 0.9, 0.3]} />
-          <meshStandardMaterial color="#c9a55c" emissive="#ffcf6e" emissiveIntensity={0.55} />
+      <group position={[0, 5.6, 17]}>
+        <mesh receiveShadow>
+          <boxGeometry args={[2.6, 0.16, 8]} />
+          <meshStandardMaterial color="#6a533c" roughness={0.9} />
         </mesh>
-      ))}
-      <pointLight position={[0, 18, 4]} color="#ffcf8a" intensity={20} distance={30} decay={2} />
+        {[-1.1, 1.1].map((x) =>
+          [0, 3, 6].map((z) => (
+            <mesh key={`pole${x}${z}`} position={[x, -2.4, z]}>
+              <cylinderGeometry args={[0.11, 0.13, 5.2, 6]} />
+              <meshStandardMaterial color="#4c3a29" roughness={0.9} />
+            </mesh>
+          ))
+        )}
+        {[-1.1, 1.1].map((x) => (
+          <mesh key={`rail${x}`} position={[x, 0.62, 3]}>
+            <boxGeometry args={[0.08, 0.08, 7.6]} />
+            <meshStandardMaterial color="#7d6347" roughness={0.85} />
+          </mesh>
+        ))}
+        <mesh position={[0, 0.62, 6.8]}>
+          <boxGeometry args={[2.3, 0.08, 0.08]} />
+          <meshStandardMaterial color="#7d6347" roughness={0.85} />
+        </mesh>
+      </group>
+      <mesh position={[0, 18.5, 4.5]}>
+        <sphereGeometry args={[0.18, 10, 8]} />
+        <meshStandardMaterial color="#ffe1a8" emissive="#ffcf6e" emissiveIntensity={2.4} toneMapped={false} />
+      </mesh>
+      <pointLight position={[0, 18.5, 4.5]} color="#ffcf8a" intensity={26} distance={34} decay={2} />
+      <pointLight position={[0, 7, 17]} color="#ffbe78" intensity={10} distance={16} decay={2} />
     </group>
   );
 }

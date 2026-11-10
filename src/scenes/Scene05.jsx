@@ -45,6 +45,8 @@ export default function Scene05() {
   return (
     <group>
       <SceneFog color="#07141f" near={10} far={135} />
+      <hemisphereLight args={['#3d6a96', '#0a1018', 0.42]} />
+      <directionalLight position={[-50, 80, 60]} color="#9fc8ff" intensity={0.55} />
       <GradientSky top="#030914" bottom="#0b2230" horizon="#1f5d70" sunColor="#6ff0ff" sunDir={[-0.3, 0.2, -1]} radius={520} />
       <Stars count={600} radius={320} size={1.2} opacity={0.75} />
       <CityGround size={320} color="#0a141c" accent="#1d6a86" />

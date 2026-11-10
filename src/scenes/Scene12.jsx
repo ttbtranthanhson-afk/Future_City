@@ -1,4 +1,5 @@
 import { useMemo } from 'react';
+import * as THREE from 'three';
 import { useCinematicCamera } from '../hooks/useCinematicCamera';
 import { useSceneSegments } from '../hooks/useSceneSegments';
 import { GradientSky, SunSprite, CloudLayer, BirdFlock, Motes } from './shared/atmosphere';
@@ -40,6 +41,8 @@ export default function Scene12() {
   );
   return (
     <group>
+      <hemisphereLight args={['#ffe9cc', '#3f5c3c', 0.65]} />
+      <directionalLight position={[50, 85, 60]} color="#ffe8bc" intensity={1.15} />
       <GradientSky top="#265a7c" bottom="#ffcf9a" horizon="#fff0c8" sunColor="#ffdfa0" sunDir={[0.3, 0.22, -1]} radius={680} />
       <SunSprite position={[40, 30, -320]} scale={90} color="#ffe4ad" opacity={0.95} />
       <CloudLayer count={14} height={54} radius={220} color="#fff0dc" opacity={0.38} speed={0.3} />
@@ -75,22 +78,49 @@ export default function Scene12() {
 function YoungTree() {
   return (
     <group position={[0, 0, -0.4]}>
-      <mesh position={[0, 0.75, 0]}>
-        <cylinderGeometry args={[0.08, 0.12, 1.5, 6]} />
+      <mesh position={[0, 0.02, 0]} rotation={[-Math.PI / 2, 0, 0]} receiveShadow>
+        <circleGeometry args={[1.6, 24]} />
+        <meshStandardMaterial color="#6b8a4f" roughness={0.98} />
+      </mesh>
+      <mesh position={[0, 0.75, 0]} castShadow>
+        <cylinderGeometry args={[0.07, 0.15, 1.55, 7]} />
         <meshStandardMaterial color="#5e442e" roughness={0.95} />
       </mesh>
-      {[0, 1, 2].map((i) => (
-        <mesh key={i} position={[Math.cos(i * 2.1) * 0.22, 1.5 + i * 0.18, Math.sin(i * 2.1) * 0.22]} scale={0.55 - i * 0.08}>
-          <sphereGeometry args={[0.9, 7, 6]} />
-          <meshStandardMaterial color={i % 2 ? '#3f8a58' : '#4f9d62'} roughness={0.9} flatShading />
+      {[
+        [0.3, 1.35, 0.1, 0.5],
+        [-0.28, 1.5, -0.12, -0.55],
+        [0.1, 1.75, -0.3, 0.35],
+      ].map(([x, y, z, rz], i) => (
+        <mesh key={`br${i}`} position={[x, y, z]} rotation={[0.2 * (i - 1), 0, rz]} castShadow>
+          <cylinderGeometry args={[0.025, 0.05, 0.85, 5]} />
+          <meshStandardMaterial color="#5a412c" roughness={0.95} />
         </mesh>
       ))}
-      <mesh position={[0, 0.12, 0]} rotation={[-Math.PI / 2, 0, 0]}>
-        <ringGeometry args={[0.55, 0.95, 24]} />
-        <meshBasicMaterial color="#b6ff9f" transparent opacity={0.5} />
+      {[
+        [0, 2.25, 0, 0.72],
+        [0.42, 1.98, 0.18, 0.55],
+        [-0.46, 2.04, -0.12, 0.5],
+        [0.18, 2.14, -0.46, 0.46],
+        [-0.16, 1.86, 0.44, 0.42],
+        [0.02, 2.5, 0.06, 0.38],
+      ].map(([x, y, z, s], i) => (
+        <mesh key={`leaf${i}`} position={[x, y, z]} scale={s} castShadow>
+          <icosahedronGeometry args={[0.9, 1]} />
+          <meshStandardMaterial color={['#3f8a58', '#4f9d62', '#5aab6a', '#468f5d'][i % 4]} roughness={0.88} flatShading />
+        </mesh>
+      ))}
+      {[[-1.1, 0.18, 0.6], [1.15, 0.16, -0.4], [0.5, 0.15, 1.1]].map((p, i) => (
+        <mesh key={`rock${i}`} position={p} rotation={[i, i * 0.8, 0]} castShadow>
+          <dodecahedronGeometry args={[0.22 + i * 0.05, 0]} />
+          <meshStandardMaterial color="#7b8378" roughness={0.96} flatShading />
+        </mesh>
+      ))}
+      <mesh position={[0, 0.1, 0]} rotation={[-Math.PI / 2, 0, 0]}>
+        <ringGeometry args={[1.15, 1.55, 32]} />
+        <meshBasicMaterial color="#b6ff9f" transparent opacity={0.4} blending={THREE.AdditiveBlending} depthWrite={false} />
       </mesh>
-      <pointLight position={[0, 1.4, 0]} color="#b6ff9f" intensity={6} distance={7} decay={2} />
-      <sprite position={[0, 1.2, 0]} scale={[3, 3, 1]}>
+      <pointLight position={[0, 1.8, 0]} color="#b6ff9f" intensity={8} distance={8} decay={2} />
+      <sprite position={[0, 1.7, 0]} scale={[3.4, 3.4, 1]}>
         <spriteMaterial map={glowTexture('#ffffff')} color="#b6ff9f" transparent opacity={0.16} depthWrite={false} />
       </sprite>
     </group>

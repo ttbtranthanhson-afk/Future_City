@@ -38,8 +38,22 @@ export default function Scene08() {
   return (
     <group>
       <SceneFog color="#dceef2" near={9} far={52} />
-      <ambientLight color="#e8f6ff" intensity={1.05} />
-      <directionalLight position={[6, 12, 6]} color="#ffffff" intensity={1.2} />
+      <ambientLight color="#e8f6ff" intensity={0.62} />
+      <hemisphereLight args={['#eaf9ff', '#bcd2d8', 0.55]} />
+      <directionalLight
+        position={[6, 12, 6]}
+        color="#ffffff"
+        intensity={1.35}
+        castShadow
+        shadow-mapSize={[1024, 1024]}
+        shadow-camera-left={-9}
+        shadow-camera-right={9}
+        shadow-camera-top={9}
+        shadow-camera-bottom={-9}
+        shadow-camera-near={0.5}
+        shadow-camera-far={40}
+        shadow-bias={-0.0004}
+      />
       <HospitalHall />
       <MedicalBed position={[0, 0, -7.8]} patient accent="#9fe8ff" />
       <Scanner position={[0, 1.7, -7.8]} accent="#7fffd4" />
@@ -65,31 +79,67 @@ export default function Scene08() {
 function HospitalHall() {
   return (
     <group>
-      <mesh position={[0, -0.06, -2]} rotation={[-Math.PI / 2, 0, 0]}>
+      <mesh position={[0, -0.06, -2]} rotation={[-Math.PI / 2, 0, 0]} receiveShadow>
         <planeGeometry args={[11, 32]} />
-        <meshStandardMaterial color="#e6f2f5" roughness={0.3} metalness={0.15} />
+        <meshStandardMaterial color="#e6f2f5" roughness={0.24} metalness={0.18} />
       </mesh>
+      {[-3.6, -1.2, 1.2, 3.6].map((x) => (
+        <mesh key={`tilex${x}`} position={[x, -0.045, -2]} rotation={[-Math.PI / 2, 0, 0]}>
+          <planeGeometry args={[0.02, 32]} />
+          <meshBasicMaterial color="#c7dde3" transparent opacity={0.5} />
+        </mesh>
+      ))}
+      {Array.from({ length: 12 }, (_, i) => (
+        <mesh key={`tilez${i}`} position={[0, -0.045, 14 - i * 2.9]} rotation={[-Math.PI / 2, 0, 0]}>
+          <planeGeometry args={[11, 0.02]} />
+          <meshBasicMaterial color="#c7dde3" transparent opacity={0.5} />
+        </mesh>
+      ))}
       <mesh position={[0, 5.02, -2]} rotation={[Math.PI / 2, 0, 0]}>
         <planeGeometry args={[11, 32]} />
         <meshStandardMaterial color="#f2fafc" roughness={0.6} />
       </mesh>
-      <mesh position={[-5.45, 2.5, -2]}>
+      <mesh position={[-5.45, 2.5, -2]} receiveShadow>
         <boxGeometry args={[0.2, 5, 32]} />
         <meshStandardMaterial color="#dfeef2" roughness={0.5} />
       </mesh>
-      <mesh position={[5.45, 2.5, -2]}>
+      <mesh position={[5.45, 2.5, -2]} receiveShadow>
         <boxGeometry args={[0.2, 5, 32]} />
         <meshStandardMaterial color="#dfeef2" roughness={0.5} />
       </mesh>
-      <mesh position={[0, 2.5, -18.1]}>
+      <mesh position={[0, 2.5, -18.1]} receiveShadow>
         <boxGeometry args={[11, 5, 0.2]} />
         <meshStandardMaterial color="#e2f0f4" roughness={0.55} />
       </mesh>
+      {[-1, 1].map((s) => (
+        <group key={`trim${s}`}>
+          <mesh position={[s * 5.35, 0.12, -2]}>
+            <boxGeometry args={[0.08, 0.24, 32]} />
+            <meshStandardMaterial color="#b8d2da" roughness={0.45} metalness={0.2} />
+          </mesh>
+          <mesh position={[s * 5.35, 1.1, -2]}>
+            <boxGeometry args={[0.04, 0.06, 32]} />
+            <meshStandardMaterial color="#9fe8ff" emissive="#9fe8ff" emissiveIntensity={0.9} transparent opacity={0.75} />
+          </mesh>
+          {Array.from({ length: 8 }, (_, i) => (
+            <mesh key={`seam${i}`} position={[s * 5.34, 2.6, 12 - i * 4]}>
+              <boxGeometry args={[0.04, 4.4, 0.05]} />
+              <meshStandardMaterial color="#c3dbe1" roughness={0.6} />
+            </mesh>
+          ))}
+        </group>
+      ))}
       {Array.from({ length: 11 }, (_, i) => (
-        <mesh key={i} position={[0, 4.94, 13 - i * 2.9]}>
-          <boxGeometry args={[1.0, 0.06, 1.6]} />
-          <meshStandardMaterial color="#ffffff" emissive="#d8f6ff" emissiveIntensity={2.2} />
-        </mesh>
+        <group key={i} position={[0, 4.9, 13 - i * 2.9]}>
+          <mesh>
+            <boxGeometry args={[5.2, 0.08, 0.5]} />
+            <meshStandardMaterial color="#ffffff" emissive="#d8f6ff" emissiveIntensity={2.4} toneMapped={false} />
+          </mesh>
+          <mesh position={[0, 0.06, 0]}>
+            <boxGeometry args={[5.5, 0.04, 0.7]} />
+            <meshStandardMaterial color="#e6f7fb" roughness={0.5} />
+          </mesh>
+        </group>
       ))}
       {[-1, 1].map((s) => (
         <mesh key={s} position={[s * 0.7, 0.012, -2]}>
@@ -107,6 +157,20 @@ function HospitalHall() {
             <mesh position={[0, 1.5, 0]}>
               <boxGeometry args={[0.08, 0.08, 2.3]} />
               <meshStandardMaterial color="#9fe8ff" emissive="#9fe8ff" emissiveIntensity={1.1} />
+            </mesh>
+          </group>
+        ))
+      )}
+      {[-1, 1].flatMap((s) =>
+        [7, 3, -1, -5, -9, -13].map((z) => (
+          <group key={`cab${s}${z}`} position={[s * 5.2, 0, z]}>
+            <mesh position={[0, 0.5, 0]}>
+              <boxGeometry args={[0.4, 1.0, 1.4]} />
+              <meshStandardMaterial color="#dcecef" roughness={0.42} metalness={0.2} />
+            </mesh>
+            <mesh position={[-s * 0.22, 0.5, 0]}>
+              <boxGeometry args={[0.03, 0.9, 1.25]} />
+              <meshStandardMaterial color="#9fe8ff" emissive="#9fe8ff" emissiveIntensity={0.5} />
             </mesh>
           </group>
         ))

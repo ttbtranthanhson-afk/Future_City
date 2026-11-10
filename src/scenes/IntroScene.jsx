@@ -30,6 +30,8 @@ export default function IntroScene() {
   });
   return (
     <group>
+      <hemisphereLight args={['#cfe9ff', '#3a4a3a', 0.6]} />
+      <directionalLight position={[60, 90, 60]} color="#ffe6c4" intensity={1.05} />
       <GradientSky top="#0b2540" bottom="#67b4cc" horizon="#ffd6a0" sunColor="#ffe0ae" sunDir={[0.3, 0.18, -1]} radius={600} />
       <SunSprite position={[60, 26, -220]} scale={60} color="#ffe3b0" opacity={0.9} />
       <CloudLayer count={18} height={48} radius={190} color="#ffe1c4" opacity={0.5} speed={0.4} />

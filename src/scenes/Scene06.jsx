@@ -39,6 +39,8 @@ export default function Scene06() {
   return (
     <group>
       <DepthFog surface="#bcdced" deep="#0a3a4c" nearAbove={18} farAbove={280} nearBelow={3} farBelow={54} />
+      <hemisphereLight args={['#9fe4ff', '#06303c', 0.55]} />
+      <directionalLight position={[30, 70, -30]} color="#c8f6ff" intensity={0.8} />
       <GradientSky top="#3f8ab8" bottom="#c9ecf5" horizon="#ffe4b9" sunColor="#ffe8b5" sunDir={[0.4, 0.25, -1]} radius={650} />
       <SunSprite position={[110, 44, -280]} scale={64} color="#ffe6b5" opacity={0.9} />
       <CloudLayer count={14} height={55} radius={220} color="#fff2e4" opacity={0.4} speed={0.3} />
@@ -69,12 +71,52 @@ export default function Scene06() {
 function CoralPatch() {
   return (
     <group>
+      {[[-3, 0.1, 3.4], [4.2, 0.05, -2.2], [0.5, 0.08, 5.2]].map((p, i) => (
+        <mesh key={`base${i}`} position={p} rotation={[i, i * 1.3, 0]}>
+          <dodecahedronGeometry args={[0.9 + i * 0.25, 0]} />
+          <meshStandardMaterial color="#5b6f6a" roughness={0.96} flatShading />
+        </mesh>
+      ))}
       {Array.from({ length: 9 }, (_, i) => {
         const a = (i / 9) * Math.PI * 2;
+        const color = ['#e27a8a', '#ffa06e', '#c7a6ff', '#8ff0d8'][i % 4];
+        const x = Math.cos(a) * 6.5;
+        const z = Math.sin(a) * 5.2;
+        const h = 0.9 + (i % 3) * 0.35;
         return (
-          <mesh key={i} position={[Math.cos(a) * 6.5, 0.3, Math.sin(a) * 5.2]}>
-            <sphereGeometry args={[0.7 + (i % 3) * 0.3, 6, 4]} />
-            <meshStandardMaterial color={['#e27a8a', '#ffa06e', '#c7a6ff', '#8ff0d8'][i % 4]} roughness={0.9} flatShading />
+          <group key={i} position={[x, 0.1, z]}>
+            <mesh position={[0, h * 0.4, 0]}>
+              <cylinderGeometry args={[0.1, 0.17, h * 0.8, 6]} />
+              <meshStandardMaterial color={color} roughness={0.88} />
+            </mesh>
+            {[0, 1, 2].map((k) => {
+              const ba = (k / 3) * Math.PI * 2 + i;
+              return (
+                <group key={k} position={[Math.cos(ba) * 0.18, h * 0.72, Math.sin(ba) * 0.18]} rotation={[Math.cos(ba) * 0.5, 0, Math.sin(ba) * 0.5]}>
+                  <mesh position={[0, 0.3, 0]}>
+                    <cylinderGeometry args={[0.05, 0.08, 0.6, 5]} />
+                    <meshStandardMaterial color={color} roughness={0.85} />
+                  </mesh>
+                  <mesh position={[0, 0.62, 0]}>
+                    <icosahedronGeometry args={[0.16, 0]} />
+                    <meshStandardMaterial color={color} roughness={0.8} emissive={color} emissiveIntensity={0.16} flatShading />
+                  </mesh>
+                </group>
+              );
+            })}
+            <mesh position={[0, h * 0.82, 0]}>
+              <icosahedronGeometry args={[0.22, 1]} />
+              <meshStandardMaterial color={color} roughness={0.8} emissive={color} emissiveIntensity={0.2} flatShading />
+            </mesh>
+          </group>
+        );
+      })}
+      {Array.from({ length: 14 }, (_, i) => {
+        const a = (i / 14) * Math.PI * 2;
+        return (
+          <mesh key={`anem${i}`} position={[Math.cos(a) * 4.4, 0.18, Math.sin(a) * 3.6]} rotation={[0, a, 0]}>
+            <coneGeometry args={[0.16, 0.5, 5]} />
+            <meshStandardMaterial color={i % 2 ? '#8ff0d8' : '#ffb3c4'} roughness={0.85} emissive={i % 2 ? '#8ff0d8' : '#ffb3c4'} emissiveIntensity={0.18} />
           </mesh>
         );
       })}

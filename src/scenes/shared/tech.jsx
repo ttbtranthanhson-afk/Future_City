@@ -50,7 +50,16 @@ export function Portal({ position = [0, 1.6, 0], rotation = [0, 0, 0], scale = 1
   });
   return (
     <group position={position} rotation={rotation} scale={scale}>
-      <pointLight color={color} intensity={18 * intensity} distance={18} decay={2} />
+      <pointLight color={color} intensity={24 * intensity} distance={22} decay={2} />
+      <pointLight position={[0, 0, 2.6]} color={accent} intensity={8 * intensity} distance={10} decay={2} />
+      <mesh position={[0, 0, -0.32]} castShadow>
+        <torusGeometry args={[3.55, 0.34, 12, 64]} />
+        <meshStandardMaterial color="#142b36" metalness={0.82} roughness={0.28} emissive={color} emissiveIntensity={0.35} />
+      </mesh>
+      <mesh position={[0, 0, -0.22]}>
+        <torusGeometry args={[3.22, 0.07, 8, 64]} />
+        <meshStandardMaterial color={color} emissive={color} emissiveIntensity={2.6} metalness={0.5} roughness={0.2} />
+      </mesh>
       <group ref={rings}>
         {[1, 1.14, 1.28].map((s, i) => (
           <mesh key={i} rotation={[0.3, 0, i * 0.2]}>
@@ -60,7 +69,7 @@ export function Portal({ position = [0, 1.6, 0], rotation = [0, 0, 0], scale = 1
         ))}
       </group>
       <mesh ref={disc} position={[0, 0, -0.05]}>
-        <circleGeometry args={[3.1, 48]} />
+        <circleGeometry args={[3.06, 64]} />
         <shaderMaterial
           transparent
           side={THREE.DoubleSide}
@@ -86,23 +95,34 @@ export function Portal({ position = [0, 1.6, 0], rotation = [0, 0, 0], scale = 1
               float angle = atan(p.y, p.x);
               float swirl = sin(angle * 7.0 + r * 10.0 - uTime * 2.6) * 0.5 + 0.5;
               float swirl2 = sin(angle * 13.0 - r * 16.0 + uTime * 3.8) * 0.5 + 0.5;
+              float spiral = sin(angle * 3.0 + r * 18.0 - uTime * 1.7) * 0.5 + 0.5;
               vec3 col = mix(uColorA, uColorB, swirl);
-              col += uColorB * swirl2 * 0.5;
+              col += uColorB * swirl2 * 0.5 + vec3(0.55, 0.95, 1.0) * spiral * 0.18;
               float core = smoothstep(1.0, 0.0, r);
               float edge = smoothstep(1.0, 0.82, r) * (1.0 - smoothstep(0.86, 0.98, r));
               float alpha = core * (0.35 + swirl * 0.4) + edge * 0.85;
-              col += vec3(1.0) * pow(1.0 - r, 5.0) * 0.7;
-              gl_FragColor = vec4(col * uIntensity, alpha * 0.92);
+              col += vec3(1.0) * pow(1.0 - r, 5.0) * 0.9;
+              float sparks = step(0.995, hash(floor(p * 34.0 + uTime * 1.4)));
+              col += vec3(1.0) * sparks * 0.55 * (1.0 - r);
+              gl_FragColor = vec4(col * uIntensity, alpha * 0.94);
             }
           `}
         />
       </mesh>
+      <mesh position={[0, 0, 0.15]}>
+        <sphereGeometry args={[0.26, 18, 14]} />
+        <meshStandardMaterial color="#ffffff" emissive={color} emissiveIntensity={5} toneMapped={false} />
+      </mesh>
       <points ref={particles} geometry={particleGeo}>
-        <pointsMaterial map={glowTexture('#ffffff')} color={color} size={0.14} transparent opacity={0.9} depthWrite={false} blending={THREE.AdditiveBlending} sizeAttenuation />
+        <pointsMaterial map={glowTexture('#ffffff')} color={color} size={0.15} transparent opacity={0.9} depthWrite={false} blending={THREE.AdditiveBlending} sizeAttenuation />
       </points>
       <mesh>
         <ringGeometry args={[3.15, 3.6, 64]} />
-        <meshBasicMaterial color={accent} transparent opacity={0.22} blending={THREE.AdditiveBlending} side={THREE.DoubleSide} depthWrite={false} />
+        <meshBasicMaterial color={accent} transparent opacity={0.24} blending={THREE.AdditiveBlending} side={THREE.DoubleSide} depthWrite={false} />
+      </mesh>
+      <mesh position={[0, 0, 0.3]}>
+        <ringGeometry args={[0.9, 2.5, 48]} />
+        <meshBasicMaterial color={color} transparent opacity={0.08} blending={THREE.AdditiveBlending} side={THREE.DoubleSide} depthWrite={false} />
       </mesh>
     </group>
   );
@@ -140,37 +160,87 @@ export function EnergyCore({ position = [0, 2, 0], scale = 1, color = '#6ff0ff',
   const group = useRef();
   const ring1 = useRef();
   const ring2 = useRef();
+  const core = useRef();
+  const sparks = useRef();
+  const sparkData = useMemo(
+    () =>
+      Array.from({ length: 28 }, () => ({
+        a: Math.random() * Math.PI * 2,
+        r: 1.1 + Math.random() * 1.2,
+        y: (Math.random() - 0.5) * 1.6,
+        s: 0.02 + Math.random() * 0.04,
+        sp: 0.3 + Math.random() * 0.8,
+      })),
+    []
+  );
   useFrame(({ clock }) => {
     const t = clock.elapsedTime;
     if (group.current) group.current.position.y = position[1] + Math.sin(t * 1.2) * 0.12;
     if (ring1.current) ring1.current.rotation.z = t * 0.8;
     if (ring2.current) ring2.current.rotation.x = t * 0.6;
+    if (core.current) {
+      core.current.rotation.y = t * 0.5;
+      core.current.rotation.x = t * 0.3;
+    }
+    if (sparks.current) {
+      sparks.current.children.forEach((s, i) => {
+        const d = sparkData[i];
+        const a = d.a + t * d.sp;
+        s.position.set(Math.cos(a) * d.r, d.y + Math.sin(t * 1.3 + i) * 0.18, Math.sin(a) * d.r);
+      });
+    }
   });
   return (
     <group ref={group} position={position} scale={scale}>
-      <pointLight color={color} intensity={12} distance={14} decay={2} />
-      <mesh>
-        <sphereGeometry args={[0.65, 20, 16]} />
-        <meshStandardMaterial color={color} emissive={color} emissiveIntensity={2.6} transparent opacity={0.85} roughness={0.2} />
+      <pointLight color={color} intensity={16} distance={16} decay={2} />
+      <mesh position={[0, -1.65, 0]} castShadow receiveShadow>
+        <cylinderGeometry args={[0.95, 1.25, 0.4, 20]} />
+        <meshStandardMaterial color="#162a35" metalness={0.75} roughness={0.32} emissive={color} emissiveIntensity={0.16} />
+      </mesh>
+      <mesh position={[0, -1.44, 0]} rotation={[-Math.PI / 2, 0, 0]}>
+        <ringGeometry args={[0.6, 1.1, 32]} />
+        <meshBasicMaterial color={color} transparent opacity={0.3} blending={THREE.AdditiveBlending} depthWrite={false} />
       </mesh>
       <mesh>
-        <sphereGeometry args={[0.9, 16, 12]} />
-        <meshBasicMaterial color={accent} transparent opacity={0.12} blending={THREE.AdditiveBlending} depthWrite={false} />
+        <sphereGeometry args={[0.65, 20, 16]} />
+        <meshStandardMaterial color={color} emissive={color} emissiveIntensity={2.8} transparent opacity={0.82} roughness={0.16} />
+      </mesh>
+      <mesh ref={core}>
+        <icosahedronGeometry args={[0.46, 1]} />
+        <meshStandardMaterial color="#ffffff" emissive={accent} emissiveIntensity={3.2} metalness={0.3} roughness={0.2} wireframe />
+      </mesh>
+      <mesh>
+        <sphereGeometry args={[0.92, 18, 14]} />
+        <meshBasicMaterial color={accent} transparent opacity={0.1} blending={THREE.AdditiveBlending} depthWrite={false} />
       </mesh>
       <group ref={ring1} rotation={[Math.PI / 2, 0, 0]}>
         <mesh>
           <torusGeometry args={[1.3, 0.045, 8, 48]} />
-          <meshStandardMaterial color={accent} emissive={accent} emissiveIntensity={1.8} />
+          <meshStandardMaterial color={accent} emissive={accent} emissiveIntensity={1.9} metalness={0.4} roughness={0.2} />
         </mesh>
+        {[0, 1, 2, 3].map((i) => (
+          <mesh key={i} position={[Math.cos((i / 4) * Math.PI * 2) * 1.3, Math.sin((i / 4) * Math.PI * 2) * 1.3, 0]}>
+            <sphereGeometry args={[0.07, 8, 6]} />
+            <meshStandardMaterial color="#ffffff" emissive={color} emissiveIntensity={3.2} />
+          </mesh>
+        ))}
       </group>
       <group ref={ring2} rotation={[0.6, 0, 0.4]}>
         <mesh>
           <torusGeometry args={[1.65, 0.03, 8, 48]} />
-          <meshStandardMaterial color={color} emissive={color} emissiveIntensity={1.5} transparent opacity={0.8} />
+          <meshStandardMaterial color={color} emissive={color} emissiveIntensity={1.6} transparent opacity={0.8} metalness={0.4} roughness={0.2} />
         </mesh>
       </group>
-      <sprite scale={[4, 4, 1]}>
-        <spriteMaterial map={glowTexture('#ffffff')} color={color} transparent opacity={0.22} depthWrite={false} blending={THREE.AdditiveBlending} />
+      <group ref={sparks}>
+        {sparkData.map((s, i) => (
+          <mesh key={i}>
+            <sphereGeometry args={[s.s, 5, 4]} />
+            <meshBasicMaterial color={accent} transparent opacity={0.8} blending={THREE.AdditiveBlending} depthWrite={false} />
+          </mesh>
+        ))}
+      </group>
+      <sprite scale={[4.4, 4.4, 1]}>
+        <spriteMaterial map={glowTexture('#ffffff')} color={color} transparent opacity={0.24} depthWrite={false} blending={THREE.AdditiveBlending} />
       </sprite>
     </group>
   );
@@ -179,42 +249,86 @@ export function EnergyCore({ position = [0, 2, 0], scale = 1, color = '#6ff0ff',
 export function MedicalBed({ position = [0, 0, 0], rotation = [0, 0, 0], accent = '#9fe8ff', patient = true }) {
   return (
     <group position={position} rotation={rotation}>
-      <mesh position={[0, 0.6, 0]}>
-        <boxGeometry args={[2.2, 0.16, 1.05]} />
-        <meshStandardMaterial color="#e8f2f4" metalness={0.25} roughness={0.5} />
+      <mesh position={[0, 0.55, 0]} castShadow>
+        <boxGeometry args={[2.24, 0.18, 1.08]} />
+        <meshStandardMaterial color="#dfeaee" metalness={0.32} roughness={0.42} />
       </mesh>
-      <mesh position={[0, 0.7, 0]}>
-        <boxGeometry args={[2.0, 0.1, 0.92]} />
-        <meshStandardMaterial color="#d8e8ee" roughness={0.7} />
+      <mesh position={[0, 0.68, 0]} receiveShadow>
+        <boxGeometry args={[2.04, 0.14, 0.94]} />
+        <meshStandardMaterial color="#eef6f8" roughness={0.82} />
       </mesh>
-      <mesh position={[0.88, 0.79, 0]}>
-        <boxGeometry args={[0.35, 0.12, 0.72]} />
-        <meshStandardMaterial color="#f4f9fa" roughness={0.8} />
+      <mesh position={[-0.72, 0.76, 0]}>
+        <boxGeometry args={[0.55, 0.06, 0.9]} />
+        <meshStandardMaterial color="#cfe4ea" roughness={0.9} />
       </mesh>
+      <mesh position={[0.8, 0.78, 0]} rotation={[0, 0, -0.16]}>
+        <boxGeometry args={[0.42, 0.09, 0.72]} />
+        <meshStandardMaterial color="#f4f9fa" roughness={0.85} />
+      </mesh>
+      <mesh position={[0.62, 0.86, 0]}>
+        <sphereGeometry args={[0.16, 12, 10]} />
+        <meshStandardMaterial color="#f7fbfc" roughness={0.95} />
+      </mesh>
+      {[-0.88, 0.88].map((x) => (
+        <mesh key={`hr${x}`} position={[x, 0.9, 0.42]} rotation={[0, 0, Math.PI / 2]}>
+          <cylinderGeometry args={[0.022, 0.022, 0.8, 6]} />
+          <meshStandardMaterial color="#9fb2b8" metalness={0.75} roughness={0.24} />
+        </mesh>
+      ))}
       {[-1, 1].flatMap((sx) =>
         [-1, 1].map((sz) => (
-          <mesh key={`${sx}${sz}`} position={[sx * 0.95, 0.32, sz * 0.42]}>
-            <cylinderGeometry args={[0.035, 0.045, 0.6, 6]} />
-            <meshStandardMaterial color="#8a9aa0" metalness={0.7} roughness={0.3} />
+          <mesh key={`${sx}${sz}`} position={[sx * 0.95, 0.3, sz * 0.42]} castShadow>
+            <cylinderGeometry args={[0.035, 0.05, 0.56, 6]} />
+            <meshStandardMaterial color="#7f9298" metalness={0.72} roughness={0.28} />
           </mesh>
         ))
       )}
-      <mesh position={[0, 0.9, 0.49]}>
-        <boxGeometry args={[2.1, 0.1, 0.05]} />
+      {[-1, 1].flatMap((sx) =>
+        [-1, 1].map((sz) => (
+          <mesh key={`w${sx}${sz}`} position={[sx * 0.95, 0.04, sz * 0.42]}>
+            <sphereGeometry args={[0.07, 8, 6]} />
+            <meshStandardMaterial color="#2b363b" roughness={0.5} />
+          </mesh>
+        ))
+      )}
+      <mesh position={[0, 0.73, 0.5]}>
+        <boxGeometry args={[2.1, 0.055, 0.04]} />
         <meshStandardMaterial color={accent} emissive={accent} emissiveIntensity={0.9} />
       </mesh>
       {patient && (
         <>
-          <mesh position={[0.1, 0.95, 0]} rotation={[0, 0, Math.PI / 2]} scale={[1, 1, 1]}>
-            <capsuleGeometry args={[0.2, 1.1, 4, 8]} />
-            <meshStandardMaterial color="#8ab5c7" roughness={0.8} />
+          <mesh position={[0.06, 0.94, 0]} rotation={[0, 0, Math.PI / 2]} castShadow>
+            <capsuleGeometry args={[0.21, 1.05, 4, 10]} />
+            <meshStandardMaterial color="#8fbacb" roughness={0.82} />
           </mesh>
-          <mesh position={[0.86, 0.98, 0]}>
-            <sphereGeometry args={[0.15, 12, 10]} />
+          <mesh position={[0.72, 0.86, 0]}>
+            <sphereGeometry args={[0.16, 14, 12]} />
             <meshStandardMaterial color="#e3b58b" roughness={0.9} />
+          </mesh>
+          <mesh position={[-0.1, 0.83, 0]} rotation={[0, 0, Math.PI / 2]}>
+            <boxGeometry args={[0.95, 0.05, 0.85]} />
+            <meshStandardMaterial color="#bcd8e2" roughness={0.95} />
           </mesh>
         </>
       )}
+      <group position={[-0.2, 0, -0.62]}>
+        <mesh position={[0, 1.0, 0]}>
+          <cylinderGeometry args={[0.022, 0.022, 1.9, 6]} />
+          <meshStandardMaterial color="#a9bcc2" metalness={0.7} roughness={0.26} />
+        </mesh>
+        <mesh position={[0, 2.0, 0]} rotation={[0, 0, Math.PI / 2]}>
+          <cylinderGeometry args={[0.018, 0.018, 0.5, 6]} />
+          <meshStandardMaterial color="#a9bcc2" metalness={0.7} roughness={0.26} />
+        </mesh>
+        <mesh position={[0.25, 1.92, 0]}>
+          <boxGeometry args={[0.36, 0.26, 0.05]} />
+          <meshStandardMaterial color="#0d2734" emissive={accent} emissiveIntensity={0.7} />
+        </mesh>
+        <mesh position={[0, 0.05, 0]}>
+          <cylinderGeometry args={[0.26, 0.3, 0.08, 10]} />
+          <meshStandardMaterial color="#7f9298" metalness={0.7} roughness={0.3} />
+        </mesh>
+      </group>
     </group>
   );
 }
@@ -344,34 +458,68 @@ export function HospitalDoor({ position = [0, 1.5, 0], rotation = [0, 0, 0], wid
 export function ClassroomDesk({ position = [0, 0, 0], rotation = [0, 0, 0], accent = '#86b8ff' }) {
   return (
     <group position={position} rotation={rotation}>
-      <mesh position={[0, 0.72, 0]}>
+      <mesh position={[0, 0.72, 0]} castShadow receiveShadow>
         <boxGeometry args={[1.5, 0.08, 0.7]} />
-        <meshStandardMaterial color="#d8e4f0" metalness={0.3} roughness={0.4} />
+        <meshStandardMaterial color="#d8e4f0" metalness={0.32} roughness={0.38} />
       </mesh>
       <mesh position={[0, 0.75, 0]}>
         <boxGeometry args={[1.2, 0.015, 0.6]} />
-        <meshStandardMaterial color={accent} emissive={accent} emissiveIntensity={0.5} transparent opacity={0.35} />
+        <meshStandardMaterial color={accent} emissive={accent} emissiveIntensity={0.5} transparent opacity={0.3} />
+      </mesh>
+      <mesh position={[-0.28, 0.77, 0.02]} rotation={[0, 0.08, 0]}>
+        <boxGeometry args={[0.46, 0.045, 0.32]} />
+        <meshStandardMaterial color="#f3f8fb" roughness={0.85} />
+      </mesh>
+      <mesh position={[-0.28, 0.795, 0.02]} rotation={[0, 0.08, 0]}>
+        <boxGeometry args={[0.4, 0.008, 0.27]} />
+        <meshStandardMaterial color="#0d2734" emissive={accent} emissiveIntensity={0.9} />
+      </mesh>
+      <mesh position={[0.32, 0.78, -0.06]} rotation={[0, -0.18, 0]}>
+        <boxGeometry args={[0.26, 0.05, 0.34]} />
+        <meshStandardMaterial color="#c96f7a" roughness={0.8} />
+      </mesh>
+      <mesh position={[0.32, 0.81, -0.06]} rotation={[0, -0.18, 0]}>
+        <boxGeometry args={[0.22, 0.02, 0.3]} />
+        <meshStandardMaterial color="#f4f1e6" roughness={0.9} />
+      </mesh>
+      <mesh position={[0.5, 0.77, 0.16]} rotation={[0, 0.5, Math.PI / 2]}>
+        <cylinderGeometry args={[0.014, 0.014, 0.26, 5]} />
+        <meshStandardMaterial color="#3f6e8a" metalness={0.3} roughness={0.5} />
       </mesh>
       {[-1, 1].flatMap((sx) =>
         [-1, 1].map((sz) => (
-          <mesh key={`${sx}${sz}`} position={[sx * 0.65, 0.36, sz * 0.26]}>
-            <cylinderGeometry args={[0.025, 0.03, 0.72, 5]} />
-            <meshStandardMaterial color="#8a95a4" metalness={0.6} roughness={0.3} />
+          <mesh key={`${sx}${sz}`} position={[sx * 0.65, 0.36, sz * 0.26]} castShadow>
+            <cylinderGeometry args={[0.025, 0.032, 0.72, 6]} />
+            <meshStandardMaterial color="#7f8b9a" metalness={0.62} roughness={0.28} />
           </mesh>
         ))
       )}
-      <group position={[0, 0, -0.85]}>
-        <mesh position={[0, 0.45, 0]}>
-          <boxGeometry args={[0.6, 0.08, 0.55]} />
-          <meshStandardMaterial color="#7f8fa6" roughness={0.7} />
+      {[-1, 1].map((sx) => (
+        <mesh key={`bar${sx}`} position={[sx * 0.65, 0.18, 0]}>
+          <boxGeometry args={[0.04, 0.04, 0.5]} />
+          <meshStandardMaterial color="#7f8b9a" metalness={0.62} roughness={0.28} />
         </mesh>
-        <mesh position={[0, 0.72, -0.26]}>
-          <boxGeometry args={[0.6, 0.5, 0.08]} />
-          <meshStandardMaterial color="#7f8fa6" roughness={0.7} />
+      ))}
+      <group position={[0, 0, -0.85]}>
+        <mesh position={[0, 0.45, 0]} castShadow>
+          <boxGeometry args={[0.62, 0.09, 0.56]} />
+          <meshStandardMaterial color="#6f829c" roughness={0.66} />
+        </mesh>
+        <mesh position={[0, 0.74, -0.26]} castShadow>
+          <boxGeometry args={[0.62, 0.56, 0.09]} />
+          <meshStandardMaterial color="#6f829c" roughness={0.66} />
+        </mesh>
+        <mesh position={[0, 0.75, -0.2]}>
+          <boxGeometry args={[0.46, 0.36, 0.03]} />
+          <meshStandardMaterial color="#2a3a4d" roughness={0.7} />
         </mesh>
         <mesh position={[0, 0.24, 0]}>
-          <cylinderGeometry args={[0.03, 0.04, 0.42, 5]} />
-          <meshStandardMaterial color="#8a95a4" metalness={0.6} roughness={0.3} />
+          <cylinderGeometry args={[0.03, 0.042, 0.42, 6]} />
+          <meshStandardMaterial color="#7f8b9a" metalness={0.62} roughness={0.28} />
+        </mesh>
+        <mesh position={[0, 0.02, 0]}>
+          <cylinderGeometry args={[0.22, 0.26, 0.04, 10]} />
+          <meshStandardMaterial color="#5c6b80" metalness={0.5} roughness={0.4} />
         </mesh>
       </group>
     </group>
@@ -600,28 +748,62 @@ export function Drone({ position = [0, 8, 0], color = '#dfe9ee', accent = '#6ff0
   });
   return (
     <group ref={group} position={position}>
-      <mesh>
-        <boxGeometry args={[0.6, 0.18, 0.6]} />
-        <meshStandardMaterial color={color} metalness={0.5} roughness={0.3} />
+      <mesh castShadow>
+        <boxGeometry args={[0.56, 0.16, 0.56]} />
+        <meshStandardMaterial color={color} metalness={0.55} roughness={0.26} />
       </mesh>
-      <mesh position={[0, 0.1, 0]}>
-        <sphereGeometry args={[0.12, 8, 6]} />
-        <meshStandardMaterial color={accent} emissive={accent} emissiveIntensity={2.4} />
+      <mesh position={[0, -0.03, 0]}>
+        <sphereGeometry args={[0.24, 14, 10]} />
+        <meshStandardMaterial color="#2c3a42" metalness={0.6} roughness={0.3} />
+      </mesh>
+      <mesh position={[0, 0.11, 0]}>
+        <cylinderGeometry args={[0.16, 0.2, 0.08, 12]} />
+        <meshStandardMaterial color={color} metalness={0.55} roughness={0.28} />
+      </mesh>
+      <mesh position={[0, 0.16, 0]}>
+        <sphereGeometry args={[0.1, 10, 8]} />
+        <meshStandardMaterial color={accent} emissive={accent} emissiveIntensity={2.6} toneMapped={false} />
+      </mesh>
+      <mesh position={[0, -0.14, 0.2]} rotation={[0.35, 0, 0]}>
+        <sphereGeometry args={[0.08, 10, 8]} />
+        <meshStandardMaterial color="#141c20" metalness={0.5} roughness={0.2} />
+      </mesh>
+      <mesh position={[0, -0.14, 0.265]} rotation={[0.35, 0, 0]}>
+        <cylinderGeometry args={[0.045, 0.05, 0.03, 10]} />
+        <meshStandardMaterial color="#6ff0ff" emissive="#6ff0ff" emissiveIntensity={1.2} metalness={0.4} roughness={0.15} />
       </mesh>
       {[[-1, -1], [1, -1], [-1, 1], [1, 1]].map(([x, z], i) => (
         <group key={i} position={[x * 0.42, 0, z * 0.42]}>
+          <mesh position={[x * -0.18, 0, z * -0.18]} rotation={[0, 0, Math.PI / 2]}>
+            <cylinderGeometry args={[0.018, 0.024, 0.38, 6]} />
+            <meshStandardMaterial color="#8a959a" metalness={0.65} roughness={0.28} />
+          </mesh>
           <mesh>
-            <cylinderGeometry args={[0.02, 0.02, 0.1, 4]} />
-            <meshStandardMaterial color="#8a959a" metalness={0.6} roughness={0.3} />
+            <cylinderGeometry args={[0.026, 0.026, 0.1, 6]} />
+            <meshStandardMaterial color="#6b767c" metalness={0.65} roughness={0.26} />
+          </mesh>
+          <mesh position={[0, 0.055, 0]}>
+            <torusGeometry args={[0.2, 0.012, 5, 18]} />
+            <meshStandardMaterial color="#77838a" metalness={0.5} roughness={0.4} />
           </mesh>
           <mesh ref={(el) => { rotors.current[i] = el; }} position={[0, 0.08, 0]}>
-            <boxGeometry args={[0.5, 0.01, 0.07]} />
-            <meshStandardMaterial color="#aab8bd" roughness={0.4} />
+            <boxGeometry args={[0.42, 0.008, 0.06]} />
+            <meshStandardMaterial color="#b6c2c6" roughness={0.35} metalness={0.3} />
+          </mesh>
+          <mesh position={[0, 0.07, 0]} rotation={[0, Math.PI / 2, 0]}>
+            <boxGeometry args={[0.42, 0.008, 0.06]} />
+            <meshStandardMaterial color="#b6c2c6" roughness={0.35} metalness={0.3} />
           </mesh>
         </group>
       ))}
-      <sprite position={[0, -0.1, 0]} scale={[0.8, 0.8, 1]}>
-        <spriteMaterial map={glowTexture('#ffffff')} color={accent} transparent opacity={0.25} depthWrite={false} blending={THREE.AdditiveBlending} />
+      {[[-1, -1], [1, -1], [-1, 1], [1, 1]].map(([x, z]) => (
+        <mesh key={`leg${x}${z}`} position={[x * 0.2, -0.14, z * 0.2]} rotation={[z * 0.3, 0, x * 0.3]}>
+          <cylinderGeometry args={[0.012, 0.016, 0.16, 5]} />
+          <meshStandardMaterial color="#4a555b" metalness={0.5} roughness={0.4} />
+        </mesh>
+      ))}
+      <sprite position={[0, -0.1, 0]} scale={[0.9, 0.9, 1]}>
+        <spriteMaterial map={glowTexture('#ffffff')} color={accent} transparent opacity={0.28} depthWrite={false} blending={THREE.AdditiveBlending} />
       </sprite>
     </group>
   );
@@ -635,30 +817,63 @@ export function HospitalWallPanel({ position = [0, 1.8, 0], rotation = [0, 0, 0]
 export function MayorPodium({ position = [0, 0, 0], rotation = [0, 0, 0], accent = '#ffd77a' }) {
   return (
     <group position={position} rotation={rotation}>
-      <mesh position={[0, 0.65, 0]}>
+      <mesh position={[0, 0.65, 0]} castShadow receiveShadow>
         <boxGeometry args={[2.6, 1.3, 1.2]} />
-        <meshStandardMaterial color="#1b2634" metalness={0.4} roughness={0.4} />
+        <meshStandardMaterial color="#1b2634" metalness={0.46} roughness={0.36} />
+      </mesh>
+      <mesh position={[0, 0.68, 0.615]}>
+        <boxGeometry args={[1.9, 0.7, 0.03]} />
+        <meshStandardMaterial color="#0e1822" metalness={0.5} roughness={0.3} />
+      </mesh>
+      <mesh position={[0, 0.72, 0.635]}>
+        <torusGeometry args={[0.31, 0.035, 8, 32]} />
+        <meshStandardMaterial color={accent} emissive={accent} emissiveIntensity={1.8} metalness={0.6} roughness={0.2} />
+      </mesh>
+      <mesh position={[0, 0.72, 0.645]}>
+        <icosahedronGeometry args={[0.18, 1]} />
+        <meshStandardMaterial color={accent} emissive={accent} emissiveIntensity={2.2} metalness={0.5} roughness={0.18} />
       </mesh>
       <mesh position={[0, 1.32, 0]}>
-        <boxGeometry args={[2.75, 0.1, 1.35]} />
-        <meshStandardMaterial color={accent} emissive={accent} emissiveIntensity={0.8} />
+        <boxGeometry args={[2.78, 0.1, 1.38]} />
+        <meshStandardMaterial color={accent} emissive={accent} emissiveIntensity={0.85} metalness={0.5} roughness={0.25} />
       </mesh>
-      <mesh position={[0, 1.4, 0.3]} rotation={[-0.3, 0, 0]}>
-        <boxGeometry args={[0.7, 0.02, 0.45]} />
-        <meshStandardMaterial color={accent} emissive={accent} emissiveIntensity={1.2} />
+      <mesh position={[0, 1.4, 0.32]} rotation={[-0.3, 0, 0]}>
+        <boxGeometry args={[0.68, 0.02, 0.42]} />
+        <meshStandardMaterial color={accent} emissive={accent} emissiveIntensity={1.3} />
+      </mesh>
+      <mesh position={[0, 1.42, -0.1]} rotation={[0.2, 0, 0]}>
+        <boxGeometry args={[0.82, 0.5, 0.02]} />
+        <meshStandardMaterial color="#0b1520" emissive={accent} emissiveIntensity={0.22} transparent opacity={0.85} />
       </mesh>
       <mesh position={[0, 0.02, 0]}>
         <cylinderGeometry args={[2.2, 2.4, 0.05, 8]} />
-        <meshStandardMaterial color="#0f1a22" metalness={0.5} roughness={0.4} />
+        <meshStandardMaterial color="#0f1a22" metalness={0.55} roughness={0.34} />
       </mesh>
-      <mesh position={[0.9, 1.5, 0.1]}>
-        <cylinderGeometry args={[0.02, 0.02, 0.5, 4]} />
-        <meshStandardMaterial color="#667" metalness={0.8} roughness={0.2} />
-      </mesh>
-      <mesh position={[0.9, 1.78, 0.1]}>
-        <sphereGeometry args={[0.05, 6, 5]} />
-        <meshStandardMaterial color={accent} emissive={accent} emissiveIntensity={2.4} />
-      </mesh>
+      {[0, 1, 2].map((i) => (
+        <mesh key={`step${i}`} position={[0, -0.1 - i * 0.12, 1.35 + i * 0.32]}>
+          <boxGeometry args={[3.4 + i * 0.5, 0.12, 0.42]} />
+          <meshStandardMaterial color="#16222e" metalness={0.45} roughness={0.4} />
+        </mesh>
+      ))}
+      {[-1.15, 1.15].map((x) => (
+        <mesh key={`strip${x}`} position={[x, 0.7, 0.62]}>
+          <boxGeometry args={[0.05, 1.1, 0.03]} />
+          <meshStandardMaterial color={accent} emissive={accent} emissiveIntensity={1.4} />
+        </mesh>
+      ))}
+      {[-0.28, 0.28].map((x) => (
+        <group key={`mic${x}`} position={[x, 1.44, 0.18]}>
+          <mesh position={[0, 0.1, 0]}>
+            <cylinderGeometry args={[0.014, 0.018, 0.36, 5]} />
+            <meshStandardMaterial color="#7f8a94" metalness={0.82} roughness={0.2} />
+          </mesh>
+          <mesh position={[0, 0.3, 0]}>
+            <sphereGeometry args={[0.045, 8, 6]} />
+            <meshStandardMaterial color="#20262b" metalness={0.4} roughness={0.5} />
+          </mesh>
+        </group>
+      ))}
+      <pointLight position={[0, 1.1, 1.2]} color={accent} intensity={4} distance={4} decay={2} />
     </group>
   );
 }

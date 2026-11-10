@@ -112,12 +112,48 @@ function MineTunnel() {
         const side = i % 2 ? 1 : -1;
         const z = 10 - i * 1.8;
         return (
-          <mesh key={i} position={[side * (5.4 + (i % 3) * 0.5), 0.8 + (i % 4) * 0.9, z]} rotation={[i * 0.4, i * 0.7, i * 0.2]}>
+          <mesh key={i} position={[side * (5.4 + (i % 3) * 0.5), 0.8 + (i % 4) * 0.9, z]} rotation={[i * 0.4, i * 0.7, i * 0.2]} castShadow>
             <dodecahedronGeometry args={[1.1 + (i % 3) * 0.4, 0]} />
             <meshStandardMaterial color="#2c241c" roughness={1} flatShading />
           </mesh>
         );
       })}
+      {Array.from({ length: 24 }, (_, i) => (
+        <mesh key={`sleeper${i}`} position={[0, 0.055, 12 - i * 1.05]} receiveShadow>
+          <boxGeometry args={[2.3, 0.12, 0.3]} />
+          <meshStandardMaterial color="#3a2c1f" roughness={0.96} />
+        </mesh>
+      ))}
+      {[-0.55, 0.55].map((x) => (
+        <mesh key={`rail${x}`} position={[x, 0.13, 0.4]}>
+          <boxGeometry args={[0.09, 0.09, 26]} />
+          <meshStandardMaterial color="#6b675f" metalness={0.78} roughness={0.38} />
+        </mesh>
+      ))}
+      {[-1, 1].map((s) =>
+        [8, 2, -4, -10, -16].map((z) => (
+          <group key={`support${s}${z}`} position={[s * 4.2, 0, z]}>
+            <mesh position={[0, 2.1, 0]}>
+              <boxGeometry args={[0.42, 4.2, 0.42]} />
+              <meshStandardMaterial color="#3f2b1b" roughness={0.97} />
+            </mesh>
+            <mesh position={[0, 4.15, 0]} rotation={[0, 0, s * 0.06]}>
+              <boxGeometry args={[1.4, 0.34, 0.5]} />
+              <meshStandardMaterial color="#4a3320" roughness={0.96} />
+            </mesh>
+            <mesh position={[0, 1.2, 0]}>
+              <boxGeometry args={[0.08, 0.08, 0.08]} />
+              <meshStandardMaterial color="#ffd28a" emissive="#ffbf66" emissiveIntensity={2.4} toneMapped={false} />
+            </mesh>
+          </group>
+        ))
+      )}
+      {[-3, 3].map((x) => (
+        <mesh key={`cable${x}`} position={[x, 4.9, -3]} rotation={[Math.PI / 2, 0, 0]}>
+          <cylinderGeometry args={[0.025, 0.025, 28, 4]} />
+          <meshStandardMaterial color="#1a1512" roughness={0.9} />
+        </mesh>
+      ))}
       {Array.from({ length: 10 }, (_, i) => (
         <mesh key={`f${i}`} position={[(i % 5) * 2.4 - 4.8, 0.12, 12 - i * 2.6]} rotation={[0, i * 0.8, 0]}>
           <dodecahedronGeometry args={[0.35, 0]} />

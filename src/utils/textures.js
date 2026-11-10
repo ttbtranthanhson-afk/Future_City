@@ -474,6 +474,163 @@ export function bigTitleTexture(text, sub = '', accent = '#8ff6ff') {
   });
 }
 
+export function woodTexture(variant = 'oak', repeat = [2, 2]) {
+  return cached(`wood-${variant}-${repeat.join('x')}`, () => {
+    const palettes = {
+      oak: ['#8a6544', '#a5794f', '#6f4f33', '#c19a6b'],
+      dark: ['#4a3a2c', '#5d4734', '#38291e', '#6f5540'],
+      warm: ['#a3703f', '#bd8a52', '#875a31', '#d0a06c'],
+    };
+    const p = palettes[variant] || palettes.oak;
+    const canvas = createCanvas(512, 512);
+    const ctx = canvas.getContext('2d');
+    const base = ctx.createLinearGradient(0, 0, 0, 512);
+    base.addColorStop(0, p[0]);
+    base.addColorStop(1, p[2]);
+    ctx.fillStyle = base;
+    ctx.fillRect(0, 0, 512, 512);
+    const plankH = 128;
+    for (let row = 0; row < 4; row += 1) {
+      const y0 = row * plankH;
+      ctx.fillStyle = row % 2 ? p[1] : p[3];
+      ctx.globalAlpha = 0.32;
+      ctx.fillRect(0, y0, 512, plankH);
+      ctx.globalAlpha = 1;
+      for (let i = 0; i < 26; i += 1) {
+        const y = y0 + Math.random() * plankH;
+        ctx.beginPath();
+        ctx.strokeStyle = Math.random() > 0.5 ? p[2] : p[3];
+        ctx.globalAlpha = 0.12 + Math.random() * 0.22;
+        ctx.lineWidth = 0.6 + Math.random() * 2.2;
+        ctx.moveTo(0, y);
+        for (let x = 0; x <= 512; x += 32) {
+          ctx.lineTo(x, y + Math.sin(x * 0.018 + row + i) * 2.6 + Math.sin(x * 0.07) * 0.8);
+        }
+        ctx.stroke();
+        ctx.globalAlpha = 1;
+      }
+      ctx.fillStyle = 'rgba(24, 15, 9, 0.42)';
+      ctx.fillRect(0, y0, 512, 2);
+      ctx.fillStyle = 'rgba(255, 236, 210, 0.07)';
+      ctx.fillRect(0, y0 + 2, 512, 1.5);
+    }
+    for (let i = 0; i < 6; i += 1) {
+      const x = Math.random() * 512;
+      ctx.fillStyle = 'rgba(20, 12, 8, 0.28)';
+      ctx.fillRect(x, 0, 1 + Math.random() * 1.6, 512);
+    }
+    return toTexture(canvas, { repeat });
+  });
+}
+
+export function plasterTexture(color = '#cbb89c', repeat = [2, 2]) {
+  return cached(`plaster-${color}-${repeat.join('x')}`, () => {
+    const canvas = createCanvas(256, 256);
+    const ctx = canvas.getContext('2d');
+    ctx.fillStyle = color;
+    ctx.fillRect(0, 0, 256, 256);
+    for (let i = 0; i < 2600; i += 1) {
+      const a = 0.02 + Math.random() * 0.06;
+      ctx.fillStyle = Math.random() > 0.5 ? `rgba(255,255,255,${a})` : `rgba(20,14,10,${a})`;
+      const r = 0.5 + Math.random() * 2.2;
+      ctx.beginPath();
+      ctx.arc(Math.random() * 256, Math.random() * 256, r, 0, Math.PI * 2);
+      ctx.fill();
+    }
+    const grad = ctx.createLinearGradient(0, 0, 0, 256);
+    grad.addColorStop(0, 'rgba(255,255,255,0.06)');
+    grad.addColorStop(0.55, 'rgba(0,0,0,0)');
+    grad.addColorStop(1, 'rgba(0,0,0,0.12)');
+    ctx.fillStyle = grad;
+    ctx.fillRect(0, 0, 256, 256);
+    return toTexture(canvas, { repeat });
+  });
+}
+
+export function fabricTexture(color = '#6d4a3a', repeat = [2, 2]) {
+  return cached(`fabric-${color}-${repeat.join('x')}`, () => {
+    const canvas = createCanvas(256, 256);
+    const ctx = canvas.getContext('2d');
+    ctx.fillStyle = color;
+    ctx.fillRect(0, 0, 256, 256);
+    for (let y = 0; y < 256; y += 4) {
+      ctx.fillStyle = 'rgba(255,255,255,0.05)';
+      ctx.fillRect(0, y, 256, 1);
+    }
+    for (let x = 0; x < 256; x += 4) {
+      ctx.fillStyle = 'rgba(0,0,0,0.06)';
+      ctx.fillRect(x, 0, 1, 256);
+    }
+    for (let i = 0; i < 900; i += 1) {
+      ctx.fillStyle = Math.random() > 0.5 ? 'rgba(255,255,255,0.035)' : 'rgba(0,0,0,0.045)';
+      ctx.fillRect(Math.random() * 256, Math.random() * 256, 1.4, 1.4);
+    }
+    return toTexture(canvas, { repeat });
+  });
+}
+
+export function rugTexture(accent = '#9d3b3a', base = '#2c3d49') {
+  return cached(`rug-${accent}-${base}`, () => {
+    const canvas = createCanvas(512, 512);
+    const ctx = canvas.getContext('2d');
+    ctx.fillStyle = base;
+    ctx.fillRect(0, 0, 512, 512);
+    ctx.strokeStyle = accent;
+    ctx.lineWidth = 22;
+    ctx.strokeRect(26, 26, 460, 460);
+    ctx.lineWidth = 5;
+    ctx.strokeRect(62, 62, 388, 388);
+    const motif = (cx, cy, s, color) => {
+      ctx.save();
+      ctx.translate(cx, cy);
+      ctx.strokeStyle = color;
+      ctx.lineWidth = 3;
+      for (let i = 0; i < 4; i += 1) {
+        ctx.rotate(Math.PI / 2);
+        ctx.beginPath();
+        ctx.moveTo(0, 0);
+        ctx.quadraticCurveTo(s * 0.5, -s * 0.28, s, 0);
+        ctx.quadraticCurveTo(s * 0.5, s * 0.28, 0, 0);
+        ctx.stroke();
+      }
+      ctx.beginPath();
+      ctx.arc(0, 0, s * 0.22, 0, Math.PI * 2);
+      ctx.fillStyle = color;
+      ctx.fill();
+      ctx.restore();
+    };
+    for (let x = 0; x < 5; x += 1) {
+      for (let y = 0; y < 5; y += 1) {
+        motif(110 + x * 73, 110 + y * 73, 22, (x + y) % 2 ? accent : '#c9a55c');
+      }
+    }
+    for (let i = 0; i < 3600; i += 1) {
+      ctx.fillStyle = Math.random() > 0.5 ? 'rgba(255,255,255,0.03)' : 'rgba(0,0,0,0.04)';
+      ctx.fillRect(Math.random() * 512, Math.random() * 512, 1.6, 1.6);
+    }
+    return toTexture(canvas);
+  });
+}
+
+export function brushedMetalTexture(color = '#8a9aa0', repeat = [2, 2]) {
+  return cached(`metal-${color}-${repeat.join('x')}`, () => {
+    const canvas = createCanvas(256, 256);
+    const ctx = canvas.getContext('2d');
+    ctx.fillStyle = color;
+    ctx.fillRect(0, 0, 256, 256);
+    for (let i = 0; i < 500; i += 1) {
+      const y = Math.random() * 256;
+      ctx.strokeStyle = Math.random() > 0.5 ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.08)';
+      ctx.lineWidth = 0.5 + Math.random();
+      ctx.beginPath();
+      ctx.moveTo(0, y);
+      ctx.lineTo(256, y + (Math.random() - 0.5) * 2);
+      ctx.stroke();
+    }
+    return toTexture(canvas, { repeat });
+  });
+}
+
 export function fakeShadowTexture() {
   return cached('fake-shadow', () => {
     const canvas = createCanvas(256, 256);

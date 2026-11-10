@@ -54,6 +54,8 @@ export default function Scene04() {
   });
   return (
     <group>
+      <hemisphereLight args={['#d8ecff', '#33513f', 0.65]} />
+      <directionalLight position={[70, 95, 70]} color="#ffe9cc" intensity={1.1} />
       <GradientSky top="#14456d" bottom="#a8ddec" horizon="#ffe2b5" sunColor="#ffe6b8" sunDir={[0.35, 0.2, -1]} radius={700} />
       <SunSprite position={[110, 34, -320]} scale={70} color="#ffe7ba" opacity={0.95} />
       <CloudLayer count={20} height={62} radius={240} color="#ffe8d2" opacity={0.45} speed={0.45} />

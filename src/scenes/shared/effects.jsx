@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef } from 'react';
+import { useEffect, useLayoutEffect, useMemo, useRef } from 'react';
 import { useFrame, useThree } from '@react-three/fiber';
 import * as THREE from 'three';
 import { mulberry32, range } from '../../utils/random';
@@ -122,6 +122,14 @@ export function WarpTunnel({ position = [0, 2, -30], rotation = [0, 0, 0], color
           `}
         />
       </mesh>
+      <mesh rotation={[Math.PI / 2, 0, 0]}>
+        <cylinderGeometry args={[radius * 0.58, radius * 0.58, length, 32, 1, true]} />
+        <meshBasicMaterial color={accent} transparent opacity={0.055} side={THREE.BackSide} blending={THREE.AdditiveBlending} depthWrite={false} />
+      </mesh>
+      <mesh rotation={[Math.PI / 2, 0, 0]}>
+        <cylinderGeometry args={[0.07, 0.07, length, 8, 1, true]} />
+        <meshBasicMaterial color="#ffffff" transparent opacity={0.3} blending={THREE.AdditiveBlending} depthWrite={false} />
+      </mesh>
       <group ref={rings}>
         {ringData.map((r, i) => (
           <mesh key={i} position={[0, 0, r.z]} scale={[r.r, r.r, 1]}>
@@ -190,6 +198,7 @@ export function Fireworks({ position = [0, 16, -20], count = 240, colors = ['#ff
     g.setAttribute('color', new THREE.BufferAttribute(col, 3));
     return g;
   }, [data]);
+  const light = useRef();
   useFrame(({ clock }) => {
     if (!points.current) return;
     const t = clock.elapsedTime * speed;
@@ -204,44 +213,86 @@ export function Fireworks({ position = [0, 16, -20], count = 240, colors = ['#ff
     });
     points.current.geometry.attributes.position.needsUpdate = true;
     points.current.material.opacity = 0.95;
+    if (light.current) {
+      const burst = Math.pow(0.5 + 0.5 * Math.sin(t * 2.8), 4);
+      light.current.intensity = 8 + burst * 34;
+    }
   });
   return (
     <group position={position}>
       <points ref={points} geometry={elements}>
+        <pointsMaterial map={glowTexture('#ffffff')} size={size * 2.8} vertexColors transparent opacity={0.16} depthWrite={false} blending={THREE.AdditiveBlending} sizeAttenuation />
+      </points>
+      <points geometry={elements}>
         <pointsMaterial map={glowTexture('#ffffff')} size={size} vertexColors transparent opacity={0.95} depthWrite={false} blending={THREE.AdditiveBlending} sizeAttenuation />
       </points>
-      <pointLight color={colors[0]} intensity={14} distance={40} decay={2} />
+      <points geometry={elements}>
+        <pointsMaterial color="#ffffff" size={size * 0.32} transparent opacity={0.7} depthWrite={false} blending={THREE.AdditiveBlending} sizeAttenuation />
+      </points>
+      <pointLight ref={light} color={colors[0]} intensity={14} distance={48} decay={2} />
     </group>
   );
 }
 
 export function Lanterns({ count = 80, center = [0, 8, -20], area = [40, 14, 30], seed = 5150, color = '#ffcf6e' }) {
   const group = useRef();
-  const geometry = useMemo(() => {
+  const bodies = useRef();
+  const data = useMemo(() => {
     const rng = mulberry32(seed);
+    return Array.from({ length: count }, () => ({
+      x: center[0] + range(rng, -area[0] / 2, area[0] / 2),
+      y: center[1] + range(rng, -area[1] / 2, area[1] / 2),
+      z: center[2] + range(rng, -area[2] / 2, area[2] / 2),
+      s: range(rng, 0.7, 1.35),
+      rot: rng() * Math.PI * 2,
+      tint: rng() > 0.72 ? '#ff9d5c' : color,
+    }));
+  }, [count, center, area, seed]);
+  const geometry = useMemo(() => {
     const positions = new Float32Array(count * 3);
-    for (let i = 0; i < count; i += 1) {
-      positions[i * 3] = center[0] + range(rng, -area[0] / 2, area[0] / 2);
-      positions[i * 3 + 1] = center[1] + range(rng, -area[1] / 2, area[1] / 2);
-      positions[i * 3 + 2] = center[2] + range(rng, -area[2] / 2, area[2] / 2);
-    }
+    data.forEach((d, i) => {
+      positions[i * 3] = d.x;
+      positions[i * 3 + 1] = d.y;
+      positions[i * 3 + 2] = d.z;
+    });
     const g = new THREE.BufferGeometry();
     g.setAttribute('position', new THREE.BufferAttribute(positions, 3));
     return g;
-  }, [count, center, area, seed]);
+  }, [count, data]);
+  useLayoutEffect(() => {
+    if (!bodies.current) return;
+    const dummy = new THREE.Object3D();
+    const c = new THREE.Color();
+    data.forEach((d, i) => {
+      dummy.position.set(d.x, d.y, d.z);
+      dummy.rotation.set(0, d.rot, 0);
+      dummy.scale.setScalar(d.s);
+      dummy.updateMatrix();
+      bodies.current.setMatrixAt(i, dummy.matrix);
+      c.set(d.tint);
+      bodies.current.setColorAt(i, c);
+    });
+    bodies.current.instanceMatrix.needsUpdate = true;
+    if (bodies.current.instanceColor) bodies.current.instanceColor.needsUpdate = true;
+  }, [data]);
   useFrame(({ clock }) => {
     if (!group.current) return;
     const t = clock.elapsedTime;
     group.current.position.y = Math.sin(t * 0.35) * 0.5;
     group.current.rotation.y = Math.sin(t * 0.05) * 0.1;
+    if (bodies.current?.material) bodies.current.material.emissiveIntensity = 1.4 + Math.sin(t * 2.6) * 0.28;
   });
   return (
     <group ref={group}>
+      <instancedMesh ref={bodies} args={[null, null, count]}>
+        <cylinderGeometry args={[0.15, 0.12, 0.3, 8, 1]} />
+        <meshStandardMaterial emissive={color} emissiveIntensity={1.4} roughness={0.55} toneMapped={false} />
+      </instancedMesh>
       <points geometry={geometry}>
-        <pointsMaterial map={glowTexture('#ffffff')} color={color} size={0.7} transparent opacity={0.9} depthWrite={false} blending={THREE.AdditiveBlending} sizeAttenuation />
+        <pointsMaterial map={glowTexture('#ffffff')} color={color} size={0.95} transparent opacity={0.55} depthWrite={false} blending={THREE.AdditiveBlending} sizeAttenuation />
       </points>
       <points geometry={geometry}>
-        <pointsMaterial color="#fff4d0" size={0.18} transparent opacity={0.9} depthWrite={false} blending={THREE.AdditiveBlending} sizeAttenuation />
+        <pointsMaterial color="#fff4d0" size={0.2} transparent opacity={0.92} depthWrite={false} blending={THREE.AdditiveBlending} sizeAttenuation />
       </points>
     </group>
   );
@@ -273,13 +324,52 @@ export function Fireflies({ count = 80, center = [0, 1.5, 0], area = [12, 3, 12]
     g.setAttribute('aPhase', new THREE.BufferAttribute(phase, 1));
     return g;
   }, [count, center, area, seed]);
-  const ref = useRef();
+  const uniforms = useMemo(
+    () => ({
+      uTime: { value: 0 },
+      uColor: { value: new THREE.Color(color) },
+      uSize: { value: size },
+    }),
+    [color, size]
+  );
   useFrame(({ clock }) => {
-    if (ref.current) ref.current.material.opacity = 0.5 + Math.sin(clock.elapsedTime * 1.7) * 0.3;
+    uniforms.uTime.value = clock.elapsedTime;
   });
   return (
-    <points ref={ref} geometry={geo}>
-      <pointsMaterial map={glowTexture('#ffffff')} color={color} size={size} transparent opacity={0.7} depthWrite={false} blending={THREE.AdditiveBlending} sizeAttenuation />
+    <points geometry={geo} frustumCulled={false}>
+      <shaderMaterial
+        transparent
+        depthWrite={false}
+        blending={THREE.AdditiveBlending}
+        uniforms={uniforms}
+        vertexShader={`
+          attribute float aPhase;
+          uniform float uTime;
+          uniform float uSize;
+          varying float vTwinkle;
+          void main() {
+            vec3 p = position;
+            p.x += sin(uTime * 0.5 + aPhase) * 0.38;
+            p.y += sin(uTime * 0.7 + aPhase * 1.3) * 0.3;
+            p.z += cos(uTime * 0.45 + aPhase * 0.8) * 0.38;
+            vec4 mv = modelViewMatrix * vec4(p, 1.0);
+            vTwinkle = 0.35 + 0.65 * pow(0.5 + 0.5 * sin(uTime * 2.0 + aPhase * 3.7), 2.0);
+            gl_PointSize = uSize * 340.0 / max(-mv.z, 0.1) * (0.6 + vTwinkle * 0.7);
+            gl_Position = projectionMatrix * mv;
+          }
+        `}
+        fragmentShader={`
+          uniform vec3 uColor;
+          varying float vTwinkle;
+          void main() {
+            vec2 uv = gl_PointCoord - 0.5;
+            float d = length(uv);
+            float a = smoothstep(0.5, 0.0, d);
+            a *= a;
+            gl_FragColor = vec4(uColor * (0.65 + vTwinkle), a * (0.35 + vTwinkle * 0.65));
+          }
+        `}
+      />
     </points>
   );
 }

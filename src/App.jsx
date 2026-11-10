@@ -1,5 +1,6 @@
 import { Suspense, useCallback, useEffect, useRef } from 'react';
 import { Canvas } from '@react-three/fiber';
+import { Environment, Lightformer } from '@react-three/drei';
 import * as THREE from 'three';
 import { useExperience } from './store/useExperience';
 import { SCENES, INTRO_TRANSITION } from './data/sceneConfig';
@@ -164,15 +165,28 @@ export default function App() {
       <ErrorBoundary>
         {!webglError && (
           <Canvas
-            dpr={[1, 1.65]}
+            shadows="soft"
+            dpr={[1, 1.75]}
             camera={{ position: [0, 2, 8], fov: 50, near: 0.1, far: 1600 }}
-            gl={{ antialias: true, alpha: false, powerPreference: 'high-performance' }}
-            onCreated={({ gl }) => {
+            performance={{ min: 0.55 }}
+            gl={{ antialias: true, alpha: false, stencil: false, powerPreference: 'high-performance' }}
+            onCreated={({ gl, scene }) => {
               gl.toneMapping = THREE.ACESFilmicToneMapping;
-              gl.toneMappingExposure = 1.05;
+              gl.toneMappingExposure = 1.02;
+              gl.outputColorSpace = THREE.SRGBColorSpace;
+              gl.shadowMap.type = THREE.PCFSoftShadowMap;
+              gl.shadowMap.enabled = true;
+              scene.environmentIntensity = 0.65;
             }}
           >
             <color attach="background" args={['#02070d']} />
+            <Environment resolution={64} frames={1}>
+              <Lightformer intensity={1.15} position={[0, 6, -9]} scale={[14, 10, 1]} color="#cfe9ff" />
+              <Lightformer intensity={0.85} position={[-7, 2, -1]} scale={[10, 4, 1]} color="#ffd9a0" />
+              <Lightformer intensity={0.7} position={[7, 2, 0]} scale={[10, 4, 1]} color="#7fe6ff" />
+              <Lightformer form="ring" intensity={2.4} position={[0, 8, 3]} scale={5} color="#ffffff" />
+              <Lightformer intensity={0.35} position={[0, -4, 1]} scale={[12, 6, 1]} color="#1a5f78" />
+            </Environment>
             <Suspense fallback={null}>
               <group key={sceneKey}>{SceneComponent ? <SceneComponent /> : null}</group>
             </Suspense>
