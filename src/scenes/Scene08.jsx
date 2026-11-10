@@ -1,7 +1,7 @@
 import { useCinematicCamera } from '../hooks/useCinematicCamera';
 import { useSceneSegments } from '../hooks/useSceneSegments';
 import { SceneFog } from './shared/effects';
-import { Human, Robo } from './shared/characters';
+import { Human } from './shared/characters';
 import { MedicalBed, Scanner, MedTrolley, HospitalDoor, HospitalWallPanel, LabEquipment } from './shared/tech';
 import { RoomPlant } from './shared/room';
 
@@ -51,7 +51,6 @@ export default function Scene08() {
       <MedTrolley position={[-2.4, 0, -3.5]} path={1.6} speed={0.35} phase={0.4} accent="#9fe8ff" />
       <MedTrolley position={[2.6, 0, -10.8]} path={1.4} speed={0.28} phase={2.2} accent="#7fffd4" />
       <Human preset="doctor" position={[1.6, 0, -4.8]} rotation={[0, -0.4, 0]} talking phase={0.2} />
-      <Robo position={[-1.7, 0, -5.8]} rotation={[0, 0.35, 0]} scale={0.72} talking phase={1.7} />
       <Human preset="patient" position={[1.9, 0, -0.6]} rotation={[0, Math.PI * 0.9, 0]} phase={2.6} />
       <LabEquipment position={[-4.1, 0, -1]} rotation={[0, Math.PI / 2, 0]} accent="#9fe8ff" />
       <LabEquipment position={[4.2, 0, -13.5]} rotation={[0, -Math.PI / 2, 0]} accent="#7fffd4" />

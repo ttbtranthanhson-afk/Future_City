@@ -2,7 +2,6 @@ import { useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
 import { FakeShadow } from './atmosphere';
-import { glowTexture } from '../../utils/textures';
 
 const geoCache = new Map();
 function geo(key, build) {
@@ -18,25 +17,14 @@ const coneGeo = (r, h, s = 10) => geo(`cone-${r}-${h}-${s}`, () => new THREE.Con
 const torusGeo = (r, t, rs = 8, ts = 24) => geo(`tor-${r}-${t}-${rs}-${ts}`, () => new THREE.TorusGeometry(r, t, rs, ts));
 
 const PRESETS = {
-  minh: {
-    skin: '#e8b98d',
-    hair: '#201812',
-    shirt: '#3d7ea6',
-    pants: '#26384a',
-    shoes: '#1a1f26',
-    height: 1,
+  patient: {
+    skin: '#e0b48f',
+    hair: '#2a211b',
+    shirt: '#dbeef2',
+    pants: '#55707a',
+    shoes: '#2a2f33',
+    height: 0.96,
     hairStyle: 'short',
-    backpack: '#2e5a6e',
-  },
-  lan: {
-    skin: '#f0c7a0',
-    hair: '#241b17',
-    shirt: '#e5d6ae',
-    skirt: '#a9504a',
-    pants: '#7a4a42',
-    shoes: '#4a2f2a',
-    height: 0.94,
-    hairStyle: 'long',
   },
   alex: {
     skin: '#e0b48f',
@@ -178,7 +166,7 @@ const PRESETS = {
 };
 
 export function Human({
-  preset = 'minh',
+  preset = 'patient',
   position = [0, 0, 0],
   rotation = [0, 0, 0],
   scale = 1,
@@ -190,7 +178,7 @@ export function Human({
   vrHeadset = false,
   ...rest
 }) {
-  const cfg = PRESETS[preset] || PRESETS.minh;
+  const cfg = PRESETS[preset] || PRESETS.patient;
   const s = (cfg.height || 1) * scale;
   const body = useRef();
   const head = useRef();
@@ -259,7 +247,7 @@ export function Human({
           </group>
         ))}
 
-        {/* skirt for Lan / tourism */}
+        {/* skirt for tourism */}
         {cfg.skirt && (
           <mesh geometry={coneGeo(0.3, 0.5, 14)} position={[0, 0.78, 0]}>
             <meshStandardMaterial color={cfg.skirt} roughness={0.9} />
@@ -486,91 +474,6 @@ export function Human({
             <meshStandardMaterial color={cfg.backpack} roughness={0.8} />
           </mesh>
         )}
-      </group>
-    </group>
-  );
-}
-
-export function Robo({
-  position = [0, 0, 0],
-  rotation = [0, 0, 0],
-  scale = 1,
-  phase = 0,
-  talking = false,
-  color = '#dce9ec',
-  accent = '#6ff0ff',
-  shadow = true,
-  ...rest
-}) {
-  const group = useRef();
-  const armL = useRef();
-  const armR = useRef();
-  const ring = useRef();
-  const eyeGlow = useRef();
-  useFrame(({ clock }) => {
-    const t = clock.elapsedTime + phase;
-    if (group.current) {
-      group.current.position.y = 0.5 + Math.sin(t * 1.5) * 0.06;
-      group.current.rotation.z = Math.sin(t * 0.8) * 0.02;
-    }
-    if (armL.current && armR.current) {
-      armL.current.rotation.z = 0.25 + Math.sin(t * (talking ? 3 : 1.2)) * (talking ? 0.35 : 0.06);
-      armR.current.rotation.z = -0.25 - Math.sin(t * (talking ? 2.6 : 1)) * (talking ? 0.4 : 0.06);
-      armL.current.rotation.x = Math.sin(t * 1.4) * 0.08;
-      armR.current.rotation.x = Math.cos(t * 1.2) * 0.08;
-    }
-    if (ring.current) ring.current.rotation.z = t * 0.9;
-    if (eyeGlow.current) eyeGlow.current.material.emissiveIntensity = 2 + Math.sin(t * 6) * (talking ? 1.4 : 0.4);
-  });
-  return (
-    <group position={position} rotation={rotation} scale={scale} {...rest}>
-      {shadow && <FakeShadow position={[0, 0.02, 0]} scale={1.2} opacity={0.3} />}
-      <group ref={group}>
-        <mesh geometry={capsuleGeo(0.2, 0.18)} scale={[1, 1, 0.8]}>
-          <meshStandardMaterial color={color} metalness={0.55} roughness={0.28} />
-        </mesh>
-        <mesh geometry={sphereGeo(0.22, 18, 14)} position={[0, 0.28, 0]} scale={[1, 0.9, 0.85]}>
-          <meshStandardMaterial color={color} metalness={0.55} roughness={0.28} />
-        </mesh>
-        <mesh geometry={boxGeo(0.28, 0.11, 0.08)} position={[0, 0.29, 0.16]}>
-          <meshStandardMaterial color="#0a1620" metalness={0.4} roughness={0.2} />
-        </mesh>
-        <mesh ref={eyeGlow} geometry={boxGeo(0.21, 0.035, 0.02)} position={[0, 0.3, 0.215]}>
-          <meshStandardMaterial color={accent} emissive={accent} emissiveIntensity={2.4} />
-        </mesh>
-        <mesh geometry={torusGeo(0.15, 0.018, 8, 24)} position={[0, 0.05, 0]} rotation={[Math.PI / 2, 0, 0]}>
-          <meshStandardMaterial color={accent} emissive={accent} emissiveIntensity={1.8} />
-        </mesh>
-        <mesh geometry={sphereGeo(0.045, 10, 8)} position={[0, 0.5, 0]}>
-          <meshStandardMaterial color={accent} emissive={accent} emissiveIntensity={2.6} />
-        </mesh>
-        <mesh geometry={cylGeo(0.006, 0.006, 0.14, 6)} position={[0, 0.44, 0]}>
-          <meshStandardMaterial color="#8aa0aa" metalness={0.8} roughness={0.2} />
-        </mesh>
-        <group ref={armL} position={[0.25, 0.1, 0]}>
-          <mesh geometry={capsuleGeo(0.035, 0.18)} position={[0, -0.11, 0]}>
-            <meshStandardMaterial color={color} metalness={0.6} roughness={0.3} />
-          </mesh>
-          <mesh geometry={sphereGeo(0.055, 10, 8)} position={[0, -0.24, 0]}>
-            <meshStandardMaterial color={accent} emissive={accent} emissiveIntensity={0.6} />
-          </mesh>
-        </group>
-        <group ref={armR} position={[-0.25, 0.1, 0]}>
-          <mesh geometry={capsuleGeo(0.035, 0.18)} position={[0, -0.11, 0]}>
-            <meshStandardMaterial color={color} metalness={0.6} roughness={0.3} />
-          </mesh>
-          <mesh geometry={sphereGeo(0.055, 10, 8)} position={[0, -0.24, 0]}>
-            <meshStandardMaterial color={accent} emissive={accent} emissiveIntensity={0.6} />
-          </mesh>
-        </group>
-        <group ref={ring} position={[0, -0.32, 0]} rotation={[Math.PI / 2, 0, 0]}>
-          <mesh geometry={torusGeo(0.22, 0.02, 6, 28)}>
-            <meshStandardMaterial color={accent} emissive={accent} emissiveIntensity={1.2} transparent opacity={0.8} />
-          </mesh>
-        </group>
-        <sprite position={[0, -0.36, 0]} scale={[0.5, 0.5, 1]}>
-          <spriteMaterial map={glowTexture('#ffffff')} color={accent} transparent opacity={0.45} depthWrite={false} blending={THREE.AdditiveBlending} />
-        </sprite>
       </group>
     </group>
   );

@@ -1,6 +1,5 @@
 import { useCinematicCamera } from '../hooks/useCinematicCamera';
 import { Room } from './shared/room';
-import { Human } from './shared/characters';
 
 export default function Scene01() {
   useCinematicCamera({
@@ -24,10 +23,7 @@ export default function Scene01() {
   });
   return (
     <group>
-      <Room variant="dusk">
-        <Human preset="minh" pose="sit" position={[-0.78, 0, -1.82]} rotation={[0, Math.PI, 0]} talking phase={0.4} shadow={false} />
-        <Human preset="lan" pose="sit" position={[0.82, 0, -1.82]} rotation={[0, Math.PI, 0]} talking phase={2.1} shadow={false} />
-      </Room>
+      <Room variant="dusk" />
     </group>
   );
 }

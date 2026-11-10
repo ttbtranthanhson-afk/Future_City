@@ -1,7 +1,7 @@
 import { useCinematicCamera } from '../hooks/useCinematicCamera';
 import { GradientSky, Stars, Motes } from './shared/atmosphere';
 import { SceneFog } from './shared/effects';
-import { Human, Robo } from './shared/characters';
+import { Human } from './shared/characters';
 import {
   CityGround,
   InstancedCity,
@@ -66,10 +66,7 @@ export default function Scene05() {
       <AutonomousBus from={[-28, 0.1, 9]} to={[28, 0.1, 9]} speed={3} phase={0.2} color="#e9f3f5" accent="#6ff0ff" />
       <AutonomousBus from={[26, 0.1, -2]} to={[-26, 0.1, -2]} speed={2.4} phase={0.6} color="#d5ecec" accent="#79f2d0" />
       <Human preset="alex" position={[4.4, 0, 2.4]} rotation={[0, 0.7, 0]} talking phase={0.4} />
-      <Human preset="minh" position={[-3.6, 0, 4.4]} rotation={[0, -0.4, 0]} phase={1.6} />
-      <Human preset="lan" position={[-2.8, 0, 3.4]} rotation={[0, -0.7, 0]} phase={2.6} />
       <Human preset="engineer" position={[6.4, 0, -3.2]} rotation={[0, 0.2, 0]} phase={3.2} />
-      <Robo position={[3.1, 0, 1.2]} rotation={[0, 0.9, 0]} scale={0.8} talking phase={1.2} />
       <Drone position={[8, 12, -12]} accent="#6ff0ff" radius={9} speed={0.4} phase={0.5} />
       <Drone position={[-10, 15, -18]} accent="#b18cff" radius={7} speed={0.3} phase={2.2} />
       <Motes count={130} area={[44, 20, 44]} color="#9ff7ff" size={0.06} speed={0.12} center={[0, 8, -10]} opacity={0.45} />

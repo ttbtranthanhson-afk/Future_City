@@ -5,7 +5,7 @@ import { GradientSky, SunSprite, CloudLayer, Haze, Motes } from './shared/atmosp
 import { Ocean } from './shared/water';
 import { IslandCluster } from './shared/nature';
 import { InstancedCity, HeroTower, LightPillars, CityGround, SkyTraffic } from './shared/city';
-import { Human, Robo, CrowdFigure } from './shared/characters';
+import { Human, CrowdFigure } from './shared/characters';
 import { MayorPodium, HoloPagoda, HoloPanel } from './shared/tech';
 import { bigTitleTexture } from '../utils/textures';
 
@@ -71,7 +71,6 @@ export default function Scene11() {
       {SPEAKERS.map((s, i) => (
         <Human key={i} preset={s.preset} position={s.position} rotation={s.rotation} phase={i * 1.1} />
       ))}
-      <Robo position={[1.9, 0, -5.4]} rotation={[0, -0.2, 0]} scale={0.7} talking phase={2.2} />
       {CROWD.map((c, i) => (
         <CrowdFigure key={i} position={[c.x, 0, c.z]} rotation={[0, Math.PI, 0]} phase={c.phase} color={c.color} height={1.5 + (i % 4) * 0.08} />
       ))}

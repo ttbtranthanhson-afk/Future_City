@@ -34,11 +34,8 @@ export const useExperience = create((set, get) => ({
   transitioning: false,
   direction: 1,
   transition: null,
-  hudVisible: true,
-  soundOpen: false,
   muted: initial.muted,
   volumes: initial.volumes,
-  subtitle: null,
   caption: null,
   captionId: 0,
   bootProgress: 0,
@@ -53,23 +50,16 @@ export const useExperience = create((set, get) => ({
       current,
       sceneKey: s.sceneKey + 1,
       caption: null,
-      subtitle: null,
     })),
   setTransitioning: (transitioning, transition = null, direction = 1) =>
     set((s) => ({
       transitioning,
       transition: transition || (transitioning ? s.transition : null),
       direction,
-      soundOpen: transitioning ? false : s.soundOpen,
     })),
 
   setCaption: (text, sub = '') =>
     set((s) => ({ caption: text ? { text, sub, id: s.captionId + 1 } : null, captionId: s.captionId + 1 })),
-  setSubtitle: (subtitle) => set({ subtitle }),
-
-  setHudVisible: (hudVisible) => set({ hudVisible, soundOpen: hudVisible ? get().soundOpen : false }),
-  toggleHud: () => set((s) => ({ hudVisible: !s.hudVisible, soundOpen: false })),
-  setSoundOpen: (soundOpen) => set({ soundOpen }),
 
   setMuted: (muted) => {
     persist(get().volumes, muted);

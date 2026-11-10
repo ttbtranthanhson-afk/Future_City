@@ -40,14 +40,11 @@ class DialogueManager {
 
   run(seq, index, lines) {
     if (seq !== this.seq) return;
-    const store = useExperience.getState();
     if (index >= lines.length) {
-      store.setSubtitle(null);
       audioManager.duck(false);
       return;
     }
     const line = lines[index];
-    store.setSubtitle({ speaker: line.speaker, text: line.text, index, total: lines.length });
     audioManager.duck(true);
 
     let advanced = false;
@@ -106,7 +103,6 @@ class DialogueManager {
       }
     }
     this.currentUtterance = null;
-    useExperience.getState().setSubtitle(null);
     audioManager.duck(false);
   }
 }

@@ -2,7 +2,7 @@ import { useMemo } from 'react';
 import { useCinematicCamera } from '../hooks/useCinematicCamera';
 import { useSceneSegments } from '../hooks/useSceneSegments';
 import { WarpTunnel } from './shared/effects';
-import { Human, Robo } from './shared/characters';
+import { Human } from './shared/characters';
 import { bigTitleTexture } from '../utils/textures';
 
 export default function Scene13() {
@@ -37,10 +37,7 @@ export default function Scene13() {
   return (
     <group>
       <WarpTunnel position={[0, 2, 30]} rotation={[0, Math.PI, 0]} color="#ffcf8a" accent="#b18cff" radius={9} length={90} speed={0.85} />
-      <FloatingHuman preset="minh" position={[2.8, 3.2, 8]} phase={0.3} />
-      <FloatingHuman preset="lan" position={[-2.6, 3.4, 5]} phase={1.4} />
       <FloatingHuman preset="alex" position={[2.4, 2.4, 2]} phase={2.5} />
-      <Robo position={[-3.0, 1.8, -1]} rotation={[0, 0, -0.2]} scale={0.75} />
       <group position={[0, 3.2, 42]} rotation={[0, Math.PI, 0]}>
         <mesh>
           <planeGeometry args={[18, 5]} />

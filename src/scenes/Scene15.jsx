@@ -5,7 +5,7 @@ import { GradientSky, Stars, CloudLayer, Motes } from './shared/atmosphere';
 import { Ocean } from './shared/water';
 import { IslandCluster } from './shared/nature';
 import { InstancedCity, HeroTower, CityGround, LightPillars, WindFarm, PlazaTrees } from './shared/city';
-import { Human, Robo } from './shared/characters';
+import { Human } from './shared/characters';
 import { Portal, HoloPanel } from './shared/tech';
 import { Fireworks, Lanterns } from './shared/effects';
 import { bigTitleTexture, glowTexture } from '../utils/textures';
@@ -13,8 +13,6 @@ import { SLOGANS } from '../data/sceneConfig';
 
 const CAST = [
   { preset: 'mayor', position: [0, 0.62, -2.4], rotation: 0 },
-  { preset: 'minh', position: [-2.3, 0.62, -1.7], rotation: 0.22 },
-  { preset: 'lan', position: [2.3, 0.62, -1.7], rotation: -0.22 },
   { preset: 'alex', position: [-4.4, 0.62, -0.6], rotation: 0.38 },
   { preset: 'engineer', position: [4.4, 0.62, -0.6], rotation: -0.38 },
   { preset: 'scientist', position: [-5.6, 0.62, 0.8], rotation: 0.52 },
@@ -89,7 +87,6 @@ export default function Scene15() {
       {CAST.map((c, i) => (
         <Human key={i} preset={c.preset} position={c.position} rotation={[0, c.rotation, 0]} phase={i * 0.8} talking={i < 3} />
       ))}
-      <Robo position={[0, 0.62, 2.7]} rotation={[0, 0.1, 0]} scale={0.65} talking phase={2.4} />
       <Portal position={[0, 14, -20]} scale={3.4} color="#ffd77a" accent="#b18cff" speed={0.6} intensity={1.1} />
       <group position={[0, 12, -13]}>
         <mesh>

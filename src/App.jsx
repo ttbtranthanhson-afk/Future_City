@@ -10,8 +10,7 @@ import Effects from './components/Effects';
 import LoadingScreen from './components/LoadingScreen';
 import IntroScreen from './components/IntroScreen';
 import EndScreen from './components/EndScreen';
-import HUD from './components/HUD';
-import SubtitleBar from './components/SubtitleBar';
+import CaptionBar from './components/CaptionBar';
 import TransitionVeil from './components/TransitionVeil';
 import ErrorBoundary from './components/ErrorBoundary';
 
@@ -36,8 +35,6 @@ export default function App() {
   const setPhase = useExperience((s) => s.setPhase);
   const setCurrent = useExperience((s) => s.setCurrent);
   const setTransitioning = useExperience((s) => s.setTransitioning);
-  const setHudVisible = useExperience((s) => s.setHudVisible);
-  const setSoundOpen = useExperience((s) => s.setSoundOpen);
   const setBootProgress = useExperience((s) => s.setBootProgress);
   const setWebglError = useExperience((s) => s.setWebglError);
 
@@ -86,7 +83,6 @@ export default function App() {
         if (!state.transitioning) return;
         state.setCurrent(next);
         state.setPhase('experience');
-        state.setHudVisible(true);
         audioManager.startScene(next);
       }, 520);
 
@@ -139,22 +135,8 @@ export default function App() {
     const s = useExperience.getState();
     s.setTransitioning(false);
     s.setCaption(null);
-    s.setHudVisible(true);
-    s.setSoundOpen(false);
     s.setCurrent(0);
     s.setPhase('intro');
-  }, []);
-
-  const handleFullscreen = useCallback(() => {
-    try {
-      if (document.fullscreenElement) {
-        document.exitFullscreen();
-      } else {
-        document.documentElement.requestFullscreen();
-      }
-    } catch {
-      /* fullscreen may be blocked */
-    }
   }, []);
 
   useEffect(() => {
@@ -165,49 +147,15 @@ export default function App() {
         handleStart();
         return;
       }
-      if (e.key === 'ArrowRight' || (e.key === ' ' && s.phase === 'experience')) {
+      if (e.key === 'ArrowRight') {
         if (s.phase === 'intro') handleStart();
         else if (s.phase === 'experience') handleNext();
       }
       if (e.key === 'ArrowLeft' && s.phase === 'experience') handlePrev();
-      if (e.key === 'Escape') {
-        if (s.soundOpen) s.setSoundOpen(false);
-      }
-      if (e.key.toLowerCase() === 'f') handleFullscreen();
-      if (e.key.toLowerCase() === 'h') s.toggleHud();
-      if (e.key.toLowerCase() === 'm') {
-        s.setMuted(!s.muted);
-        audioManager.ensure();
-        audioManager.applySettings();
-      }
-      if (s.phase === 'experience' && ['ArrowRight', 'ArrowLeft', ' '].includes(e.key)) {
-        s.setHudVisible(true);
-      }
     };
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
-  }, [handleStart, handleNext, handlePrev, handleFullscreen]);
-
-  useEffect(() => {
-    if (phase !== 'experience') return undefined;
-    let timer = null;
-    const schedule = () => {
-      const s = useExperience.getState();
-      if (!s.hudVisible) return;
-      if (timer) window.clearTimeout(timer);
-      timer = window.setTimeout(() => {
-        const state = useExperience.getState();
-        if (!state.soundOpen && state.phase === 'experience') state.setHudVisible(false);
-      }, 6500);
-    };
-    const events = ['mousemove', 'pointerdown', 'wheel', 'touchstart'];
-    events.forEach((ev) => window.addEventListener(ev, schedule, { passive: true }));
-    schedule();
-    return () => {
-      events.forEach((ev) => window.removeEventListener(ev, schedule));
-      if (timer) window.clearTimeout(timer);
-    };
-  }, [phase]);
+  }, [handleStart, handleNext, handlePrev]);
 
   const SceneComponent = SCENE_COMPONENTS[Math.max(0, Math.min(SCENE_COUNT, current))];
 
@@ -234,12 +182,7 @@ export default function App() {
 
         {phase === 'boot' && <LoadingScreen />}
         {phase === 'intro' && <IntroScreen onStart={handleStart} />}
-        {phase === 'experience' && (
-          <>
-            <HUD onPrev={handlePrev} onNext={handleNext} onFullscreen={handleFullscreen} />
-            <SubtitleBar />
-          </>
-        )}
+        {phase === 'experience' && <CaptionBar />}
         {phase === 'end' && <EndScreen onReplay={handleReplay} />}
         <TransitionVeil />
         <div className="vignette" aria-hidden="true" />

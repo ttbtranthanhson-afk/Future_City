@@ -1,7 +1,6 @@
 import { useCinematicCamera } from '../hooks/useCinematicCamera';
 import { useSceneSegments } from '../hooks/useSceneSegments';
 import { Room } from './shared/room';
-import { Human } from './shared/characters';
 import { Motes } from './shared/atmosphere';
 
 export default function Scene14() {
@@ -35,8 +34,6 @@ export default function Scene14() {
   return (
     <group>
       <Room variant="day">
-        <Human preset="minh" position={[-1.0, 0, -4.5]} rotation={[0, Math.PI, 0]} phase={0.2} />
-        <Human preset="lan" position={[0.7, 0, -4.55]} rotation={[0, Math.PI, 0]} phase={1.8} />
         <Motes count={120} area={[7, 2.8, 4]} color="#ffe9bd" size={0.04} speed={0.1} center={[0, 2.2, -3.6]} opacity={0.55} />
       </Room>
     </group>

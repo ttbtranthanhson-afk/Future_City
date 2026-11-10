@@ -5,7 +5,7 @@ import { GradientSky, SunSprite, CloudLayer, BirdFlock, Motes } from './shared/a
 import { Ocean } from './shared/water';
 import { IslandCluster, TreeField, FlowerField } from './shared/nature';
 import { Portal } from './shared/tech';
-import { Human, Robo } from './shared/characters';
+import { Human } from './shared/characters';
 import { Fireflies } from './shared/effects';
 import { bigTitleTexture, glowTexture } from '../utils/textures';
 
@@ -56,10 +56,7 @@ export default function Scene12() {
       <TreeField count={55} center={[0, 0, 6]} area={[110, 50]} seed={93} scale={1.1} exclude={9} />
       <FlowerField count={120} center={[0, 0, 4]} area={[40, 28]} seed={97} />
       <YoungTree />
-      <Human preset="minh" position={[-1.0, 0, 0.8]} rotation={[0, -0.25, 0]} talking phase={0.3} />
-      <Human preset="lan" position={[1.0, 0, 0.7]} rotation={[0, 0.25, 0]} talking phase={2.0} />
       <Human preset="alex" position={[-2.1, 0, -0.4]} rotation={[0, -0.5, 0]} phase={1.2} />
-      <Robo position={[2.2, 0, -0.4]} rotation={[0, 0.5, 0]} scale={0.7} talking phase={2.8} />
       <Portal position={[0, 16, -78]} scale={2.6} color="#ffe2a8" accent="#8ff6ff" speed={0.5} intensity={0.9} />
       <group position={[0, 19, -66]}>
         <mesh>

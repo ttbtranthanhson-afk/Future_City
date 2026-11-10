@@ -2,7 +2,7 @@ import { useMemo } from 'react';
 import { useCinematicCamera } from '../hooks/useCinematicCamera';
 import { useSceneSegments } from '../hooks/useSceneSegments';
 import { SceneFog } from './shared/effects';
-import { Human, Robo } from './shared/characters';
+import { Human } from './shared/characters';
 import { ClassroomDesk, HologramSolarSystem, HoloPagoda, DataWall, HoloPanel } from './shared/tech';
 import { themeTexture } from '../utils/textures';
 
@@ -58,7 +58,6 @@ export default function Scene09() {
       ))}
       <Human preset="teacher" position={[0, 0, -7.6]} rotation={[0, 0, 0]} talking phase={0.6} />
       <Human preset="student" position={[3.8, 0, -6.2]} rotation={[0, 0.7, 0]} phase={1.9} />
-      <Robo position={[-3.6, 0, -6.4]} rotation={[0, -0.5, 0]} scale={0.72} talking phase={2.8} />
       <HologramSolarSystem position={[0, 4.3, -7.4]} scale={0.72} color="#ffd77a" accent="#6ff0ff" />
       <HoloPagoda position={[-4.4, 1.1, -7.4]} scale={0.5} accent="#8ff6ff" />
       <DataWall position={[4.4, 2.6, -9.7]} rotation={[0, -0.2, 0]} width={4.4} height={2.4} title="LỚP HỌC 2076" subtitle="HỌC TẬP CÁ NHÂN HÓA" rows={['Toán · Vật lý · Lịch sử', 'Hologram tương tác', 'Trợ lý AI đồng hành', 'Sáng tạo không giới hạn']} accent="#86b8ff" theme="tech" />
